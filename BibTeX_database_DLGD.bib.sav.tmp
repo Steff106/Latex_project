@@ -1,0 +1,1499 @@
+% Encoding: UTF-8
+
+@Book{SlotineLi1991,
+  author    = {Jean-Jacques Slotine and Weiping Li},
+  publisher = {Prentice Hall},
+  title     = {{Applied Nonlinear Control}},
+  year      = {1991},
+  date      = {1991},
+  file      = {:../_Files/1991_SlotineLi_[Book]_AppliedNonlinearControl.pdf:PDF},
+  groups    = {Control Theory},
+}
+
+@Proc{RagerNeumanEtAl2015,
+  author    = {David Rager and Dr. R{\"{u}}diger Neuman and Prof. Dr. Hubertus Murrenhoff},
+  booktitle = {The Fourteenth Scandinavian International Conference on Fluid Power},
+  title     = {{Simplified Fluid Transmission Line Model for Pneumatic Control Applications}},
+  year      = {2015},
+  file      = {:../_Files/2015_RagerNeumanEtAl_[Proc]_SimplifiedFluidTransmissionLineModelForPneumaticControlApplications.pdf:PDF},
+  groups    = {Gas Handling},
+  keywords  = {Modeling, fluid transmission line, pneumatics, model reduction, frequency response validation},
+  owner     = {ctt},
+}
+
+@Book{AstroemHaegglund2006,
+  author    = {Karl J. {\AA}str{\"o}m and Tore H{\"a}gglund},
+  publisher = {ISA - Instrumentation, Systems, and Automation Society},
+  title     = {{Advanced PID Control}},
+  year      = {2006},
+  file      = {:../_Files/2006_AstroemHaegglund_[Book]_AdvancedPIDControl.pdf:PDF},
+  groups    = {Control Theory},
+  owner     = {fbwk},
+  timestamp = {2014.03.04},
+}
+
+@Book{Adamy2014,
+  author    = {J{\"u}rgen Adamy},
+  publisher = {Springer},
+  title     = {{Nichtlineare Systeme und Regelungen}},
+  year      = {2014},
+  file      = {:../_Files/2014_Adamy_[Book]_NichtlineareSystemeUndRegelungen.pdf:PDF},
+  groups    = {Control Theory},
+  keywords  = {Nonlinear Control},
+  owner     = {fbwk},
+  timestamp = {2014.03.04},
+}
+
+@Book{AgrachevMorseEtAl2008,
+  author    = {Andrei A. Agrachev and A. Stephen Morse and Eduardo D. Sontag and Hector J. Sussmann and Vadim I. Utkin},
+  editor    = {Paolo Nistri and Gianna Stefani},
+  publisher = {Springer},
+  title     = {{Nonlinear and Optimal Control Theory}},
+  year      = {2008},
+  file      = {:../_Files/2008_AgrachevMorseEtAl_[Book]_NonlinearAndOptimalControlTheory.pdf:PDF},
+  groups    = {Control Theory},
+  keywords  = {Nonlinear Control},
+  owner     = {fbwk},
+  timestamp = {2012.01.11},
+}
+
+@Book{Atherton2004,
+  author    = {Derek P. Atherton},
+  publisher = {University of Sussex},
+  title     = {{Part IV - Nonlinear Control Systems}},
+  year      = {2004},
+  booktitle = {DynLAB - Course on Dynamics of Multidisplicinary Systems},
+  file      = {:../_Files/2004_Atherton_[Book]_PartIVNonlinearControlSystems.pdf:PDF},
+  groups    = {Control Theory},
+  owner     = {fbwk},
+  timestamp = {2014.03.04},
+}
+
+@Report{BlanchardSanduEtAl2008,
+  author      = {Emmanuel D. Blanchard and Adrian Sandu and Corina Sandu},
+  institution = {Virginia Tech},
+  title       = {{Parameter Estimation for Mechanical Systems Using an Extended Kalman Filter}},
+  year        = {2008},
+  file        = {:../_Files/2008_BlanchardSanduEtAl_[Report]_ParameterEstimationForMechanicalSystemsUsingAnExtendedKalmanFilter.pdf:PDF},
+  groups      = {Control Theory},
+  owner       = {fbwk},
+  timestamp   = {2014.03.04},
+}
+
+@Book{Bosch2011,
+  author    = {Karl Bosch},
+  publisher = {Vieweg + Teubner},
+  title     = {{Elementare Einf{\"u}hrung In Die Wahrscheinlichkeitsrechnung}},
+  year      = {2011},
+  file      = {:../_Files/2011_Bosch_[Book]_ElementareEinfuhrungInDieWahrscheinlichkeitsrechnung.pdf:PDF},
+  groups    = {Statistics & Data Science},
+  owner     = {hme-fw},
+  timestamp = {2012.01.11},
+}
+
+@Book{ChuiChen2009,
+  author    = {Charles K. Chui and Guanrong Chen},
+  publisher = {Springer},
+  title     = {{Kalman Filtering with Real-Time Applications}},
+  year      = {2009},
+  file      = {:../_Files/2009_ChuiChen_[Book]_KalmanFilteringWithRealTimeApplications.pdf:PDF},
+  groups    = {Control Theory},
+  owner     = {fbwk},
+  timestamp = {2014.03.04},
+}
+
+@Book{FengLozano1999,
+  author    = {Gang Feng and Rogelio Lozano},
+  publisher = {Newnes},
+  title     = {{Adaptive Control Systems}},
+  year      = {1999},
+  file      = {:../_Files/1999_FengLozano_[Book]_AdaptiveControlSystems.pdf:PDF},
+  groups    = {Control Theory},
+  owner     = {fbwk},
+  timestamp = {2014.03.04},
+}
+
+@Book{Gelb2001,
+  author    = {Arthur Gelb},
+  publisher = {The M.I.T. Press},
+  title     = {{Applied Optimal Estimation}},
+  year      = {2001},
+  file      = {:../_Files/2001_Gelb_[Book]_AppliedOptimalEstimation.pdf:PDF},
+  groups    = {Mathematics, Control Theory},
+  owner     = {fbwk},
+  timestamp = {2014.03.04},
+}
+
+@Journal{ZieglerNichols1942,
+  author    = {J. G. Ziegler and N. B. Nichols},
+  journal   = {Transactions of the A. S. M. E.},
+  title     = {{Optimum Settings for Automatic Controllers}},
+  year      = {1942},
+  pages     = {759--765},
+  volume    = {11},
+  file      = {:../_Files/1942_ZieglerNichols_[Journal]_OptimumSettingsForAutomaticControllers.pdf:PDF},
+  groups    = {Control Theory},
+  owner     = {fbwk},
+  timestamp = {2014.03.04},
+}
+
+@Book{Lunze2010,
+  author    = {Jan Lunze},
+  publisher = {Springer},
+  title     = {{Regelungstechnik I}},
+  year      = {2010},
+  file      = {:../_Files/2010_Lunze_[Book]_RegelungstechnikI.pdf:PDF},
+  groups    = {Control Theory},
+  owner     = {fbwk},
+  timestamp = {2012.01.11},
+}
+
+@Book{Lunze2010a,
+  author    = {Jan Lunze},
+  publisher = {Springer},
+  title     = {{Regelungstechnik II}},
+  year      = {2010},
+  file      = {:../_Files/2010_Lunze_[Book]_RegelungstechnikII.pdf:PDF},
+  groups    = {Control Theory},
+  owner     = {fbwk},
+  timestamp = {2012.01.11},
+}
+
+@Book{Mann2008,
+  author    = {Herman Mann},
+  publisher = {TU Prag},
+  title     = {{Part I - Modeling and Simulation}},
+  year      = {2008},
+  booktitle = {DynLAB - Course on Dynamics of Multidisplicinary Systems},
+  file      = {:../_Files/2008_Mann_[Book]_PartIModelingAndSimulation.pdf:PDF},
+  groups    = {Robotics},
+  owner     = {fbwk},
+  timestamp = {2014.03.04},
+}
+
+@Report{Nitsche2012,
+  author      = {Rainer Nitsche},
+  institution = {Department SZ-E, Festo - Process Automation},
+  title       = {{Differenzielle Flachheit}},
+  year        = {2012},
+  file        = {:../_Files/2012_Nitsche_[Report]_DifferenzielleFlachheit.pdf:PDF},
+  groups      = {Control Theory},
+  owner       = {fbwk},
+  timestamp   = {2014.03.04},
+}
+
+@Book{ODwyer2009,
+  author    = {Aidan O'Dwyer},
+  publisher = {Imperial College Press},
+  title     = {{Handbook of PI and PID Controller Tuning Rules}},
+  year      = {2009},
+  file      = {:../_Files/2009_O'Dwyer_[Book]_HandbookOfPIAndPIDControllerTuningRules.pdf:PDF},
+  groups    = {Control Theory},
+  owner     = {fbwk},
+  timestamp = {2014.03.04},
+}
+
+@Book{PapageorgiouLeiboldEtAl2012,
+  author    = {Markos Papageorgiou and Marion Leibold and Martin Buss},
+  publisher = {Springer},
+  title     = {{Optimierung - Statische, dynamische, stochastische Verfahren f{\"u}r die Anwendung}},
+  year      = {2012},
+  file      = {:../_Files/2012_PapageorgiouLeiboldEtAl_[Book]_OptimierungStatischeDynamischeStochastischeVerfahrenFurDieAnwendung.pdf:PDF},
+  groups    = {Statistics & Data Science},
+  owner     = {fbwk},
+  timestamp = {2014.03.04},
+}
+
+@Report{PingShuai2008,
+  author      = {Yang Ping and Pan Shuai},
+  institution = {Shanghai University},
+  title       = {{New PID Parameters Tuning Formulae for Relay Feedback Self-tuning}},
+  year        = {2008},
+  file        = {:../_Files/2008_PingShuai_[Report]_NewPIDParametersTuningFormulaeForRelayFeedbackSelfTuning.pdf:PDF},
+  groups      = {Control Theory},
+  owner       = {fbwk},
+  pages       = {567--569},
+  timestamp   = {2014.03.04},
+}
+
+@Book{Schneider2008,
+  author    = {Wolfgang Schneider},
+  publisher = {Vieweg + Teubner},
+  title     = {{Praktische Regelungstechnik}},
+  year      = {2008},
+  file      = {:../_Files/2008_Schneider_[Book]_PraktischeRegelungstechnik.pdf:PDF},
+  groups    = {Control Theory},
+  owner     = {hme-fw},
+  timestamp = {2012.01.11},
+}
+
+@Journal{Svaricek2006,
+  author    = {Ferdinand Svaricek},
+  journal   = {at -- Automatisierungstechnik},
+  title     = {{Nulldynamik linearer und nichtlinearer {S}ysteme: {D}efinition, {E}igenschaften und {A}nwendungen}},
+  year      = {2006},
+  number    = {7},
+  pages     = {310--322},
+  volume    = {54},
+  file      = {:../_Files/2006_Svaricek_[Journal]_NulldynamikLinearerUndNichtlinearerSystemeDefinitionEigenschaftenUndAnwendungen.pdf:PDF},
+  groups    = {Control Theory},
+  owner     = {nitr},
+  timestamp = {2014.11.05},
+  url       = {https://www.unibw.de/lrt15/Forschung/veroeff/at0607_310a.pdf},
+}
+
+@Report{Terejanu2003,
+  author      = {Gabriel A. Terejanu},
+  institution = {Department of Computer Science and Engineering},
+  title       = {{Extended Kalman Filter Tutorial}},
+  year        = {2003},
+  file        = {:../_Files/2003_Terejanu_[Report]_ExtendedKalmanFilterTutorial.pdf:PDF},
+  groups      = {Control Theory},
+  owner       = {fbwk},
+  timestamp   = {2014.03.04},
+}
+
+@Journal{UngaralaDolenceEtAl2007,
+  author    = {Sridhar Ungarala and Eric Dolence and Keyu Li},
+  journal   = {8\textsuperscript{th} International IFAC Symposium on Dynamics and Control of Process Systems},
+  title     = {{Constrained Extended Kalman Filter for Nonlinear State Estimation}},
+  year      = {2007},
+  pages     = {63--68},
+  volume    = {2},
+  file      = {:../_Files/2007_UngaralaDolenceEtAl_[Journal]_ConstrainedExtendedKalmanFilterForNonlinearStateEstimation.pdf:PDF},
+  groups    = {Control Theory},
+  owner     = {fbwk},
+  timestamp = {2014.03.04},
+}
+
+@Journal{Walker2006,
+  author    = {David M. Walker},
+  journal   = {International Journal of Bifurcation and Chaos},
+  title     = {{Parameter Estimation Using Kalman Filters With Constraints}},
+  year      = {2006},
+  pages     = {10671078},
+  volume    = {16},
+  file      = {:../_Files/2006_Walker_[Journal]_ParameterEstimationUsingKalmanFiltersWithConstraints.pdf:PDF},
+  groups    = {Control Theory},
+  owner     = {fbwk},
+  timestamp = {2014.03.04},
+}
+
+@Book{Wolfram2003,
+  author    = {Stephen Wolfram},
+  publisher = {Wolfram Research},
+  title     = {{The Mathematica Book}},
+  year      = {2003},
+  file      = {:../_Files/2003_Wolfram_[Book]_TheMathematicaBook.pdf:PDF},
+  groups    = {Mathematics},
+  owner     = {fbwk},
+  timestamp = {2014.03.04},
+}
+
+@Book{Yu2006,
+  author    = {Cheng-Ching Yu},
+  publisher = {Springer},
+  title     = {{Autotuning of PID Controllers - A Relay Feedback Approach}},
+  year      = {2006},
+  file      = {:../_Files/2006_Yu_[Book]_AutotuningOfPIDControllersARelayFeedbackApproach.pdf:PDF},
+  groups    = {Control Theory},
+  owner     = {fbwk},
+  timestamp = {2014.03.04},
+}
+
+@Report{Zeitz2014,
+  author      = {Zeitz, M.},
+  institution = {Universit{\"a}t Stuttgart / ISYS},
+  title       = {{Flachheitsbasierte Folgeregelung nichtlinearer MIMO-Systeme}},
+  year        = {2014},
+  month       = oct,
+  note        = {Vorlesungsunterlagen},
+  file        = {:../_Files/2014_Zeitz_[Report]_FlachheitsbasierteFolgeregelungNichtlinearerMIMOSysteme.pdf:PDF},
+  groups      = {Control Theory},
+  keywords    = {dynamische, Eingangserweiterung, quasi-statisch},
+  owner       = {CHNZ},
+  timestamp   = {2016.05.04},
+}
+
+@Report{Zeitz2012,
+  author      = {M. Zeitz},
+  institution = {Universit{\"a}t Stuttgart / ISYS},
+  title       = {{Flache Systeme - Hilfsbl{\"a}tter}},
+  year        = {2012},
+  type        = {Manual},
+  file        = {:../_Files/2012_Zeitz_[Report]_FlacheSystemeHilfsblatter.pdf:PDF},
+  groups      = {Control Theory},
+  owner       = {fbwk},
+  timestamp   = {2014.03.04},
+}
+
+@Journal{Brockett1983,
+  author    = {Roger W. Brockett},
+  journal   = {Differential geometric control theory},
+  title     = {{Asymptotic stability and feedback stabilization}},
+  year      = {1983},
+  number    = {1},
+  pages     = {181--191},
+  volume    = {27},
+  file      = {:../_Files/1983_Brockett_[Journal]_AsymptoticStabilityAndFeedbackStabilization.pdf:PDF},
+  groups    = {Control Theory, Mathematics},
+  owner     = {dgbr},
+  publisher = {Boston},
+}
+
+@Book{Isidori1995,
+  author    = {Alberto Isidori},
+  publisher = {Springer Science \& Business Media},
+  title     = {{Nonlinear control systems}},
+  year      = {1995},
+  edition   = {Third},
+  file      = {:../_Files/1995_Isidori_[Book]_NonlinearControlSystems.pdf:PDF},
+  groups    = {Control Theory},
+  owner     = {dgbr},
+}
+
+@Book{IoannouSun1996,
+  author    = {P. A. Ioannou and J. Sun},
+  publisher = {Prentice Hall},
+  title     = {{Robust Adaptive Control}},
+  year      = {1996},
+  file      = {:../_Files/1996_IoannouSun_[Book]_RobustAdaptiveControl.pdf:PDF},
+  groups    = {General Theory, Control Theory},
+  owner     = {s.delgado},
+  timestamp = {2014.10.24},
+}
+
+@Book{SepulchreJankovicEtAl1997,
+  author    = {Sepulchre, R. and Jankovic, M. and Kokotovic, P.},
+  publisher = {Springer},
+  title     = {{Constructive Nonlinear Control}},
+  year      = {1997},
+  file      = {:../_Files/1997_SepulchreJankovicEtAl_[Book]_ConstructiveNonlinearControl.pdf:PDF},
+  groups    = {General Theory, z General Understanding, Control Theory},
+  owner     = {s.delgado},
+  timestamp = {2014.10.24},
+}
+
+@Book{OrtegaLoriaEtAl1998,
+  author    = {Ortega, Romeo and Loria, Antonio and Nicklasson, Per Johan and Sira-Ramirez, Hebertt},
+  editor    = {Ortega, Romeo},
+  publisher = {Springer},
+  title     = {{Passivity-Based Control of Euler-Lagrange Systems: Mechanical, Electrical and Electromechanical Applications}},
+  year      = {1998},
+  file      = {:../_Files/1998_OrtegaLoriaEtAl_[Book]_PassivityBasedControlOfEulerLagrangeSystemsMechanicalElectricalAndElectromechanicalApplications.pdf:PDF},
+  groups    = {PBC, Robotics},
+  owner     = {s.delgado},
+  timestamp = {2014.10.29},
+}
+
+@Book{Isidori1999,
+  author    = {Isidori, Alberto},
+  publisher = {Springer},
+  title     = {{Nonlinear Control Systems II}},
+  year      = {1999},
+  volume    = {2},
+  file      = {:../_Files/1999_Isidori_[Book]_NonlinearControlSystemsII.pdf:PDF},
+  groups    = {General Theory, Control Theory},
+  owner     = {s.delgado},
+  timestamp = {2014.10.24},
+}
+
+@Book{Schaft1999,
+  author    = {van der Schaft, A. J.},
+  publisher = {Springer},
+  title     = {{L2-Gain and Passivity in Nonlinear Control}},
+  year      = {1999},
+  file      = {:../_Files/1999_Schaft_[Book]_L2GainAndPassivityInNonlinearControl.pdf:PDF},
+  groups    = {PBC, Mathematics, Control Theory},
+  owner     = {s.delgado},
+  timestamp = {2014.10.30},
+}
+
+@Diss{Albu-Schaeffer2001,
+  author = {Alin Albu-Sch{\"a}ffer},
+  school = {Technische Universit{\"a}t M{\"u}nchen},
+  title  = {{Regelung von Robotern mit elastischen Gelenken am Beispiel der DLR-Leichtbauarme}},
+  year   = {2001},
+  file   = {:../_Files/2001_Albu-Schaeffer_[Diss]_RegelungVonRoboternMitElastischenGelenkenAmBeispielDerDLRLeichtbauarme.pdf:PDF},
+  groups = {Control Theory, Robotics},
+  owner  = {dgbr},
+}
+
+@Journal{OrtegaSchaftEtAl2001,
+  author    = {Ortega, Romeo and van der Schaft, Arjan J. and Mareels, Iven and Maschke, Bernhard},
+  journal   = {IEEE Control Systems},
+  title     = {{Putting energy back in control}},
+  year      = {2001},
+  number    = {2},
+  pages     = {18--33},
+  volume    = {21},
+  file      = {:../_Files/2001_OrtegaSchaftEtAl_[Journal]_PuttingEnergyBackInControl.pdf:PDF},
+  groups    = {PBC, Lit_Review: Energy shaping, Control Theory},
+  owner     = {s.delgado},
+  publisher = {IEEE},
+  timestamp = {2014.11.04},
+}
+
+@Book{Khalil2002,
+  author    = {Khalil, Hassan K.},
+  publisher = {Prentice Hall},
+  title     = {{Nonlinear Systems}},
+  year      = {2002},
+  volume    = {3},
+  file      = {:../_Files/2002_Khalil_[Book]_NonlinearSystems.pdf:PDF},
+  groups    = {General Theory, Mathematics},
+  owner     = {s.delgado},
+  timestamp = {2014.10.24},
+}
+
+@Report{Murray2003,
+  author      = {Murray, Richard M.},
+  institution = {Report of the panel on future directions in control, dynamics, and systems},
+  title       = {{Control in an information rich world}},
+  year        = {2003},
+  file        = {:../_Files/2003_Murray_[Report]_ControlInAnInformationRichWorld.pdf:PDF},
+  groups      = {Control Theory},
+  publisher   = {SIAM},
+}
+
+@Book{Bloch2003,
+  author    = {Bloch, Anthony M.},
+  publisher = {Springer},
+  title     = {{Nonholonomic Mechanics and Control}},
+  year      = {2003},
+  volume    = {24},
+  file      = {:../_Files/2003_Bloch_[Book]_NonholonomicMechanicsAndControl.pdf:PDF},
+  groups    = {Nonholonomic Systems, z General Understanding, Robotics},
+  owner     = {s.delgado},
+  timestamp = {2014.10.28},
+}
+
+@Book{Selig2005,
+  author    = {Selig, J. M.},
+  editor    = {David Gries and Fred B. Schneider},
+  publisher = {Springer},
+  title     = {{Geometric Fundamentals of Robotics}},
+  year      = {2005},
+  edition   = {2\textsuperscript{nd} Edition},
+  file      = {:../_Files/2005_Selig_[Book]_GeometricFundamentalsOfRobotics.pdf:PDF},
+  groups    = {Mechanical Systems, Differential Geometry, Robotics},
+  owner     = {s.delgado},
+  timestamp = {2014.10.24},
+}
+
+@Book{LaValle2006,
+  author    = {LaValle, Steven M.},
+  publisher = {Cambridge University Press},
+  title     = {{Planning Algorithms}},
+  year      = {2006},
+  file      = {:../_Files/2006_LaValle_[Book]_PlanningAlgorithms.pdf:PDF},
+  groups    = {General Theory, Control Theory},
+  owner     = {s.delgado},
+  timestamp = {2014.10.24},
+}
+
+@Book{SpongHutchinsonEtAl2006,
+  author    = {Spong, Mark W. and Hutchinson, Seth and Vidyasagar, Mathukumalli},
+  publisher = {Wiley},
+  title     = {{Robot Modeling and Control}},
+  year      = {2006},
+  volume    = {3},
+  file      = {:../_Files/2006_SpongHutchinsonEtAl_[Book]_RobotModelingAndControl.pdf:PDF},
+  groups    = {Nonholonomic Systems, Robotics, Control Theory},
+  owner     = {s.delgado},
+  timestamp = {2014.10.24},
+}
+
+@Journal{Albu-SchaefferOttEtAl2007,
+  author    = {Albu-Sch{\"a}ffer, Alin and Ott, Christian and Hirzinger, Gerd},
+  journal   = {The international journal of robotics research},
+  title     = {{A unified passivity-based control framework for position, torque and impedance control of flexible joint robots}},
+  year      = {2007},
+  number    = {1},
+  pages     = {23--39},
+  volume    = {26},
+  file      = {:../_Files/2007_Albu-SchaefferOttEtAl_[Journal]_AUnifiedPassivityBasedControlFrameworkForPositionTorqueAndImpedanceControlOfFlexibleJointRobots.pdf:PDF},
+  groups    = {Robotics, Control Theory},
+  owner     = {dgbr},
+  publisher = {Sage Publications Sage CA: Thousand Oaks, CA},
+}
+
+@Book{Ginsberg2008,
+  author    = {Ginsberg, Jerry},
+  publisher = {Cambridge University Press},
+  title     = {{Engineering Dynamics}},
+  year      = {2008},
+  volume    = {10},
+  file      = {:../_Files/2008_Ginsberg_[Book]_EngineeringDynamics.pdf:PDF},
+  groups    = {z General Understanding, Robotics},
+  owner     = {s.delgado},
+  timestamp = {2014.10.24},
+}
+
+@Proc{HaddadinAlbu-SchafferEtAl2008,
+  author    = {S. {Haddadin} and A. {Albu-Schaffer} and A. {De Luca} and G. {Hirzinger}},
+  booktitle = {2008 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  title     = {{Collision Detection and Reaction: A Contribution to Safe Physical Human-Robot Interaction}},
+  year      = {2008},
+  month     = sep,
+  pages     = {3356--3363},
+  doi       = {10.1109/IROS.2008.4650764},
+  file      = {:../_Files/2008_HaddadinAlbu-SchafferEtAl_[Proc]_CollisionDetectionAndReactionAContributionToSafePhysicalHumanRobotInteraction.pdf:PDF},
+  groups    = {Robotics},
+  issn      = {2153-0858},
+  keywords  = {collision avoidance;human-robot interaction;manipulators;motion control;collision detection;physical human-robot interaction;robot manipulator;lightweight robot;reactive control strategy;mechanical verification platform;Robots;Collision avoidance;Torque;Joints;Trajectory;Robot sensing systems;Humans},
+  owner     = {dgbr},
+}
+
+@Book{HastieTibshiraniEtAl2009,
+  author    = {Hastie, T. and Tibshirani, R. and Friedman, J. H.},
+  publisher = {Springer},
+  title     = {{The Elements of Statistical Learning: Data Mining, Inference, and Prediction}},
+  year      = {2009},
+  isbn      = {9780387848846},
+  series    = {Springer series in statistics},
+  file      = {:../_Files/2009_HastieTibshiraniEtAl_[Book]_TheElementsOfStatisticalLearningDataMiningInferenceAndPrediction.pdf:PDF},
+  groups    = {Statistics & Data Science},
+  lccn      = {2008941148},
+  owner     = {dgbr},
+}
+
+@Diss{Kurze2008,
+  author = {Matthias Kurze},
+  school = {Technische Universit{\"a}t M{\"u}nchen},
+  title  = {{Modellbasierte Regelung von Robotern mit elastischen Gelenken ohne abtriebsseitige Sensorik}},
+  year   = {2008},
+  file   = {:../_Files/2008_Kurze_[Diss]_ModellbasierteRegelungVonRoboternMitElastischenGelenkenOhneAbtriebsseitigeSensorik.pdf:PDF},
+  groups = {Robotics, Control Theory},
+  owner  = {dgbr},
+}
+
+@Book{AstroemMurray2010,
+  author    = {{\AA}str{\"o}m, Karl Johan and Murray, Richard M.},
+  publisher = {Princeton university press},
+  title     = {{Feedback systems: an introduction for scientists and engineers}},
+  year      = {2010},
+  file      = {:../_Files/2010_AstroemMurray_[Book]_FeedbackSystemsAnIntroductionForScientistsAndEngineers.pdf:PDF},
+  groups    = {Control Theory},
+  owner     = {dgbr},
+}
+
+@Book{Levine2009,
+  author    = {L{\'e}vine, Jean},
+  publisher = {Springer},
+  title     = {{Analysis and Control of Nonlinear Systems: A Flatness-Based Approach}},
+  year      = {2009},
+  file      = {:../_Files/2009_Levine_[Book]_AnalysisAndControlOfNonlinearSystemsAFlatnessBasedApproach.pdf:PDF},
+  groups    = {Lit_Review: Traj Track (PBC), z General Understanding, Control Theory},
+  owner     = {s.delgado},
+  timestamp = {2014.10.24},
+}
+
+@Book{Gattringer2011,
+  author    = {Gattringer, Hubert},
+  publisher = {Springer},
+  title     = {{Starr-elastische Robotersysteme}},
+  year      = {2011},
+  file      = {:../_Files/2011_Gattringer_[Book]_StarrElastischeRobotersysteme.pdf:PDF},
+  groups    = {Nonholonomic Systems, z General Understanding, Robotics},
+  owner     = {s.delgado},
+  timestamp = {2014.10.24},
+}
+
+@Report{SamadAnnaswamy2011,
+  author       = {T. Samad and A. M. Annaswamy},
+  institution  = {IEEE Control Systems Society},
+  title        = {{The Impact of Control Technology}},
+  year         = {2011},
+  note         = {available at www.ieeecss.org},
+  file         = {:../_Files/2011_SamadAnnaswamy_[Report]_TheImpactOfControlTechnology.pdf:PDF},
+  groups       = {Control Theory},
+  howpublished = {IEEE Control Systems Society},
+  owner        = {s.delgado},
+  timestamp    = {2014.10.24},
+}
+
+@Journal{Domingos2012,
+  author  = {Domingos, Pedro M.},
+  journal = {Commun. acm},
+  title   = {{A few useful things to know about machine learning.}},
+  year    = {2012},
+  number  = {10},
+  pages   = {78--87},
+  volume  = {55},
+  file    = {:../_Files/2012_Domingos_[Journal]_AFewUsefulThingsToKnowAboutMachineLearning.pdf:PDF},
+  groups  = {Statistics & Data Science},
+  owner   = {dgbr},
+}
+
+@Book{Lee2012,
+  author    = {Lee, John},
+  publisher = {Springer},
+  title     = {{Introduction to Smooth Manifolds}},
+  year      = {2012},
+  volume    = {218},
+  file      = {:../_Files/2012_Lee_[Book]_IntroductionToSmoothManifolds.pdf:PDF},
+  groups    = {Differential Geometry, z General Understanding, Mathematics},
+  owner     = {s.delgado},
+  timestamp = {2014.10.24},
+}
+
+@Journal{AstroemKumar2014,
+  author    = {{\AA}str{\"o}m, Karl Johan and Kumar, P. R.},
+  journal   = {Automatica},
+  title     = {{Control: A Perspective.}},
+  year      = {2014},
+  number    = {1},
+  pages     = {3--43},
+  volume    = {50},
+  file      = {:../_Files/2014_AstroemKumar_[Journal]_ControlAPerspective.pdf:PDF},
+  groups    = {General Theory, Control Theory},
+  owner     = {s.delgado},
+  timestamp = {2014.10.24},
+}
+
+@Proc{SchindlbeckHaddadin2015,
+  author       = {Schindlbeck, Christopher and Haddadin, Sami},
+  booktitle    = {2015 IEEE international conference on robotics and automation (ICRA)},
+  title        = {{Unified passivity-based cartesian force/impedance control for rigid and flexible joint robots via task-energy tanks}},
+  year         = {2015},
+  organization = {IEEE},
+  pages        = {440--447},
+  file         = {:../_Files/2015_SchindlbeckHaddadin_[Proc]_UnifiedPassivityBasedCartesianForceimpedanceControlForRigidAndFlexibleJointRobotsViaTaskEnergyTanks.pdf:PDF},
+  groups       = {Robotics, Control Theory},
+  owner        = {dgbr},
+}
+
+@Diss{Delgado2016,
+  author = {Sergio Delgado},
+  school = {Technische Universit{\"a}t M{\"u}nchen},
+  title  = {{Total Energy Shaping for Underactuated Mechanical Systems: Dissipation and Nonholonomic Constraints}},
+  year   = {2016},
+  file   = {:../_Files/2016_Delgado_[Diss]_TotalEnergyShapingForUnderactuatedMechanicalSystemsDissipationAndNonholonomicConstraints.pdf:PDF},
+  groups = {Control Theory, Robotics},
+  owner  = {dgbr},
+}
+
+@Journal{HaddadinDeLucaEtAl2017,
+  author   = {S. {Haddadin} and A. {De Luca} and A. {Albu-Sch{\a"}ffer}},
+  journal  = {IEEE Transactions on Robotics},
+  title    = {{Robot Collisions: A Survey on Detection, Isolation, and Identification}},
+  year     = {2017},
+  month    = dec,
+  number   = {6},
+  pages    = {1292--1312},
+  volume   = {33},
+  doi      = {10.1109/TRO.2017.2723903},
+  file     = {:../_Files/2017_HaddadinDe LucaEtAl_[Journal]_RobotCollisionsASurveyOnDetectionIsolationAndIdentification.pdf:PDF},
+  groups   = {Robotics},
+  issn     = {1552-3098},
+  keywords = {aerospace robotics, collision avoidance, control engineering computing, humanoid robots, human-robot interaction, manipulators, mobile robots, robot structure, human injury, humanoids, physical human-robot interaction, collision event pipeline, context-independent phases, real-time collision detection, safe robot reaction, possible collisions, professional coworkers, robot assistants, robot collisions, flying robots, Collision avoidance, Robot sensing systems, Service robots, Real-time systems, Human-robot interaction, Algorithm design and analysis, Collision detection, collision identification, collision isolation, flexible joint manipulators, human-friendly robotics, physical human--robot interaction (pHRI), safe robotics},
+  owner    = {dgbr},
+}
+
+@Book{Kubat2017,
+  author    = {Kubat, Miroslav},
+  publisher = {Springer},
+  title     = {{An introduction to machine learning}},
+  year      = {2017},
+  volume    = {2},
+  file      = {:../_Files/2017_Kubat_[Book]_AnIntroductionToMachineLearning.pdf:PDF},
+  groups    = {Statistics & Data Science},
+  owner     = {dgbr},
+}
+
+@Book{Skolaut2018,
+  author    = {Skolaut, Werner},
+  publisher = {Springer-Verlag},
+  title     = {{Maschinenbau: Ein Lehrbuch f{\"u}r das ganze Bachelor-Studium}},
+  year      = {2018},
+  file      = {:../_Files/2018_Skolaut_[Book]_MaschinenbauEinLehrbuchFurDasGanzeBachelorStudium.pdf:PDF},
+  groups    = {Docu & Tutorials},
+  owner     = {dgbr},
+}
+
+@Book{ZhengCasari2018,
+  author    = {Zheng, Alice and Casari, Amanda},
+  publisher = {O'Reilly Media, Inc.},
+  title     = {{Feature engineering for machine learning: principles and techniques for data scientists}},
+  year      = {2018},
+  file      = {:../_Files/2018_ZhengCasari_[Book]_FeatureEngineeringForMachineLearningPrinciplesAndTechniquesForDataScientists.pdf:PDF},
+  groups    = {Statistics & Data Science},
+  owner     = {dgbr},
+}
+
+@Book{AngelovGu2019,
+  author    = {Angelov, Plamen P. and Gu, Xiaowei},
+  publisher = {Springer},
+  title     = {{Empirical approach to machine learning}},
+  year      = {2019},
+  file      = {:../_Files/2019_AngelovGu_[Book]_EmpiricalApproachToMachineLearning.pdf:PDF},
+  groups    = {Statistics & Data Science},
+  owner     = {dgbr},
+}
+
+@Book{BarkalovTitarenkoEtAl2019,
+  title     = {{Foundations of Embedded Systems}},
+  publisher = {Springer},
+  year      = {2019},
+  author    = {Barkalov, Alexander and Titarenko, Larysa and Mazurkiewicz, Ma{\l}gorzata},
+  file      = {:../_Files/2019_BarkalovTitarenkoEtAl_[Book]_FoundationsOfEmbeddedSystems.pdf:PDF},
+  owner     = {dgbr},
+}
+
+@Book{Wipper2009,
+  editor    = {Joachim Wipper},
+  publisher = {Mathematik-Online},
+  title     = {{LATEX: Mathematik-Online-Kurs}},
+  year      = {2009},
+  file      = {:../_Files/2009_Wipper_[Book]_LATEXMathematikOnlineKurs.pdf:PDF},
+  groups    = {Docu & Tutorials},
+  owner     = {dgbr},
+}
+
+@Book{Adamy2009,
+  author    = {J{\"u}rgen Adamy},
+  publisher = {Springer},
+  title     = {{Nichtlineare Regelungen}},
+  year      = {2009},
+  file      = {:../_Files/2009_Adamy_[Book]_NichtlineareRegelungen.pdf:PDF},
+  groups    = {Control Theory},
+  keywords  = {Nonlinear Control},
+  owner     = {fbwk},
+  timestamp = {2014.03.04},
+}
+
+@Diss{Hildebrandt2009,
+  author = {Alexander Hildebrandt},
+  school = {Universit{\"a}t Stuttgart, ISYS},
+  title  = {{Regelung und Auslegung servopneumatischer Aktuatorsysteme}},
+  year   = {2009},
+  file   = {:../_Files/2009_Hildebrandt_[Diss]_RegelungUndAuslegungServopneumatischerAktuatorsysteme.pdf:PDF},
+  groups = {Gas Handling, Control Theory},
+  owner  = {dgbr},
+}
+
+@Book{Bremer2008,
+  author    = {Bremer, Hartmut},
+  publisher = {Springer Netherlands},
+  title     = {{Elastic Multibody Dynamics}},
+  year      = {2008},
+  isbn      = {1402086792},
+  date      = {2008-06-23},
+  ean       = {9781402086793},
+  file      = {:../_Files/2008_Bremer_[Book]_ElasticMultibodyDynamics.pdf:PDF},
+  groups    = {Robotics},
+  owner     = {dgbr},
+  pagetotal = {464},
+  url       = {https://www.ebook.de/de/product/7468362/hartmut_bremer_elastic_multibody_dynamics.html},
+}
+
+@Book{KhatibSiciliano2016,
+  author    = {Khatib, Oussama and Siciliano, Bruno},
+  publisher = {Springer},
+  title     = {{Springer Handbook of Robotics (Springer Handbooks)}},
+  year      = {2016},
+  isbn      = {9783319325507},
+  file      = {:../_Files/2016_KhatibSiciliano_[Book]_SpringerHandbookOfRoboticsSpringerHandbooks.pdf:PDF},
+  groups    = {Robotics},
+  owner     = {dgbr},
+  url       = {https://www.amazon.com/Springer-Handbook-Robotics-Handbooks/dp/3319325507?SubscriptionId=AKIAIOBINVZYXZQZ2U3A&tag=chimbori05-20&linkCode=xm2&camp=2025&creative=165953&creativeASIN=3319325507},
+}
+
+@Book{Owens2016,
+  author    = {Owens, David H.},
+  publisher = {Springer-Verlag GmbH},
+  title     = {{Iterative Learning Control - An Optimization Paradigm}},
+  year      = {2016},
+  isbn      = {3319544128},
+  series    = {Advances in Industrial Control},
+  date      = {2017-06-02},
+  file      = {:../_Files/2016_Owens_[Book]_IterativeLearningControl.pdf:PDF},
+  groups    = {Control Theory},
+  owner     = {nitr},
+}
+
+@Journal{OttAlbu-SchafferEtAl2008,
+  author       = {Ott, Christian and Albu-Schaffer, Alin and Kugi, Andreas and Hirzinger, Gerd},
+  journal      = {{IEEE} Transactions on Robotics},
+  title        = {On the passivity-based impedance control of flexible joint robots},
+  year         = {2008},
+  number       = {2},
+  pages        = {416--429},
+  volume       = {24},
+  date         = {2008},
+  file         = {:../_Files/2008_OttAlbu-SchafferEtAl_[Journal]_OnThePassivityBasedImpedanceControlOfFlexibleJointRobots.pdf:PDF},
+  groups       = {Robotics, Control Theory},
+  journaltitle = {{IEEE} Transactions on Robotics},
+  publisher    = {{IEEE}},
+}
+
+@Journal{DevieRobetEtAl2018,
+  author    = {Devie, Sylvain and Robet, Pierre-Philippe and Aoustin, Yannick and Gautier, Maxime},
+  journal   = {IEEE Robotics and Automation Letters},
+  title     = {Impedance control using a cascaded loop force control},
+  year      = {2018},
+  number    = {3},
+  pages     = {1537--1543},
+  volume    = {3},
+  file      = {:2018_DevieRobetEtAl_[Journal]_ImpedanceControlUsingACascadedLoopForceControl.pdf:PDF},
+  groups    = {Control Theory, Robotics},
+  owner     = {dlgd},
+  publisher = {IEEE},
+}
+
+@Proc{OttAlbu-SchafferEtAl2003,
+  author       = {Ott, Christian and Albu-Schaffer, Alin and Kugi, Andreas and Hirzinger, Gerd},
+  booktitle    = {2003 {IEEE} International Conference on Robotics and Automation (Cat. No. 03Ch37422)},
+  title        = {Decoupling based cartesian impedance control of flexible joint robots},
+  year         = {2003},
+  organization = {{IEEE}},
+  pages        = {3101--3107},
+  volume       = {3},
+  file         = {:../_Files/2003_OttAlbu-SchafferEtAl_[Proc]_DecouplingBasedCartesianImpedanceControlOfFlexibleJointRobots.pdf:PDF},
+  groups       = {Robotics, Control Theory},
+  owner        = {dlgd},
+}
+
+@Book{Isermann2008,
+  author    = {Rolf Isermann},
+  publisher = {Springer},
+  title     = {{Mechatronische Systeme: Grundlagen}},
+  year      = {2008},
+  edition   = {2},
+  file      = {:../_Files/2008_Isermann_[Book]_MechatronischeSysteme.pdf:PDF},
+  groups    = {Robotics},
+  owner     = {tsrl},
+}
+
+@Article{Barkana2014,
+  author    = {Barkana, Itzhak},
+  journal   = {International Journal of Control},
+  title     = {Defending the beauty of the Invariance Principle},
+  year      = {2014},
+  number    = {1},
+  pages     = {186--206},
+  volume    = {87},
+  file      = {:../_Files/2014_Barkana_[Article]_DefendingTheBeautyOfTheInvariancePrinciple.pdf:PDF},
+  groups    = {Mathematics, Control Theory},
+  owner     = {tsrl},
+  publisher = {Taylor \& Francis},
+}
+
+@Book{KellyDavilaEtAl2006,
+  author    = {Kelly , Rafael and Davila , Victor Santib{'a}{\~n}ez and Perez, Julio},
+  publisher = {Springer Science \& Business Media},
+  title     = {{Control of Robot Manipulators in Joint Space}},
+  year      = {2006},
+  file      = {:../_Files/2006_KellyDavilaEtAl_[Book]_OfRobotManipulatorsInJointSpace.pdf:PDF},
+  groups    = {Robotics, Control Theory},
+  owner     = {tsrl},
+}
+
+@Article{Hogan1985,
+  author    = {Hogan, Neville},
+  journal   = {Journal of Dynamic Systems, Measurement, and Control},
+  title     = {{Impedance Control: An Approach To Manipulation: Part I -- Theory}},
+  year      = {1985},
+  file      = {:../_Files/1985_Hogan_[Article]_ImpedanceControlAnApproachToManipulationPartITheory.pdf:PDF},
+  groups    = {Robotics, Control Theory},
+  owner     = {tsrl},
+  publisher = {ASME},
+}
+
+@Book{AttenboroughTomei2003,
+  author    = {Attenborough, Mary P.},
+  publisher = {Elsevier},
+  title     = {{Mathematics for Electrical Engineering and Computing}},
+  year      = {2003},
+  file      = {:../_Files/2003_AttenboroughTomei_[Book]_MathematicsForElectricalEngineeringAndComputing.pdf:PDF},
+  groups    = {Mathematics},
+  owner     = {tsrl},
+}
+
+@InProceedings{OrtegaJiangEtAl1997,
+  author       = {Ortega, Romeo and Jiang, Zhong P. and Hill, David J.},
+  booktitle    = {Proceedings of the 1997 American Control Conference (Cat. No. 97CH36041)},
+  title        = {{Passivity-Based Control of Nonlinear Systems: a Tutorial}},
+  year         = {1997},
+  organization = {IEEE},
+  pages        = {2633 -- 2637},
+  volume       = {5},
+  file         = {:../_Files/1997_OrtegaJiangEtAl_[Inproceedings]_PassivityBasedControlOfNonlinearSystemsATutorial.pdf:PDF},
+  groups       = {Control Theory},
+  owner        = {tsrl},
+}
+
+
+@Article{AhnChenEtAl2007,
+  author    = {Ahn, Hyo-Sung and Chen, YangQuan and Moore, Kevin L.},
+  journal   = {IEEE Transactions on Systems, Man, and Cybernetics, Part C (Applications and Reviews)},
+  title     = {{Iterative Learning Control: Brief Survey and Categorization}},
+  year      = {2007},
+  number    = {6},
+  pages     = {1099--1121},
+  volume    = {37},
+  file      = {:../_Files/2007_AhnChenEtAl_[Article]_IterativeLearningControlBriefSurveyAndCategorization.pdf:PDF},
+  groups    = {Control Theory},
+  owner     = {nitr},
+  publisher = {IEEE},
+}
+
+
+
+@Book{BruntonKutz2022,
+  author    = {Brunton, Steven L. and Kutz, J. Nathan},
+  publisher = {Cambridge University Press},
+  title     = {{Data-driven Science and Engineering: Machine Learning, Dynamical Systems, and Control}},
+  year      = {2022},
+  file      = {:../_Files/2022_BruntonKutz_[Book]_DatadrivenScienceAndEngineeringMachineLearningDynamicalSystemsAndControl.pdf:PDF},
+  groups    = {Statistics & Data Science, Control Theory, Liquid Handling, Software},
+}
+
+
+
+@InProceedings{HoffmannTrappEtAl2023,
+  author       = {Hoffmann, Kathrin and Trapp, Christian and Hildebrandt, Alexander and Sawodny, Oliver},
+  booktitle    = {2023 IEEE Conference on Control Technology and Applications (CCTA)},
+  title        = {{Force-torque Sensor-free Online Payload Estimation for a Pneumatically Driven Robot}},
+  year         = {2023},
+  organization = {IEEE},
+  pages        = {315--320},
+  file         = {:../_Files/2023_HoffmannTrappEtAl_[Inproceedings]_ForcetorqueSensorfreeOnlinePayloadEstimationForAPneumaticallyDrivenRobot.pdf:PDF},
+  groups       = {Robotics},
+  owner        = {dlgd},
+}
+
+@PhdThesis{Driessen2013,
+  author = {Driessen, Theodorus Wilhelmus},
+  title  = {{Drop Formation From Axi-symmetric Fluid Jets}},
+  year   = {2013},
+  file   = {:../_Files/2013_Driessen_[PhdThesis]_DropFormationFromAxisymmetricFluidJets.pdf:PDF},
+  groups = {Liquid Handling},
+  owner  = {dlgd},
+}
+
+
+
+@Book{Gottert2004,
+  author    = {G{\"o}ttert, Manfred},
+  publisher = {Shaker},
+  title     = {{Bahnregelung Servopneumatischer Antriebe}},
+  year      = {2004},
+  file      = {:../_Files/2004_Gottert_[Book]_BahnregelungServopneumatischerAntriebe.pdf:PDF},
+  groups    = {Gas Handling, Robotics},
+  owner     = {dlgd},
+}
+
+
+@Article{ZhaoWangEtAl2017,
+  author    = {Zhao, Jianhui and Wang, Meiling and Wang, Zhangjun and Grekhov, Lenoid and Qiu, Tao and Ma, Xiuzhen},
+  journal   = {Applied Thermal Engineering},
+  title     = {Different boost voltage effects on the dynamic response and energy losses of high-speed solenoid valves},
+  year      = {2017},
+  pages     = {1494--1503},
+  volume    = {123},
+  file      = {:../_Files/2017_ZhaoWangEtAl_[Article]_DifferentBoostVoltageEffectsOnTheDynamicResponseAndEnergyLossesOfHighspeedSolenoidValves.pdf:PDF},
+  groups    = {Gas Handling},
+  owner     = {dlgd},
+  publisher = {Elsevier},
+}
+
+
+@Article{DennerEvrardEtAl2022,
+  author    = {Denner, Fabian and Evrard, Fabien and Castrej{\'o}n-Pita, Alfonso Arturo and Castrej{\'o}n-Pita, Jos{\'e} Rafael and van Wachem, Berend},
+  journal   = {Flow, Turbulence and Combustion},
+  title     = {{Reversal and Inversion of Capillary Jet Breakup At Large Excitation Amplitudes}},
+  year      = {2022},
+  number    = {3},
+  pages     = {843--863},
+  volume    = {108},
+  file      = {:../_Files/2022_DennerEvrardEtAl_[Article]_ReversalAndInversionOfCapillaryJetBreakupAtLargeExcitationAmplitudes.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+  publisher = {Springer},
+}
+
+
+
+@Book{BruntonKutz2017,
+  author    = {Brunton, Steven L. and Kutz, J. Nathan},
+  publisher = {Cambridge University Press},
+  title     = {{Data-driven Science and Engineering: Machine Learning, Dynamical Systems, and Control (1st Ed.)}},
+  year      = {2017},
+  file      = {:../_Files/2017_BruntonKutz_[Book]_DatadrivenScienceAndEngineeringMachineLearningDynamicalSystemsAndControl(1stEd).pdf:PDF},
+  groups    = {Statistics & Data Science},
+  owner     = {dlgd},
+}
+
+@Article{ClasenPhillipsEtAl2012,
+  author    = {Clasen, Christian and Phillips, Paul M. and Palangetic, Ljiljana and Vermant, and Jan,},
+  journal   = {AIChE Journal},
+  title     = {{Dispensing of Rheologically Complex Fluids: the Map of Misery}},
+  year      = {2012},
+  number    = {10},
+  pages     = {3242--3255},
+  volume    = {58},
+  file      = {:../_Files/2012_ClasenPhillipsEtAl_[Article]_DispensingOfRheologicallyComplexFluidsTheMapOfMisery.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+  publisher = {Wiley Online Library},
+}
+
+
+@PhdThesis{Dengler2021,
+  author = {Dengler, Christian},
+  school = {Technische Universit{\"a}t M{\"u}nchen},
+  title  = {{Design of Adaptive Nonlinear Controllers Using Supervised Learning}},
+  year   = {2021},
+  file   = {:../_Files/2021_Dengler_[Phdthesis]_DesignOfAdaptiveNonlinearControllersUsingSupervisedLearning.pdf:PDF},
+  groups = {Statistics & Data Science, Control Theory},
+  owner  = {dlgd},
+}
+
+
+
+@Article{Astle1998,
+  author    = {Astle, Thomas W.},
+  journal   = {JALA: Journal of the Association for Laboratory Automation},
+  title     = {{Small Volume Pipetting}},
+  year      = {1998},
+  number    = {3},
+  pages     = {62--64},
+  volume    = {3},
+  file      = {:../_Files/1998_Astle_[Article]_SmallVolumePipetting.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+  publisher = {SAGE Publications Sage CA: Los Angeles, CA},
+}
+
+
+
+@Article{BessemansJullyEtAl2016,
+  author    = {Bessemans, Laurent and Jully, Vanessa and de Raikem, Caroline and Albanese, Mathieu and Moniotte, Nicolas and Silversmet, Pascal and Lemoine, Dominique},
+  journal   = {Journal of Laboratory Automation},
+  title     = {{Automated Gravimetric Calibration to Optimize the Accuracy and Precision of Tecan Freedom Evo Liquid Handler}},
+  year      = {2016},
+  number    = {5},
+  pages     = {693--705},
+  volume    = {21},
+  file      = {:../_Files/2016_BessemansJullyEtAl_[Article]_AutomatedGravimetricCalibrationToOptimizeTheAccuracyAndPrecisionOfTecanFreedomEvoLiquidHandler.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+  publisher = {SAGE Publications Sage CA: Los Angeles, CA},
+}
+
+
+
+@Article{Chen2009,
+  author    = {Chen, XB},
+  journal   = {The International Journal of Advanced Manufacturing Technology},
+  title     = {Modeling and control of fluid dispensing processes: a state-of-the-art review},
+  year      = {2009},
+  pages     = {276--286},
+  volume    = {43},
+  file      = {:../_Files/2009_Chen_[Article]_ModelingAndControlOfFluidDispensingProcessesAStateoftheartReview.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+  publisher = {Springer},
+}
+
+
+@Article{CarnevaleDeuarEtAl2023,
+  author    = {Carnevale, Lu{\'\i}s H. and Deuar, Piotr and Che, Zhizhao and Theodorakis, Panagiotis E.},
+  journal   = {Physics of Fluids},
+  title     = {{Liquid Thread Breakup and the Formation of Satellite Droplets}},
+  year      = {2023},
+  number    = {7},
+  volume    = {35},
+  file      = {:../_Files/2023_CarnevaleDeuarEtAl_[Article]_LiquidThreadBreakupAndTheFormationOfSatelliteDroplets.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+  publisher = {AIP Publishing},
+}
+
+
+@InProceedings{BheemavarapuShahEtAl2018,
+  author       = {Bheemavarapu, Lalitha Pratyusha and Shah, Malay Ilesh and Ramanathan, Ravishankar and Sivaprakasam, Mohanasankar},
+  booktitle    = {2018 IEEE International Symposium on Medical Measurements and Applications (MeMeA)},
+  title        = {{Intelligent Pipetting System Towards Automatic Liquid Handling Applications}},
+  year         = {2018},
+  organization = {IEEE},
+  pages        = {1--6},
+  file         = {:../_Files/2018_BheemavarapuShahEtAl_[Inproceedings]_IntelligentPipettingSystemTowardsAutomaticLiquidHandlingApplications.pdf:PDF},
+  groups       = {Liquid Handling},
+  owner        = {dlgd},
+}
+
+
+@Article{XuHanEtAl2017,
+  author    = {Xu, Xiangyang and Han, Xiao and Liu, Yanfang and Liu, Yanjing and Liu, Yang},
+  journal   = {Applied Sciences},
+  title     = {{Modeling and Dynamic Analysis on the Direct Operating Solenoid Valve for Improving the Performance of the Shifting Control System}},
+  year      = {2017},
+  number    = {12},
+  pages     = {1266},
+  volume    = {7},
+  file      = {:../_Files/2017_XuHanEtAl_[Article]_ModelingAndDynamicAnalysisOnTheDirectOperatingSolenoidValveForImprovingThePerformanceOfTheShiftingControlSystem.pdf:PDF},
+  groups    = {Gas Handling},
+  owner     = {dlgd},
+  publisher = {MDPI},
+}
+
+
+@Article{SongYuEtAl2019,
+  author    = {Song, Peng and Yu, Yueqing and Zhang, Xuping},
+  journal   = {Robotica},
+  title     = {{A Tutorial Survey and Comparison of Impedance Control on Robotic Manipulation}},
+  year      = {2019},
+  number    = {5},
+  pages     = {801--836},
+  volume    = {37},
+  file      = {:../_Files/2019_SongYuEtAl_[Article]_ATutorialSurveyAndComparisonOfImpedanceControlOnRoboticManipulation.pdf:PDF},
+  groups    = {Robotics, Control Theory},
+  owner     = {dlgd},
+  publisher = {Cambridge University Press},
+}
+
+
+@Article{EggersVillermaux2008,
+  author    = {Eggers, Jens and Villermaux, Emmanuel},
+  journal   = {Reports on progress in physics},
+  title     = {Physics of liquid jets},
+  year      = {2008},
+  number    = {3},
+  pages     = {036601},
+  volume    = {71},
+  file      = {:../_Files/2008_EggersVillermaux_[Article]_PhysicsOfLiquidJets.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+  publisher = {IOP Publishing},
+}
+
+
+
+@Article{WangHasegawa2023,
+  author    = {Wang, Hanzhi and Hasegawa, Yosuke},
+  journal   = {Physics of Fluids},
+  title     = {{Multi-objective Optimization of Actuation Waveform for High-precision Drop-on-demand Inkjet Printing}},
+  year      = {2023},
+  number    = {1},
+  volume    = {35},
+  file      = {:../_Files/2023_WangHasegawa_[Article]_MultiobjectiveOptimizationOfActuationWaveformForHighprecisionDropondemandInkjetPrinting.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+  publisher = {AIP Publishing},
+}
+
+
+@Article{HeYangEtAl2017,
+  author    = {He, Bing and Yang, Sucui and Qin, Zhangrong and Wen, Binghai and Zhang, Chaoying},
+  journal   = {Scientific reports},
+  title     = {{The Roles of Wettability and Surface Tension in Droplet Formation During Inkjet Printing}},
+  year      = {2017},
+  number    = {1},
+  pages     = {11841},
+  volume    = {7},
+  file      = {:../_Files/2017_HeYangEtAl_[Article]_TheRolesOfWettabilityAndSurfaceTensionInDropletFormationDuringInkjetPrinting.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+  publisher = {Nature Publishing Group UK London},
+}
+
+
+@Article{OwensDaley2008,
+  author    = {Owens, David H. and Daley, Steve},
+  title     = {{Iterative Learning Control-monotonicity and Optimization}},
+  year      = {2008},
+  file      = {:../_Files/2008_OwensDaley_[Article]_IterativeLearningControlmonotonicityAndOptimization.pdf:PDF},
+  groups    = {Control Theory},
+  owner     = {dlgd},
+  publisher = {Zielona G{\'o}ra: Uniwersytet Zielonog{\'o}rski},
+}
+
+
+
+@Article{KongYuanEtAl2012,
+  author    = {Kong, Fanwei and Yuan, Liang and Zheng, Yuan F. and Chen, Weidong},
+  journal   = {Journal of laboratory automation},
+  title     = {{Automatic Liquid Handling for Life Science: a Critical Review of the Current State of the Art}},
+  year      = {2012},
+  number    = {3},
+  pages     = {169--185},
+  volume    = {17},
+  file      = {:../_Files/2012_KongYuanEtAl_[Article]_AutomaticLiquidHandlingForLifeScienceACriticalReviewOfTheCurrentStateOfTheArt.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+  publisher = {SAGE Publications Sage CA: Los Angeles, CA},
+}
+
+
+@Article{MartinezCalvoRiveroRodriguezEtAl2020,
+  author    = {Mart{\'\i}nez-Calvo, Alejandro and Rivero-Rodr{\'\i}guez, Javier and Scheid, Benoit and Sevilla, A.},
+  journal   = {Journal of Fluid Mechanics},
+  title     = {{Natural Break-up and Satellite Formation Regimes of Surfactant-laden Liquid Threads}},
+  year      = {2020},
+  pages     = {A35},
+  volume    = {883},
+  file      = {:../_Files/2020_MartinezCalvoRiveroRodriguezEtAl_[Article]_NaturalBreakupAndSatelliteFormationRegimesOfSurfactantladenLiquidThreads.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+  publisher = {Cambridge University Press},
+}
+
+
+@Book{SongChengEtAl2018,
+  author    = {Song, Yu and Cheng, Daojian and Zhao, Liang},
+  publisher = {John Wiley \& Sons},
+  title     = {{Microfluidics: Fundamentals, Devices, and Applications}},
+  year      = {2018},
+  file      = {:../_Files/2018_SongChengEtAl_[Book]_MicrofluidicsFundamentalsDevicesAndApplications.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+}
+
+
+@Article{MitchellKlewickiEtAl2019,
+  author    = {Mitchell, Benjamin R. and Klewicki, Joseph C. and Korkolis, Yannis P. and Kinsey, Brad L.},
+  journal   = {Physical Review Fluids},
+  title     = {{Normal Impact Force of Rayleigh Jets}},
+  year      = {2019},
+  number    = {11},
+  pages     = {113603},
+  volume    = {4},
+  file      = {:../_Files/2019_MitchellKlewickiEtAl_[Article]_NormalImpactForceOfRayleighJets.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+  publisher = {APS},
+}
+
+
+@Article{OttMukherjeeEtAl2015,
+  author    = {Ott, Christian and Mukherjee, Ranjan and Nakamura, Yoshihiko},
+  journal   = {Journal of Intelligent \& Robotic Systems},
+  title     = {{A Hybrid System Framework for Unified Impedance and Admittance Control}},
+  year      = {2015},
+  pages     = {359--375},
+  volume    = {78},
+  file      = {:../_Files/2015_OttMukherjeeEtAl_[Article]_AHybridSystemFrameworkForUnifiedImpedanceAndAdmittanceControl.pdf:PDF},
+  groups    = {Robotics, Control Theory},
+  owner     = {dlgd},
+  publisher = {Springer},
+}
+
+
+@Article{ZhangHuEtAl2022,
+  author    = {Zhang, Yanzhen and Hu, Guofang and Liu, Yonghong and Wang, Jide and Yang, Guodong and Li, Dege},
+  journal   = {Processes},
+  title     = {{Suppression and Utilization of Satellite Droplets for Inkjet Printing: a Review}},
+  year      = {2022},
+  number    = {5},
+  pages     = {932},
+  volume    = {10},
+  file      = {:../_Files/2022_ZhangHuEtAl_[Article]_SuppressionAndUtilizationOfSatelliteDropletsForInkjetPrintingAReview.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+  publisher = {MDPI},
+}
+
+
+@Article{RezayatFarshchiEtAl2021,
+  author    = {Rezayat, Sajjad and Farshchi, Mohammad and Berrocal, Edouard},
+  journal   = {International Journal of Multiphase Flow},
+  title     = {High-speed imaging database of water jet disintegration part ii: temporal analysis of the primary breakup},
+  year      = {2021},
+  pages     = {103807},
+  volume    = {145},
+  file      = {:../_Files/2021_RezayatFarshchiEtAl_[Article]_HighspeedImagingDatabaseOfWaterJetDisintegrationPartIiTemporalAnalysisOfThePrimaryBreakup.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+  publisher = {Elsevier},
+}
+
+
+@Book{KlabnikNichols2023,
+  author    = {Klabnik, Steve and Nichols, Carol},
+  publisher = {No Starch Press},
+  title     = {{The Rust Programming Language}},
+  year      = {2023},
+  file      = {:../_Files/2023_KlabnikNichols_[Book]_TheRustProgrammingLanguage.pdf:PDF},
+  groups    = {Software},
+  owner     = {dlgd},
+}
+
+
+@Article{ShenLiuEtAl2020,
+  author    = {Shen, Chaoqun and Liu, Feifan and Wu, Liangyu and Yu, Cheng and Yu, Wei},
+  journal   = {Micromachines},
+  title     = {{Dripping, Jetting and Regime Transition of Droplet Formation in a Buoyancy-assisted Microfluidic Device}},
+  year      = {2020},
+  number    = {11},
+  pages     = {962},
+  volume    = {11},
+  file      = {:../_Files/2020_ShenLiuEtAl_[Article]_DrippingJettingAndRegimeTransitionOfDropletFormationInABuoyancyassistedMicrofluidicDevice.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+  publisher = {MDPI},
+}
+
+
+@Book{JamesWittenEtAl2023,
+  author    = {James, Gareth and Witten, Daniela and Hastie, Trevor and Tibshirani, Robert and Taylor, Jonathan},
+  publisher = {Springer Nature},
+  title     = {{An Introduction to Statistical Learning: with Applications in Python}},
+  year      = {2023},
+  file      = {:../_Files/2023_JamesWittenEtAl_[Book]_AnIntroductionToStatisticalLearningWithApplicationsInPython.pdf:PDF},
+  groups    = {Statistics & Data Science, Software},
+  owner     = {dlgd},
+}
+
+
+
+@Report{Tobisch2023,
+  author      = {Tobisch, Adrian},
+  institution = {Festo},
+  title       = {{Literature Research on Liquid Jets and Droplet Break-off with Focus on the State of the Art and Dimensionless Quantities}},
+  year        = {2023},
+  file        = {:../_Files/2023_Tobisch_[Report]_LiteratureResearchOnLiquidJetsAndDropletBreakoffWithFocusOnTheStateOfTheArtAndDimensionlessQuantities.pdf:PDF},
+  groups      = {Liquid Handling},
+  owner       = {dlgd},
+}
+
+
+@Report{Ewald2015,
+  author      = {Ewald, Kornelia},
+  institution = {Eppendorf},
+  title       = {{Fundamentals of Dispensing}},
+  year        = {2015},
+  file        = {:../_Files/2015_Ewald_[Report]_FundamentalsOfDispensing.pdf:PDF},
+  groups      = {Liquid Handling},
+  owner       = {dlgd},
+}
+
+
+@Stud{SauerHerdtleEtAl2013,
+  author      = {Sauer, Josef and Herdtle, Armin and Decker, Andreas},
+  title       = {{Manuskript Zur Vorlesung Fluidische Aktoren}},
+  year        = {2013},
+  file        = {:../_Files/2013_SauerHerdtleEtAl_[Stud]_ManuskriptZurVorlesungFluidischeAktoren.pdf:PDF},
+  groups      = {Liquid Handling, Gas Handling},
+  institution = {Hochschule Esslingen},
+  owner       = {dlgd},
+}
+
+
+@Stud{Himmel1998,
+  author      = {Himmel, David},
+  title       = {{Theorie Und Experimente Zum Mechanischen Kreisel}},
+  year        = {1998},
+  file        = {:../_Files/1998_Himmel_[Stud]_TheorieUndExperimenteZumMechanischenKreisel.pdf:PDF},
+  groups      = {Robotics},
+  institution = {Physikalisches Institut K�ln},
+  owner       = {dlgd},
+}
+
+
+
+@Report{Delgado2021,
+  author = {Delgado, Sergio},
+  title  = {{Regelungstechnik}},
+  year   = {2021},
+  file   = {:../_Files/2021_Delgado_[Report]_Regelungstechnik.pdf:PDF},
+  groups = {Control Theory},
+  owner  = {dlgd},
+  school = {DHBW},
+}
+
+
+@Report{Geimer2010,
+  author = {Geimer, Marcus},
+  title  = {{Fluidtechnik}},
+  year   = {2010},
+  file   = {:../_Files/2010_Geimer_[Report]_Fluidtechnik.pdf:PDF},
+  groups = {Liquid Handling, Gas Handling},
+  owner  = {dlgd},
+  school = {KIT},
+}
+
+
+@Article{Bala1985,
+  author  = {Bala, Heinz-Peter},
+  journal = {O+ P {\"o}lhydraulik und pneumatik},
+  title   = {{Durchflussmessungen Und Str{\"o}mungstechnische Kenngr{\"o}{\ss}en}},
+  year    = {1985},
+  pages   = {541--544},
+  volume  = {29},
+  file    = {:../_Files/1985_Bala_[Article]_DurchflussmessungenUndStromungstechnischeKenngrossen.pdf:PDF},
+  groups  = {Gas Handling},
+  owner   = {dlgd},
+}
+
+
+@Article{VanHoeveGekleEtAl2010,
+  author    = {Van Hoeve, Wim and Gekle, Stephan and Snoeijer, Jacco H. and Versluis, Michel and Brenner, Michael P. and Lohse, Detlef},
+  journal   = {Physics of fluids},
+  title     = {Breakup of diminutive Rayleigh jets},
+  year      = {2010},
+  number    = {12},
+  volume    = {22},
+  file      = {:../_Files/2010_Van HoeveGekleEtAl_[Article]_BreakupOfDiminutiveRayleighJets.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+  publisher = {AIP Publishing},
+}
+
+
+{TakahashiKitamura1969,
+ title     = {{Effect of Nozzle Length on Breakup Length of Liquid Jet}},
+ author    = {Takahashi, Teruo and Kitamura, Yoshiro},
+ year      = {1969},
+ publisher = {
+
+@Article{LeiLiuEtAl2022,
+  author    = {Lei, Ting and Liu, Hong and Ma, Cong and Han, Jiang},
+  journal   = {Applied Sciences},
+  title     = {{Optimal Design of Droplet Ejection for Pzt Printhead Based on Surrogate Model}},
+  year      = {2022},
+  number    = {22},
+  pages     = {11683},
+  volume    = {12},
+  file      = {:../_Files/2022_LeiLiuEtAl_[Article]_OptimalDesignOfDropletEjectionForPztPrintheadBasedOnSurrogateModel.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+  publisher = {MDPI},
+}
+
+
+@Article{Trettel2020,
+  author    = {Trettel, Ben},
+  journal   = {Atomization and Sprays},
+  title     = {{Reevaluating the Jet Breakup Regime Diagram}},
+  year      = {2020},
+  number    = {7},
+  volume    = {30},
+  file      = {:../_Files/2020_Trettel_[Article]_ReevaluatingTheJetBreakupRegimeDiagram.pdf:PDF},
+  groups    = {Liquid Handling},
+  owner     = {dlgd},
+  publisher = {Begel House Inc.},
+}
+
+
+
+@Article{TakahashiKitamura1969,
+  author  = {Takahashi, Teruo and Kitamura, Yoshiro},
+  journal = {Memoirs of the school of Engineering, Okayama University},
+  title   = {{Effect of Nozzle Length on Breakup Length of Liquid Jet}},
+  year    = {1969},
+  number  = {1},
+  pages   = {57--64},
+  volume  = {4},
+  file    = {:../_Files/1969_TakahashiKitamura_[Article]_EffectOfNozzleLengthOnBreakupLengthOfLiquidJet.pdf:PDF},
+  groups  = {Liquid Handling},
+  owner   = {dlgd},
+}
+
+
+
+@Article{VassalloAshgriz1991,
+  author    = {Vassallo, P. and Ashgriz, N.},
+  journal   = {Proceedings of the Royal Society of London. Series A: Mathematical and Physical Sc

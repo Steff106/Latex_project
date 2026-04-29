@@ -1,0 +1,55 @@
+\chapter{Einleitung}
+Das erste Kapitel bietet eine Einführung in das Unternehmen STIHL und thematisiert die zugrunde liegende Problemstellung der Arbeit. Im Anschluss werden die Zielsetzung sowie die Struktur der Arbeit dargelegt. 
+% Das vorliegende Projekt wird im Rahmen des Mechatronik-Master-Moduls "`Mechatronisches Projekt"' durchgeführt. Hierbei haben die Studierenden die Möglichkeit, aus einem Aufgabenpool der Professoren, ein Projekt ihrer Wahl auszuwählen. Die Studierenden bearbeiten das ausgewählte Projekt über einen Zeitraum von zwei Semestern. Das nachfolgend vorgestellte Projekt wird von einem Team aus drei Studierenden bearbeitet.
+
+
+\section{Firma STIHL}
+Die ANDREAS STIHL AG \& Co. KG, 1926 von Andreas Stihl gegründet, ist ein weltweit führender Hersteller von motorbetriebenen Geräten. Das Unternehmen hat sich von einem kleinen Einmannbetrieb zu einem globalen Marktführer entwickelt, der eine breite Palette von Produkten anbietet, darunter Motorsägen, Heckenscheren, Freischneider und Laubbläser. Diese Geräte sind sowohl für den professionellen als auch den privaten Gebrauch konzipiert. In den letzten Jahren hat STIHL verstärkt in Akkutechnologien investiert, um umweltfreundlichere und geräuschärmere Alternativen zu Benzingeräten zu bieten. \\
+Als Familienunternehmen wird STIHL heute in der dritten Generation geführt. Innovationen sind ein zentraler Bestandteil der Unternehmensstrategie. STIHL setzt stark auf Forschung und Entwicklung, um die Effizienz und Ergonomie seiner Produkte zu verbessern. Das Unternehmen produziert viele seiner Komponenten selbst und garantiert durch strenge Qualitätskontrollen eine hohe Langlebigkeit der Geräte. STIHL ist in über 160 Ländern tätig und produziert weltweit in sieben Ländern. Die Anzahl der weltweit Beschäftigten liegt bei ungefähr 19.800 Mitarbeitern. Die internationale Vernetzung garantiert die Qualität von STIHL und ist ein Teil der Erfolgsgeschichte. \\
+Ein weiterer Fokus liegt auf dem Thema Nachhaltigkeit, sowohl in der Produktentwicklung als auch in der Produktion, insbesondere durch die Reduktion von Emissionen und dem Einsatz energieeffizienter Prozesse. Insgesamt steht STIHL für Qualität, Innovation und weltweite Marktführerschaft in der Forst- und Gartengerätetechnologie \cite{Stihl}. 
+
+\section{Problemstellung}
+Aufgrund der kontinuierlich steigenden Anforderungen an moderne Produkte, insbesondere im Hinblick auf deren Leistungsfähigkeit und Funktionalität, wird die Integration immer umfangreicherer Funktionen notwendig. Diese zusätzlichen Funktionen müssen überwiegend softwareseitig umgesetzt werden, um die geforderte Flexibilität und Anpassbarkeit der Produkte zu gewährleisten. STIHL verfolgt im Bereich der Verbrennungsmotoren bereits seit längerer Zeit den Ansatz der modellbasierten Funktionsentwicklung. Dabei werden die erstellten Modelle ausschließlich dazu verwendet, Softwarecode (Autocode) zu generieren, der direkt auf den Steuergeräten zum Einsatz kommt. Dies hat sich als effizienter Weg erwiesen, um komplexe Funktionen sicher und konsistent zu implementieren.\\
+Im Gegensatz dazu erfolgt die Softwareentwicklung für Akkuprodukte bislang überwiegend manuell. Die Softwarefunktionen werden von Hand codiert, was im Laufe der Zeit zu einem zunehmend umfangreichen und unübersichtlichen Code führt. Zudem erschwert diese Vorgehensweise die Transparenz der Funktionen und erhöht den Aufwand für notwendige Anpassungen und Erweiterungen.
+Die manuelle Programmierung ermöglicht allerdings eine optimierte Anpassung des Codes an die gewählte Hardware und kann darüber hinaus Vorteile hinsichtlich Laufzeit und Speicherbedarf bieten. 
+
+\section{Zukunftsziel}
+Das angestrebte Ziel der Softwarearchitektur von STIHL im Hinblick auf die Entwicklung von Akkugeräten ist in \autoref{png_ziel_architektur} dargestellt.
+%\begin{figure}[H]
+	%\centering
+	%\includegraphics[width=1\textwidth]{./Bilder/ZUSE_allg.pdf}
+	%\caption{Zukunftsziel Softwarearchitektur von Akkugeräten \cite{ZUSE}}
+	%\label{png_ziel_architektur}
+%\end{figure}
+Die Funktionsblöcke \glqq Peripherie\grqq{} und \glqq Hardwarenahe Funktionen\grqq{} sollen weiterhin manuell in der Programmiersprache C implementiert werden. Im Gegensatz dazu ist vorgesehen, die in Blau dargestellten kundenrelevanten Funktionen mittels Autocodgenerierung in Matlab-Simulink zu realisieren. Hierzu müssen die entsprechenden Funktionen zunächst in Simulink modelliert werden. Der daraus generierte Autocode wird anschließend über eine geeignete Schnittstelle in die manuell entwickelte Basissoftware integriert.
+\section{Zielsetzung dieser Arbeit}
+Das Ziel dieser Arbeit besteht darin, die Grundlage für die modellbasierte Entwicklung von Kundenfunktionen für Akkuprodukte zu schaffen. Dazu sollen im ersten Schritt die bereits in C implementierten Maschinenschutzfunktionen (siehe \autoref{png_maschinenschutz}) in Matlab-Simulink übertragen werden.
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=1\textwidth]{./Bilder/ZUSE_Maschinenschutz.pdf}
+%	\caption{Kundenfunktion - Maschinenschutz \cite{ZUSE}}
+%	\label{png_maschinenschutz}
+%\end{figure}
+Die Modellierung erfolgt unter Berücksichtigung der relevanten Anforderungen aus dem Lastenheft. Der bereits vorhandene C-Code kann dabei als Referenz für die Erstellung des Simulink-Modells herangezogen werden. Im Anschluss sollen die modellierten Funktionen in der Simulationsumgebung getestet und verifiziert werden, um die Funktionalität sicherzustellen.\\
+Im darauffolgenden Schritt ist die Zielsetzung, aus dem in Matlab erstellten Modell, C-Code zu generieren und in die bestehende Basissoftware zu integrieren. Hierfür soll die bereits vorhandene Schnittstelle zwischen dem automatisch generierten Code und dem manuell codierten Basiscode verwendet und angepasst werden. Der neu erstellte Softwarecode soll auf der realen Hardware abschließend getestet und validiert werden, um die Funktionsfähigkeit unter realen Bedingungen zu überprüfen. Darüber hinaus ist es ein weiteres Ziel eine Analyse der Auswirkungen des automatisch generierten Codes im Vergleich zur manuellen Codierung hinsichtlich Speicherplatzbedarf und Laufzeit durchzuführen.
+
+% Die Zielsetzung dieses Projekts besteht darin, eine Machbarkeitsstudie für einen Multigelenk-Roboter für den Einsatz in der Medizintechnik durchzuführen. Wie der Begriff "`Multigelenk-Roboter"' bereits andeutet, soll sich der finale Roboter aus mehreren Gelenken zusammensetzen, die eine 3-dimensionale Bewegung ermöglichen. Hierbei ist besonders auf eine hohe Bewegungsfreiheit der einzelnen Gelenke zu achten. Zunächst soll eine umfassende Übersicht über verschiedene Multigelenk-Roboter sowie ihre Anwendungsgebiete und Einsatzmöglichkeiten aufgezeigt werden. Zudem soll ein neuartiger Gelenkmechanismus entwickelt oder ein bestehender Mechanismus modifiziert werden, um einen Betrieb des Roboters mittels Shape Memory Alloy (SMA)-Drähten zu ermöglichen. Durch das geringe Gewicht, einen geräuschlosen Betrieb, sowie einer hohen Energiedichte, eignen sich Formgedächtnisdrähte hervorragend für medizinische Anwendungen mit begrenztem Bauraum.\\
+% In diesem Projekt liegt der Fokus auf der Untersuchung und dem Test weniger Gelenke, um eine prinzipielle Funktionsweise nachzuweisen. Bei der Gestaltung des Prototyps steht nicht zwangsläufig die Erreichung der finalen Zielgröße im Vordergrund, sondern vielmehr eine ausreichende Größe, um die Funktionsweise und den grundlegenden Aufbau eingehend zu untersuchen. Im Rahmen der Machbarkeitsstudie soll nachgewiesen werden, ob die gewünschten Anforderungen mittels SMA-Draht Aktuierung eingehalten werden können. Zudem sollen die ermittelten Erkenntnisse auf die Zielbaugröße umgerechnet werden.\\
+% Die Inbetriebnahme sowie die Steuerung/Regelung des Prototypen sollen unter Verwendung eines Rapid Control Prototyping Systems der Firma dSpace erfolgen. Dies ermöglicht eine schnelle Echtzeit-Simulations- und Steuerungsmöglichkeit des Prototypen.\\
+% Es besteht die Möglichkeit, dass Anforderungen im Verlauf des Projekts angepasst werden müssen. Daher wird für dieses Projekt eine agile Entwicklungsmethode angewendet. Hierbei wird das Projekt in kleinere Arbeitspakete aufgeteilt, und in regelmäßigen Abständen erfolgt eine Abstimmung und Rücksprache mit dem betreuenden Professor.
+
+
+\section{Aufbau dieser Arbeit}
+ Die vorliegende Arbeit gliedert sich in vier Hauptkapitel:
+\begin{itemize}
+\item \autoref{ch_stand_der_technik} stellt den Stand der Technik im Bereich der Entwicklung von Akkuprodukten dar. Hierzu wird zunächst eine kurze Übersicht zur modellbasierten Systementwicklung gegeben. Im Anschluss werden der aktuelle Stand der Firmware, die derzeitige Entwicklungsumgebung in Matlab sowie die bei STIHL geltenden Modellierungsrichtlinien vorgestellt.	
+\item \autoref{ch_voruntersuchungen} zeigt die Vorbereitungen für die Modellierung und Codegenerierung auf. Dabei werden die Rahmenbedingungen für das Matlab-Modell durch die Auswahl einer geeigneten Modellierungsmethode, die Beschreibung des Modellaufbaus sowie spezielle Einstellungen für die Autocodegenerierung festgelegt.
+\item \autoref{ch_umsetzung} erläutert die Implementierung der einzelnen Maschinenfunktionen, ausgehend von der Funktionsbeschreibung und der Analyse des Lastenhefts bis hin zur Modellierung in Matlab. Dabei werden sowohl die im vorangegangenen Kapitel gewonnenen Erkenntnisse als auch die festgelegten Modellierungsrichtlinien berücksichtigt.
+\item \autoref{ch_testing} präsentiert die Testergebnisse sowohl in der Simulationsumgebung als auch an einer realen akkubetriebenen Motorsäge in Bezug auf die zuvor modellierten Maschinenschutzfunktionen. Darüber hinaus werden der Speicherbedarf und die Laufzeit des generierten Autocodes in Kombination mit der Basissoftware analysiert.
+\end{itemize}
+Abschließend erfolgen ein Fazit und Ausblick der vorliegenden Arbeit.
+
+% 	\item In \autoref{ch_sensorik} liegt der Fokus auf der Sensorik für den Multigelenk-Roboter. Dabei werden unterschiedliche Sensortypen miteinander verglichen und der für den Prototyp ausgewählte Sensor in verschiedenen Tests untersucht.	
+% 	\item \autoref{ch_fumo} beschreibt das erste Funktionsmodell für die Entwicklung des Robotergelenks. Dabei werden die einzelnen Entwurfsschritte, sowie die Inbetriebnahme beschrieben. Für jeden Entwicklungsschritt werden die Ergebnisse, welches sich durch das Testen des Funktionsmodells ergeben, vorgestellt. Basierend auf den Erkenntnissen wird das Modell iterativ angepasst und erneut getestet.
+% 	\item In \autoref{ch_machbarkeitsanalyse} werden die Erkenntnisse aus den Funktionstests des Funktionsmodells mit der festgelegten Konzeptvariante aus \autoref{ch:konzept} kombiniert. Für das im Modell getestete Antriebskonzept, wird die Implementierung in die ausgewählte Konzeptvariante vorgestellt. Außerdem wird mit einer Berechnung überprüft, ob die definierten Anforderungen für den Multigelenk-Roboter mit dem ausgewählten Mechanismus umsetzbar sind.	
+

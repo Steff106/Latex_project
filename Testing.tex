@@ -1,0 +1,249 @@
+\chapter{Testing}
+\label{ch_testing}
+Dieses Kapitel befasst sich mit der Testphase der Maschinenschutzfunktionen und behandelt damit die rechte Hälfte des V-Modells (siehe \autoref{png_V_Modell}). Zunächst werden die einzelnen Funktionen mithilfe der Simulink-Test-Toolbox in der Simulationsumgebung überprüft. Dabei werden die im Lastenheft definierten Anforderungen in Matlab integriert und durch Verknüpfungen mit den jeweiligen Testabläufen verifiziert. Im Anschluss daran erfolgt eine Überprüfung der Funktionen auf der realen Maschine im Rahmen sogenannter Systemtests. Abschließend wird eine Analyse des Speicherbedarfs und der Laufzeit durchgeführt, um die aktuelle Firmware mit der neu entwickelten Firmware, einschließlich der Integration des Playgrounds, zu vergleichen. Mit einer Zusammenfassung wird das Kapitel und damit der zentrale Teil dieser Arbeit abgeschlossen.
+
+\section{Modultests (MIL)}
+Dieser Abschnitt dokumentiert die Modultests der einzelnen Funktionen innerhalb der Simulationsumgebung, durchgeführt mit der Simulink-Test-Toolbox (\autoref{sec_simulink_test}). In der Softwareabteilung bei STIHL werden für jede manuell programmierte C-Funktion sogenannte Unit-Tests durchgeführt. Dabei werden verschiedene, voneinander unabhängige Eingangswerte in die Funktion eingespeist und die Ausgänge mit den erwarteten Ergebnissen verglichen. Diese Vorgehensweise ist jedoch nicht direkt auf die Tests in Matlab übertragbar, da dort zusammenhängende Signale als Eingänge in die Funktion eingespeist werden sollen, anstatt einzelner, unabhängiger Werte.\\
+Die STIHL-Testing-Gruppe hingegen führt Tests auf Ebene des Gesamtgeräts durch. Dabei werden nicht die Eingänge einzelner Funktionen beeinflusst, sondern nur die tatsächlichen Eingangssignale der Maschine. Um die erforderlichen Tests in Matlab durchzuführen, ist es daher notwendig, die Testsignale manuell zu definieren. 
+\subsection{Test-Manager}
+Alle Tests werden zentral im Test-Manager organisiert und ausgeführt. In \autoref{png_test_manager} ist die hierarchische Struktur dargestellt, die alle definierten Tests für die modellierten Funktionen umfasst.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{./Bilder/Test_Manager_Übersicht.png}
+	\caption{Struktur und Übersicht der im Test-Manager definierten Tests}
+	\label{png_test_manager}
+\end{figure}
+Für jede Funktion wurden mehrere Tests entwickelt, um eine präzise Überprüfung der einzelnen Teilfunktionen innerhalb der Hauptfunktion sicherzustellen. Der Großteil dieser Tests besteht aus Simulationstests, bei denen sowohl die Eingangssignale als auch die zu erfüllenden Ausgangsbedingungen spezifiziert werden. Die \textit{MIL\_vs\_SIL}-Tests sind, wie in \autoref{sec_simulink_test} erläutert, Äquivalenztests. Zur Validierung des Temperaturmodells mit realen Messdaten wird ein Baselinetest eingesetzt.
+\subsection{Testumgebung}
+In diesem Abschnitt wird exemplarisch das Test-Harness für die Temperatur-Derating-Funktion im Bezug auf die Motortemperatur dargestellt und erläutert (siehe \autoref{png_test_harness_tdr}).
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Test_Harness_Tdr.pdf}
+	\caption{Test-Harness für die Temperatur-Derating-Funktion bezogen auf die Motortemperatur}
+	\label{png_test_harness_tdr}
+\end{figure}
+
+Als Eingabe wurde mithilfe des Signal Editors ein Signal erstellt und in einer .mat-Datei gespeichert. Während der Testausführung werden die Eingangssignale aus der .mat-Datei abgerufen und den Inports zugeführt. Zur Überprüfung der Ausgangswerte kommt ein \textit{Test-Assessment Block} zum Einsatz, der in \autoref{png_test_assessment_tdr} veranschaulicht ist.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Test_Assessment_Tdr.png}
+	\caption{Test-Assessment Block für die Temperatur-Derating-Funktion}
+	\label{png_test_assessment_tdr}
+\end{figure}
+Die Programmierung des Blocks folgt dem Prinzip einer Schrittkette, die aus verschiedenen Schritten und Transitionen zum Wechsel zwischen diesen besteht. Im Schritt \textit{Init} werden zunächst Temperaturwerte basierend auf den prozentualen Parametern für das Ein- und Ausschalten der Derating-LED berechnet. Anschließend wird der Schritt \textit{Derating\_Aus} aktiviert. Während dieser aktiv ist, werden die Ausgänge kontinuierlich mithilfe von \textit{verify}-Anweisungen überprüft. Dabei muss sichergestellt werden, dass die LED dauerhaft ausgeschaltet bleibt und der maximale Stromwert dem Parameter \textit{BASIS\_CURRENT} entspricht. Für die Verifizierung von Gleitkommazahlen in \textit{verify}-Anweisungen empfiehlt es sich, eine Toleranz festzulegen, um mögliche Genauigkeitseinschränkungen auszugleichen \cite{Verify_Statement}. \\
+Sobald die Motortemperatur den unteren Schwellenwert der Kennlinie überschreitet und die Temperatur validiert wurde, wird der Schritt \textit{Derating\_An} aktiviert. Innerhalb dieses Schrittes erfolgt eine Prüfung der Kennlinie anhand ihres Startwerts und des mittleren Punktes. Darüber hinaus wird der Status der LED anhand der im \textit{Init}-Schritt berechneten Werte überprüft. Dabei ist es essenziell, dass für jedes Ausgangssignal zu jedem Zeitpunkt ein \textit{verify}-Statement ausgeführt wird, um die Ausgangswerte dauerhaft korrekt sicherzustellen.\\
+Sinkt die Motortemperatur unter den unteren Schwellenwert der Kennlinie, wechselt der Ablauf in den Schritt \textit{Derating\_Aus} zurück. Überschreitet die Motortemperatur hingegen den oberen Schwellenwert der Kennlinie, wird der Schritt \textit{Derating\_An\_Max} aktiviert. In diesem Schritt muss die LED kontinuierlich aktiv bleiben und der maximale Stromwert muss dem entsprechenden Endwert der Kennlinie \textit{Ckl\_stmMaxTmpMot\_Tdr} entsprechen.\\
+Sobald die Temperatur den oberen Grenzwert der Kennlinie unterschreitet, wird der Schritt \textit{Derating\_An} erneut aktiviert. Mit diesen vier definierten Schritten werden sämtliche Temperaturbereiche der Derating-Funktion abgedeckt, und die entsprechenden Ausgänge werden verifiziert. \\
+Die Implementierung des Test-Assessment Blocks müsste aufgrund des Vier-Augen-Prinzips von einer weiteren Person durchgeführt werden, was im Rahmen dieser Arbeit nicht berücksichtigt wurde.
+%In diesem Abschnitt ist beispielhaft das Test-Harness für die Temperatur-Abschaltung aufgrund der Motortemperatur abgebildet und erklärt (siehe \autoref{png_test_harness_tas}). 
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=1\textwidth]{./Bilder/Test_Harness_Tas.pdf}
+%	\caption{Test-Harness für die Temperatur-Abschaltung aufgrund der Motortemperatur}
+%	\label{png_test_harness_tas}
+%\end{figure}
+%Als Eingang ist aus einem Signal Editor ein Signal erstellt und in einem .mat-File abgespeichert. Beim Ablauf des Tests werden die Eingangssignale aus dem .mat File Abgerufen und in die Inports eingespeist. Für die Verifizierung der Ausgänge wird ein \textit{Test Assessment Block} verwendet. Dieser ist in \autoref{png_test_assessment_tas} abgebildet.
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=1\textwidth]{./Bilder/Test_Assessment_Tas.png}
+%	\caption{Test Assessment Block für die Temperatur-Abschaltung}
+%	\label{png_test_assessment_tas}
+%\end{figure}
+%Die Programmierung des Blockes ähnelt einer Schrittkette mit unterschiedlichen Schritten und Transitionen für das Umschalten der Schritte. Aus dem \textit{Init}-Schritt wird direkt in den Schritt \textit{Abschaltung\_aus} gesprungen. Solange dieser Schritt aktiv ist wird über das \textit{verify}-Statement die Ausgänge zu jedem Zeitpunkt auf den Wert \textit{false} abgefragt. Sobald die Motortemperatur den Grenzwert für die Abschaltung überschreitet und die Temperatur validiert ist wird der Schritt \textit{Abschaltung\_ein} aktiv. In diesem Schritt muss das Flag für das Abschalten der Maschine aufgrund der Motortemperatur zu jedem Zeitpunkt gesetzt sein. Sinkt die Motortemperatur unter den definierten Grenzwert und ist die Temperatur validiert wird die Abschaltung definiert und der Schritt \textit{Abschaltung\_aus} wird erneut aktiv. \\
+
+
+\subsection{Integration der Anforderungen}
+\label{subsec_integration_req}
+Die Requirements-Toolbox bietet in Matlab die Möglichkeit, Anforderungen für sowohl einfache als auch komplexe Systeme zu erfassen und zu verwalten. Anforderungen können dabei entweder aus externen Anforderungsmanagement-Tools importiert oder direkt innerhalb von Matlab definiert werden. Für die Verwaltung steht der Requirements-Editor in Simulink zur Verfügung, der die Definition, Strukturierung und Zuordnung der Anforderungen zu spezifischen Funktionen und Tests ermöglicht. Nach der erfolgreichen Zuordnung unterstützt das Tool die Nachverfolgung der Implementierung und Verifikation der Anforderungen, um eine vollständige Testabdeckung zu gewährleisten \cite{Requirements_Toolbox}.\\
+Im Rahmen dieser Arbeit wurden die Anforderungen für die Maschinenschutzfunktionen im Requirements-Editor manuell eingepflegt und mit den entsprechenden Funktionen des Gesamtmodells verknüpft. Zudem wurde jede Anforderung einem spezifischen Test im Test-Manager (\autoref{png_test_manager}) zugewiesen. Eine Gesamtübersicht aller definierten Anforderungen im Requirements-Editor ist in \autoref{png_req_editor} dargestellt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Requirements_Editor_Übersicht.png}
+	\caption{Übersicht über die definierten Anforderungen im Requirements-Editor}
+	\label{png_req_editor}
+\end{figure}
+Die Struktur der Anforderungen ist an die jeweiligen Maschinenschutzfunktionen angepasst. Auf der rechten Seite ist die Anforderung für die Derating-Funktion basierend auf der Elektroniktemperatur dargestellt, welche dem Lastenheft entnommen wurde. Im unteren rechten Bereich sind die Verknüpfungen zur Implementierung und Verifizierung aufgeführt. Der blaue Balken in der Spalte „Implemented“ signalisiert, dass die betreffende Anforderung erfolgreich implementiert wurde. Der angrenzende gelbe Balken zeigt an, dass alle Anforderungen einem Test zugeordnet, jedoch noch nicht abschließend überprüft wurden. Nach erfolgreichem Testabschluss wechselt der Balken seine Farbe zu grün, während ein fehlgeschlagener Test den Balken rot färbt. Nach der Verknüpfung der Anforderungen mit den Testfällen können die dazugehörigen Tests sowohl direkt aus dem Test-Manager als auch aus dem Requirements-Editor gestartet werden.
+ 
+\subsection{Testergebnisse}
+In diesem Abschnitt werden exemplarisch drei Testergebnisse unterschiedlicher Testarten für drei der modellierten Maschinenschutzfunktionen präsentiert.
+
+\subsubsection{Simulationstest - Temperatur-Derating}
+Das erste Testergebnis bezieht sich auf das oben vorgestellte Test-Harness der Temperatur-Derating-Funktion bezogen auf die Motortemperatur und gehört zu der Gruppe der Simulationstests. Nach dem Starten des Tests im Test-Manager wird das Testergebnis mit \textit{Test passed} oder mit \textit{Test failed} gekennzeichnet. In \autoref{png_testergebnis_tdr_übersicht} und \autoref{png_testergebnis_tdr_signalverlauf} sind das Testergebnis und die dazugehörigen Ein- und Ausgangssignale dargestellt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./Bilder/Testresultat_Übersicht_Tdr.png}
+	\caption{Testergebnis für die Temperatur-Derating-Funktion: Übersicht}
+	\label{png_testergebnis_tdr_übersicht}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Testergebnis_Tdr_tmpMot.pdf}
+	\caption{Testergebnis für die Temperatur-Derating-Funktion: Signalverlauf}
+	\label{png_testergebnis_tdr_signalverlauf}
+\end{figure}
+Die Derating-Funktion ist nur solange aktiv, wie die Temperatur verifiziert ist. Als Eingangssignal für die Motortemperatur wird ein Rampenverlauf verwendet, um sämtliche potenzielle Szenarien der Derating-Funktion abzudecken. Die Ausgangssignale entsprechen zu jedem Zeitpunkt den erwarteten und gewünschten Werten, weshalb die Temperatur-Derating-Funktion den Test erfolgreich besteht.
+%In diesem Abschnitt sind beispielhaft drei Testergebnisse aufgelistet. Das erste Testergebnis bezieht sich auf das oben vorgestellte Test-Harness der Temperatur-Abschaltung aufgrund der Motortemperatur und gehört zu der Gruppe der Simulationstests. Nach dem Starten des Tests im Test Manager wird das Testergebnis mit \textit{Test passed} oder mit \textit{Test failed} gekennzeichnet. In \autoref{png_testergebnis_tas_übersicht} ist das Testergebnis und die dazugehörigen Signale dargestellt.
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=0.8\textwidth]{./Bilder/Testresultat_Übersicht_Tas.png}
+%	\includegraphics[width=1\textwidth]{./Bilder/Testergebnis_Tas_tmpMot.pdf}
+%	\caption{Test Ergebnis für die Temperatur-Abschaltung aufgrund der Motortemperatur}
+%	\label{png_testergebnis_tas_übersicht}
+%\end{figure}
+%Die Ausgangssignale entsprechen zu jeder Zeit dem erwarteten und gewünschten Wert, weshalb die Temperatur-Abschaltungs-Funktion den Test besteht. 
+\subsubsection{Baselinetest - Temperaturmodell}
+Das zweite Testergebnis bezieht sich auf das Temperaturmodell und wird durch einen Baselinetest durchgeführt. Hierfür wurden an einer akkubetriebenen Motorsäge im Betrieb unter hoher Last die Ein- und Ausgangssignale des Temperaturmodells erfasst. Die realen Eingangssignale werden in die Testumgebung eingespeist und das Ausgangssignal wird mit dem realen Temperaturverlauf verglichen. Zur Auswertung innerhalb der Testumgebung ist kein Test-Assessment Block erforderlich. Für den Signalabgleich kann entweder eine absolute oder eine relative Toleranz festgelegt werden. In diesem Test wurde eine maximale relative Toleranz von \unit[0.3]{\%} definiert. Liegt die Abweichung innerhalb dieser Toleranz, gilt der Test als bestanden. Das Testergebnis ist in \autoref{png_testergebnis_tmo_übersicht} und \autoref{png_testergebnis_tmo_signalverlauf} veranschaulicht.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./Bilder/Testresultat_Übersicht_Tmo.png}
+	\caption{Testergebnis für das Temperaturmodell: Übersicht}
+	\label{png_testergebnis_tmo_übersicht}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Testergebnis_Tmo.pdf}
+	\caption{Testergebnis für das Temperaturmodell: Signalverlauf}
+	\label{png_testergebnis_tmo_signalverlauf}
+\end{figure}
+Der Unterschied zwischen den Temperaturverläufen der Messung und der Simulation ist im oberen Diagramm nicht ersichtlich. Daher ist die Differenz der beiden Temperaturen im unteren Diagramm dargestellt. Die Differenz zwischen der gemessenen und der simulierten Motortemperatur bleibt innerhalb der festgelegten relativen Toleranz von \unit[0.3]{\%}. Die maximale absolute Abweichung beträgt \unit[0.152]{$^\circ$C}. Damit besteht das Temperaturmodell den definierten Test.
+
+\subsubsection{Äquivalenztest - Temperatur-Abschaltung}
+Das dritte Testergebnis betrifft den Vergleich zwischen einer MIL- und einer SIL-Simulation, welcher durch einen Äquivalenztest durchgeführt wird. Es werden zwei Simulationen durchgeführt, eine im MIL-Modus und eine im SIL-Modus. Beide Simulationen verwenden identische Eingangssignale. Nach Abschluss der beiden Simulationen erfolgt, analog zu einem Baselinetest, der Vergleich der Ausgangssignale. Es kann eine Toleranz für die Abweichung zwischen den beiden Simulationen in Form eines absoluten oder relativen Wertes angegeben werden. Das Testergebnis, welches in \autoref{png_testergebnis_tas_übersicht} und \autoref{png_testergebnis_tas_signalverlauf} dargestellt ist, bezieht sich auf die Temperaturabschaltung aufgrund der Motortemperatur und wird mit einer absoluten Toleranz von null durchgeführt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./Bilder/Testresultat_Übersicht_Tas_MIL_SIL.png}
+	\caption{Testergebnis für den Vergleich von MIL vs SIL bezogen auf die Temperatur-Abschaltungs-Funktion: Übersicht}
+	\label{png_testergebnis_tas_übersicht}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Testergebnis_Tas_MIL_SIL.pdf}
+	\caption{Testergebnis für den Vergleich von MIL vs SIL bezogen auf die Temperatur-Abschaltungs-Funktion: Signalverlauf}
+	\label{png_testergebnis_tas_signalverlauf}
+\end{figure}
+Die Abschaltungs-Funktion ist nur aktiv, wenn die Temperatur verifiziert wurde. Überschreitet die Motortemperatur den festgelegten Grenzwert für die Abschaltung, wird das entsprechende Flag gesetzt. Sobald die Temperatur unter den Grenzwert fällt, wird das Flag zurückgesetzt. Der Verlauf des Ausgangssignals für die Abschaltung ist sowohl in der MIL-Simulation als auch in der SIL-Simulation identisch. Durch diese Übereinstimmung wird der Äquivalenztest erfolgreich bestanden, wodurch nachgewiesen wird, dass der aus Matlab generierte C-Code keine zeitliche Verschiebung des Abschaltflags verursacht.
+
+\subsubsection{Verifizierung der Anforderungen}
+Abschließend werden im Rahmen der Modultests innerhalb der Simulationsumgebung die in \autoref{subsec_integration_req} integrierten Anforderungen durch die Anwendung der definierten Tests verifiziert. Das entsprechende Ergebnis wird im Requirements-Editor dargestellt, wie in \autoref{png_verify_req} gezeigt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Testergebnisse_Requirements_Editor.png}
+	\caption{Überblick über die verifizierten Anforderungen}
+	\label{png_verify_req}
+\end{figure}
+Alle Tests werden erfolgreich abgeschlossen, was dazu führt, dass der Balken für die Verifizierung jeder Anforderung die Farbe grün annimmt.
+
+\section{Systemtests (reale Hardware)}
+In diesem Abschnitt werden die implementierten Funktionen sowie sämtliche Änderungen im C-Code an einem realen Gerät getestet. Die Tests erfolgen an einer akkubetriebenen Motorsäge (Modell MSA 220T). Zunächst werden die Ergebnisse der Funktionstests präsentiert. Anschließend erfolgt eine Analyse des Speicherplatzbedarfs und der Laufzeit in Abhängigkeit von den vorgenommenen Änderungen, sowohl bei aktiviertem als auch bei deaktiviertem Playground.
+
+\subsection{Funktionalität}
+Für die nachfolgenden Messungen an einem realen Gerät wird der Playground über die entsprechende Option in der Header-Datei der Maschine aktiviert. Dadurch wird der Autocode beim Erstellen der Firmware in den Build-Prozess einbezogen.
+\subsubsection{Reduzierfunktion}
+\label{subsubsec_systemtest_red}
+In \autoref{png_real_messung_tmpMot_Red} ist das Messergebnis für die Untersuchung der Reduzierfunktion aufgrund der Überschreitung der Motortemperatur abgebildet.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Messung_real_tmpMot_Red.pdf}
+	\caption{Messergebnis der aktivierten Reduzierfunktion aufgrund der Motortemperatur}
+	\label{png_real_messung_tmpMot_Red}
+\end{figure}
+Das erste Diagramm stellt den Verlauf des Poti-Werts des Gashebels sowie die daraus resultierende Drehzahlvorgabe dar. Ab einem Poti-Wert von \unit[50]{\%} wird die maximale Drehzahl gemäß der Drehzahlkennlinie vorgegeben. Das Signal \textit{n Setpoint} repräsentiert die tatsächliche Vorgabe, die an den Drehzahlregler übergeben wird. Die Drehzahlvorgabe aus dem Playground entspricht dabei zu jedem Zeitpunkt der tatsächlichen Vorgabe. \\
+Das zweite Diagramm zeigt die Motortemperatur sowie die Grenzwerte der Reduzierfunktion. Für die Messung wurden die Grenzwerte auf leicht erreichbare Werte gesetzt. Die Motortemperatur wird hierbei durch das Temperaturmodell berechnet (\autoref{sec_Tmo}). \\
+Im dritten Diagramm ist der maximale Strom dargestellt. Der tatsächliche Stromgrenzwert für den Regler wird ausschließlich bei Betätigung des Gashebels aktualisiert, andernfalls bleibt der aktuelle Wert unverändert. Da alle Motorsteuerungslimits über den Playground beeinflusst werden, erfolgt die Aktualisierung des maximalen Stroms stets basierend auf dem Ausgangswert des Playgrounds.\\
+Das vierte Diagramm zeigt die Begrenzung der maximalen Leistung. Wie auch beim Stromgrenzwert wird die Leistungsgrenze nur bei Betätigung des Gashebels aktualisiert.\\
+Im fünften Diagramm ist das Flag für die aktive Reduzierung abgebildet. Überschreitet die Motortemperatur den oberen Grenzwert, wird das Flag aktiviert. Dies führt zur Reduzierung der Drehzahlvorgabe, des maximalen Stroms sowie der maximalen Leistung. Dabei wird der Strom auf einen festen Wert begrenzt, während Leistung und Drehzahl proportional zu den maximalen Werten der aktuellen Stufe reduziert werden. Sinkt die Motortemperatur unter den unteren Grenzwert, wird das Reduzierungs-Flag deaktiviert. Infolgedessen werden die Begrenzungen von Drehzahl, Strom und Leistung aufgehoben.
+
+Durch den Systemtest der Reduzierfunktion wurde ein Fehler in der Modellierung identifiziert. In der ursprünglichen Implementierung der Motorsteuerungslimits-Funktion wurde der reduzierte Wert für die Drehzahlvorgabe nicht korrekt verarbeitet. Das Vorzeichen der Drehzahl ist von der Drehrichtung des Motors abhängig und somit von der Parametrierung der Maschine. Für die in der Messung verwendete Maschine ist das Vorzeichen der Drehzahlvorgabe negativ. Die Reduzierfunktion hingegen gab ausschließlich positive Werte für die Drehzahlbegrenzung aus. \\
+Innerhalb der Motorsteuerungslimits führte dies zu einer Fehlfunktion beim Vergleich der aktuellen Drehzahlvorgabe mit dem Limit aus der Reduzierfunktion, da dieser Vergleich über einen \textit{Min}-Block realisiert wurde. Der negative Wert des aktuellen Grenzwertes war aufgrund seines Vorzeichens stets kleiner als der Wert der Reduzierfunktion. Infolgedessen wurde der neue Grenzwert nie korrekt an die Basissoftware übergeben, und die Reduzierfunktion hatte keinen Einfluss auf die Drehzahlbegrenzung. \\
+Das Problem wurde durch eine Anpassung der Modellierung behoben. Diese beinhaltete die Einführung eines zusätzlichen Flags aus der Basissoftware, das die korrekte Verarbeitung des Vorzeichens sicherstellt. Diese Modifikation ist bereits in \autoref{png_matlab_lim} dargestellt. \\
+Dieses Beispiel verdeutlicht stets, warum Systemtests auf Gesamtmaschinenebene ein essenzieller Bestandteil des Entwicklungsprozesses sind.
+
+\subsubsection{Temperatur-Derating \& Temperatur-Abschaltung}
+In \autoref{png_real_messung_tmpMot_TdrTas} ist das Messergebnis zur Untersuchung der Temperatur-Derating-Funktion und der Temperatur-Abschaltungs-Funktion dargestellt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Messung_real_tmpMot_TdrTas.pdf}
+	\caption{Messergebnis zur Temperatur-Derating- und Temperatur-Abschaltungs-Funktion basierend auf der Motortemperatur}
+	\label{png_real_messung_tmpMot_TdrTas}
+\end{figure}
+Im oberen Diagramm sind die Drehzahlvorgabe sowie der Poti-Wert des Gashebels dargestellt. Im zweiten Diagramm sind die Motortemperatur (blau) sowie die Grenzwerte für die Derating-Funktion (orange und rot) und die Abschaltungs-Funktion (lila und grün) aufgeführt. Es ist zu beachten, dass das orangefarbene und das grüne Signal identisch sind. \\
+Das dritte Diagramm veranschaulicht die maximale Strombegrenzung. Wie zuvor beschrieben, wird der tatsächliche Wert der Strombegrenzung nur bei Betätigung des Gashebels auf den Ausgangswert des Playgrounds aktualisiert. Überschreitet die Motortemperatur den unteren Grenzwert der Derating-Kennlinie, wird der maximale Strom gemäß der Kennlinie temperaturabhängig reduziert. Bei Erreichen des oberen Grenzwerts der Kennlinie bleibt die Strombegrenzung auf ihrem minimalen Wert, bis die Motortemperatur wieder unter den oberen Grenzwert fällt. Sobald die Temperatur den unteren Grenzwert unterschreitet, wird die Reduzierung vollständig aufgehoben.\\
+Im unteren Diagramm ist das Flag für die Abschaltung der Maschine aufgrund der Motortemperatur dargestellt. Überschreitet die Motortemperatur den Grenzwert für die Abschaltung der Maschine (in diesem Beispiel \unit[45]{$^\circ$C}), wird das Flag aktiviert. Die Maschine bleibt so lange abgeschaltet, bis die Temperatur den unteren Grenzwert (\unit[40]{$^\circ$C}) unterschreitet. Der Abschaltvorgang ist im ersten Diagramm klar erkennbar. Der Gashebel wird betätigt und der Poti-Wert erhöht sich, jedoch bleibt die Drehzahlvorgabe weiterhin bei null.
+
+
+\subsubsection{Blockierfunktion}
+Die Messergebnisse zur Blockierfunktion sind in \autoref{png_real_messung_Blk} veranschaulicht.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Messung_real_Blk.pdf}
+	\caption{Messergebnis der Blockierfunktion}
+	\label{png_real_messung_Blk}
+\end{figure}
+Im oberen Diagramm sind die Drehzahlvorgabe, die aktuelle Ist-Drehzahl und der Poti-Wert des Gashebels dargestellt. Bei einer Blockierung erreicht die Drehzahlvorgabe zwar den durch den Poti eingestellten Sollwert, die Ist-Drehzahl verbleibt jedoch bei null. Da die in dieser Arbeit verwendete Software nicht optimal auf die spezifische Maschine abgestimmt ist, sind die Regelparameter suboptimal. Folglich arbeitet der Drehzahlregler ineffizient und die Ist-Drehzahl erreicht nie die Soll-Drehzahl. Für die Systemtests der Maschinenschutzfunktionen ist dies jedoch nicht erforderlich.\\
+Das zweite Diagramm zeigt die Strombegrenzung. Hierbei stimmt das rote Signal zu jedem Zeitpunkt mit dem gelben Signal überein. \\
+Im unteren Schaubild werden das Signal für die Sektorerkennung und das Flag für die aktive Reduzierung visualisiert. Wenn die Maschine versucht anzulaufen und innerhalb von \unit[100]{ms} kein neuer Sektor erkannt wird, erhöht sich der Blockierzähler um eins. Sobald der obere Grenzwert (\textit{Cps\_NumStmRedEin\_Blk}) erreicht ist, wird der Anlaufstrom auf den definierten Parameter (\textit{Cps\_StmMax\_Blk}) reduziert. Für das Dekrementieren des Blockierzählers gelten zwei unterschiedliche Zeitkonstanten. Bei einer stehenden Maschine (hier zwischen Sekunde 25 und 38) erfolgt das Dekrementieren alle vier Sekunden, während es bei laufender Maschine (hier zwischen Sekunde 65 und 75) alle drei Sekunden geschieht. Wenn der Blockierzähler den unteren Grenzwert (\textit{Cps\_NumStmRedAus\_Blk}) erreicht, wird die Stromreduzierung aufgehoben.\\
+Ab Sekunde 76 überschreitet die Elektroniktemperatur den in der Reduzierfunktion definierten Grenzwert, wodurch die Drehzahlvorgabe und der maximale Strom zusätzlich begrenzt werden. Für ein automatisches Abschalten der Maschine muss die Blockierung länger als \unit[1]{s} anhalten. Dies tritt dreimal nach Sekunde 76 auf. Die Drehzahlvorgabe bleibt für eine Sekunde auf ihrem Sollwert, die Ist-Drehzahl bleibt jedoch bei null, weshalb kein neuer Sektor erkannt wird. Infolgedessen wird der Blockierzähler inkrementiert und die Maschine schaltet nach einer Sekunde ab. Dabei fällt die Drehzahlvorgabe auf null, obwohl der Poti-Wert unverändert bleibt. Nach dem Loslassen des Gashebels kann die Maschine erneut gestartet werden.
+
+\subsection{Speicherplatzanalyse}
+Beim Erstellen der Firmware wird der gesamte C-Code kompiliert, wobei die \#if-Direktiven entsprechend ausgewertet werden. Als Ergebnis des Kompilierungsprozesses wird eine \textit{.hex-Datei} generiert, die das Steuerprogramm für den Controller enthält. Zusätzlich entsteht eine \textit{.map-Datei}, welche die Speicherbelegung der einzelnen C-Funktionen und C-Dateien detailliert auflistet. Diese Datei ermöglicht eine Analyse und einen Vergleich des Speicherbedarfs mit und ohne aktivierten Playground. \\
+Da innerhalb der Basissoftware nicht jede Maschinenfunktion in einer separaten Datei implementiert ist, wäre ein funktionsspezifischer Vergleich nur mit erheblichem Aufwand durch wiederholtes Aus- und Einkommentieren der jeweiligen C-Codesegmente sowie anschließendes erneutes Kompilieren der Firmware möglich. Für die Funktionen Temperatur-Derating und Temperaturmodell ist jedoch ein direkter Vergleich machbar, da diese vollständig über Optionen im Header-File der Maschine deaktiviert werden können. \\
+Der in der verwendeten Maschine eingesetzte Controller ist ein STM32G4 mit \unit[256]{kByte} Flashspeicher (ROM) und \unit[112]{kByte} Arbeitsspeicher (RAM).
+
+\subsubsection{R0M}
+Das Ergebnis der Analyse des Speicherbedarfs im ROM ist in \autoref{png_speicher_rom} visualisiert.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Speicherplatz_ROM_Vergleich.pdf}
+	\caption{Vergleich des Speicherbedarfs bezogen auf den ROM}
+	\label{png_speicher_rom}
+\end{figure}
+Der Balken auf der linken Seite repräsentiert die aktuelle Firmware ohne aktivierten Playground. In diesem Fall sind alle Funktionen in der Basissoftware enthalten, wobei die Firmware einen ROM-Speicherbedarf von \unit[201.010]{Byte} aufweist. Dies entspricht einer Auslastung von \unit[76,68]{\%} des verfügbaren ROM-Speichers.\\
+Mit aktiviertem Playground steigt der Speicherbedarf auf \unit[201.970]{Byte}, was eine Auslastung von \unit[77,05]{\%} des Gesamtspeichers bedeutet. Der zusätzliche Speicherbedarf setzt sich aus der Basissoftware, der Schnittstelle zur Aufbereitung der Ein- und Ausgangssignale des Playgrounds, den wiederverwendbaren Funktionen im Playground C-Code und den eigentlichen Maschinenschutzfunktionen zusammen. Zu den wiederverwendbaren Funktionen gehören unter anderem die Interpolation einer Kennlinie sowie die Berechnung der Min- und Max-Blöcke zur Motorsteuerungslimitberechnung. Diese Funktionen werden im Autocode einmal definiert und können mehrfach aufgerufen werden. Derzeit wird die Kennlinienfunktion ausschließlich von der Temperatur-Derating-Funktion genutzt. Zukünftig, wenn weitere Funktionen mit Kennlinien in den Playground integriert werden, fällt für die Nutzung der Kennlinie kein zusätzlicher Speicherbedarf mehr an. Der Speicherbedarf für die Schnittstelle und die wiederverwendbaren Funktionen relativiert sich zunehmend, je mehr Funktionen aus der Basissoftware in den Playground verlagert werden.\\
+Der dritte Balken auf der rechten Seite zeigt den Speicherbedarf für den aktivierten Playground unter Berücksichtigung ausschließlich der Maschinenschutzfunktionen. In dieser Betrachtung beträgt der Speicherbedarf \unit[201.290]{Byte}, was eine Erhöhung von \unit[280]{Byte} im Vergleich zur Firmware ohne Playground bedeutet. \\
+Zusammengefasst zeigt sich, dass der Speicherbedarf für die reine Funktionalität der Maschinenschutzfunktionen mit aktiviertem Playground um \unit[280]{Byte} und damit um \unit[0,107]{\%} des Gesamtspeichers von \unit[256]{kByte} steigt. 
+
+Der direkte Vergleich des Speicherplatzbedarfs der Derating-Funktion ohne LED-Indikation und des Temperaturmodells ist in \autoref{png_speicher_tdr_tmo} veranschaulicht.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Speicherplatz_ROM_Vergleich_Funktionen.pdf}
+	\caption{Vergleich des Speicherbedarfs der Derating-Funktion und des Temperaturmodells}
+	\label{png_speicher_tdr_tmo}
+\end{figure}
+Der linke Balken veranschaulicht den Speicherbedarf bei deaktiviertem Playground. Der mittlere Balken zeigt den Speicherbedarf bei aktiviertem Playground. Zusätzlich zu den beiden Funktionen wird eine Funktion zur Interpolation der Derating-Kennlinie (\unit[$146$]{Byte}) im Autocode erzeugt. Diese Funktion kann in Zukunft für alle Kennlinien innerhalb des Playgrounds verwendet werden, weshalb der Speicherbedarf der Kennlinie für den dritten Balken abgezogen wurde. Eine Funktion für das Interpolieren einer Kennlinie existiert auch in der Basissoftware, welche jedoch nicht nur von der Derating-Funktion verwendet wird. Deshalb ist sie im linken Balken nicht separat aufgeführt. Durch das herausrechnen der Kennlinie wird eine Vergleichsmöglichkeit für die Speicherbelegung der Derating-Funktion und des Temperaturmodells sowohl bei aktiviertem als auch bei deaktiviertem Playground ermöglicht.\\
+Bei aktiviertem Playground benötigt das Temperaturmodell \unit[$344$]{Byte}, was \unit[$80$]{Byte} weniger ist als mit deaktiviertem Playground. Die Derating-Funktion benötigt mit Playground \unit[$186$]{Byte}, was einen Anstieg von \unit[$50$]{Byte} im Vergleich zur Basissoftware bedeutet. Werden beide Funktionen zusammen betrachtet, ergibt sich bei aktiviertem Playground für die Funktionen ohne Kennlinie ein um \unit[$30$]{Byte} geringerer Speicherbedarf.\\
+Dieses Ergebnis deutet darauf hin, dass der zusätzliche Speicherbedarf bei aktiviertem Playground (ohne die Schnittstellenbetrachtung) von der Reduzierfunktion, Blockierfunktion und der Temperatur-Abschaltung stammt. Alle diese Funktionen verwenden mindestens ein Stateflow-Chart, welches vermutlich den zusätzlichen Speicherbedarf verursacht. Diese Annahme könnte jedoch nur durch eine weitergehende Untersuchung bestätigt werden, die im Rahmen dieser Arbeit nicht durchgeführt wurde.
+
+\subsubsection{RAM}
+Das Ergebnis der Analyse des RAM-Speicherbedarfs ist in \autoref{png_speicher_ram} dargestellt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Speicherplatz_RAM_Vergleich.pdf}
+	\caption{Vergleich des Speicherbedarfs bezogen auf den RAM}
+	\label{png_speicher_ram}
+\end{figure}
+Bei deaktiviertem Playground werden \unit[$21.927$]{Byte} des RAMs belegt, während bei aktiviertem Playground \unit[$22.121$]{Byte} genutzt werden. Dies entspricht einer Auslastung von \unit[$19,83$]{\%} bzw. \unit[$20,0$]{\%} des insgesamt verfügbaren Arbeitsspeichers von \unit[$110.592$]{Byte}. Die Schnittstelle für den Playground benötigt etwa \unit[$100$]{Byte}. Der Balken auf der rechten Seite stellt den Speicherbedarf ausschließlich der Maschinenschutzfunktionen dar, ohne die Berücksichtigung der Schnittstelle. In dieser Betrachtung ergibt sich ein Speicherbedarf von \unit[$22.021$]{Byte}, was eine Erhöhung von \unit[$94$]{Byte} im Vergleich zum deaktivierten Playground bedeutet. Dies entspricht einer Zunahme von \unit[$0,08$]{\%} des gesamten freien Arbeitsspeichers.
+
+\subsection{Laufzeitanalyse}
+Bei deaktiviertem Playground werden die Funktionen in zwei unterschiedlichen Taktraten ausgeführt. Der erste Takt basiert auf einer Abtastzeit von \unit[1]{ms}, während der zweite Takt eine Abtastzeit von \unit[10]{ms} verwendet. Im Gegensatz dazu arbeitet der Playground ausschließlich mit einer Abtastzeit von \unit[1]{ms}. Die Unterscheidung der Funktionen in Bezug auf ihre Abtastrate erfolgt innerhalb des Autocodes. \\
+Zur Bestimmung der Laufzeit werden zusätzliche Tick-Zähler in den Programmcode integriert. Die benötigte Zeit für den 1ms-Takt und den 10ms-Takt wird sowohl mit aktiviertem als auch mit deaktiviertem Playground gemessen. Darüber hinaus wird bei aktiviertem Playground die Abarbeitungszeit für das Einlesen der Signale (\textit{Playground\_run\_1ms}) sowie die gesamte Abarbeitungszeit des Playgrounds (\textit{Playground\_run\_1ms} und \textit{Modelbased\_playground\_run\_1ms}) separat erfasst. Zusätzlich ist für jeden Timer eine Variable für den maximalen Wert implementiert.\\
+Es werden zwei Messungen durchgeführt, eine mit aktiviertem und eine mit deaktiviertem Playground. Beide Messungen erfolgen über einen Zeitraum von länger als \unit[70]{Sekunden} unter den Bedingungen einer laufenden Maschine und einer aktiven Strombegrenzung durch die Temperatur-Derating-Funktion. Die Laufzeiten der einzelnen Timer sowie deren maximale Werte sind in \autoref{png_laufzeit_verlauf} visualisiert.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Messung_real_Laufzeit.pdf}
+	\caption{Vergleich der Laufzeit bei aktiviertem und deaktiviertem Playground}
+	\label{png_laufzeit_verlauf}
+\end{figure}
+Die dargestellten Messungen wurden mit einer Abtastzeit von \unit[10]{ms} durchgeführt. Da der 1ms-Takt sowie die Schnittstelle mit einer Abtastzeit von \unit[1]{ms} im Steuergerät ausgeführt werden, können die maximalen Werte höher liegen, als im Verlauf ersichtlich. \\
+Im oberen Diagramm ist der 10ms-Takt dargestellt, im mittleren der 1ms-Takt, und im unteren die Laufzeit für die Schnittstelle zwischen der Basissoftware und dem Autocode. Da die Schnittstelle bei deaktiviertem Playground nicht aufgerufen wird, zeigt das untere Diagramm lediglich den Verlauf bei aktiviertem Playground. \\
+Für eine Worst-Case-Betrachtung werden die Maximalwerte der Task-Timer und der Minimalwert der Schnittstellenlaufzeit miteinander verglichen. Die Ergebnisse dieser Laufzeitanalyse sind in \autoref{png_laufzeit} veranschaulicht.
+\begin{table}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Laufzeit_Vergleich.pdf}
+	\caption{Laufzeitanalyse mit und ohne aktiviertem Playground}
+	\label{png_laufzeit}
+\end{table}
+Bei aktiviertem Playground werden alle Maschinenschutzfunktionen innerhalb des 1-ms-Takts abgearbeitet, was dazu führt, dass für den 10-ms-Takt weniger Zeit benötigt wird. Innerhalb des 1-ms-Takts steigt die Abarbeitungszeit bei aktiviertem Playground um \unit[$10,1$]{µs}. Insgesamt ergibt sich eine Abarbeitungszeit von \unit[$359,3$]{µs} bei aktiviertem Playground und \unit[$352,4$]{µs} bei deaktiviertem Playground, was eine Erhöhung der Abarbeitungszeit um \unit[$6,9$]{µs} zur Folge hat.\\
+Durch die zusätzlich implementierten Timer im Playground ist es möglich, die Zeit für das Einlesen der Signale herauszurechnen, um ausschließlich die Abarbeitungszeit der Maschinenschutzfunktionen zu betrachten. Dafür kann der minimale Wert für das Einlesen der Signale (\unit[$9,0$]{µs}) aus der Gesamtzeit (\unit[$359,3$]{µs}) abgezogen werden, wodurch sich eine um \unit[$2,1$]{µs} schnellere Abarbeitungszeit der Maschinenschutzfunktionen bei aktiviertem Playground ergibt. Je mehr Funktionen in den Playground verlagert werden, desto mehr relativiert sich die minimale zusätzliche Belastung durch die Abarbeitung der Schnittstelle.
+
+\section{Zusammenfassung}
+In diesem Kapitel wurde die rechte Hälfte des V-Modells (vgl. \autoref{png_V_Modell}) analysiert. Mithilfe der Simulink-Test und der Requirements-Toolbox konnten die modellierten Maschinenschutzfunktionen erfolgreich getestet und gegen die definierten Anforderungen verifiziert werden. Anschließend wurden die Funktionen im Rahmen von Systemtests an einer realen, akkubetriebenen Motorsäge im Gesamtsystem überprüft. Eine anschließende Speicherplatzanalyse zeigte, dass bei aktiviertem Playground ein erhöhter Speicherbedarf besteht, wobei ein Teil des zusätzlichen Bedarfs auf die Schnittstelle zwischen Basissoftware und Playground zurückzuführen ist. Die Erhöhung bezogen auf den gesamten Speicherplatz des ROMs erweist sich als gering und beträgt mit der Schnittstelle \unit[$0,37$]{\%} und ohne Schnittstelle \unit[$0,107$]{\%}. Die Laufzeitanalyse weist ein ähnliches Verhalten auf. Auch hier ist die Abarbeitungszeit bei aktiviertem Playground minimal höher, wobei der zusätzliche Aufwand vollständig der Schnittstelle zuzuschreiben ist. Mit der zunehmenden Auslagerung von Funktionen aus der Basissoftware in den Playground relativiert sich der zusätzliche Speicherbedarf sowie die verlängerte Laufzeit.

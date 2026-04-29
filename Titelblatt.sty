@@ -1,0 +1,337 @@
+
+%Dokumentart
+\newcommand{\doctype}[1]{\renewcommand{\this@doctype}{#1}}
+
+% Titel u. Subtitel
+\newcommand{\Title}[1]{\renewcommand{\this@Title}{#1}}
+\newcommand{\SubTitle}[1]{\renewcommand{\this@SubTitle}{#1}}
+
+%Name der Bilddatei der Uni bzw. Hoschule
+\newcommand{\Unilogo}[1]{\renewcommand{\this@Unilogo}{#1}}
+
+% Neme der Bilddatei Deckblatt
+\newcommand{\Bild}[1]{\renewcommand{\this@Bild}{#1}}
+
+% BEGIN_FOLD personalisierte Inhalte
+%%% ReNewCommans für personalisierte Inhalte %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Author}[1]{\renewcommand{\this@Author}{#1}}
+
+\newcommand{\Advisor}[1]{\renewcommand{\this@Advisor}{#1}}
+\newcommand{\Uni}[1]{\renewcommand{\this@Uni}{#1}}
+\newcommand{\institute}[1]{\renewcommand{\this@institute}{#1}}
+\newcommand{\Matrikelnummer}[1]{\renewcommand{\this@Matrikelnummer}{#1}}
+\newcommand{\BetreuerUnieins}[1]{\renewcommand{\this@BetreuerUnieins}{#1}}
+\newcommand{\BetreuerUnizwei}[1]{\renewcommand{\this@BetreuerUnizwei}{#1}}
+\newcommand{\instabbr}[1]{\renewcommand{\this@instabbr}{#1}}
+
+\newcommand{\Company}[1]{\renewcommand{\this@Company}{#1}}
+\newcommand{\BusinessUnit}[1]{\renewcommand{\this@BusinessUnit}{#1}}
+\newcommand{\Department}[1]{\renewcommand{\this@Department}{#1}}
+\newcommand{\Zeitraum}[1]{\renewcommand{\this@Zeitraum}{#1}}
+\newcommand{\BetreuerFirma}[1]{\renewcommand{\this@BetreuerFirma}{#1}}
+
+\newcommand{\Address}[1]{\renewcommand{\this@Address}{#1}}
+\newcommand{\ZIP}[1]{\renewcommand{\this@ZIP}{#1}}
+\newcommand{\City}[1]{\renewcommand{\this@City}{#1}}
+\newcommand{\Country}[1]{\renewcommand{\this@Country}{#1}}
+
+\newcommand{\Phone}[1]{\renewcommand{\this@Phone}{#1}}
+\newcommand{\PCFax}[1]{\renewcommand{\this@PCFax}{#1}}
+\newcommand{\Email}[1]{\renewcommand{\this@Email}{#1}}
+% END_FOLD
+
+% BEGIN_FOLD Restriktionen für Angaben
+%%% Restriktionen für  Angaben %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\this@required}[1]{\textcolor{red}{\textbf{The field '#1' is required}}}
+
+\newcommand{\this@doctype}{\this@required{doctype}}
+
+\let\this@Unilogo\@empty
+\let\this@Bild\@empty
+
+\newcommand{\this@Title}{\this@required{Title}}
+\let\this@SubTitle\@empty
+
+\newcommand{\this@Author}{\this@required{Author}}
+
+\newcommand{\this@Advisor}{\this@required{Advisor}}
+\newcommand{\this@Uni}{\this@required{Uni}}
+\newcommand{\this@institute}{\this@required{institute}}
+\newcommand{\this@Matrikelnummer}{\this@required{Matrikelnummer}}
+\newcommand{\this@BetreuerUnieins}{\this@required{BetreuerUnieins}}
+\newcommand{\this@BetreuerUnizwei}{\this@required{BetreuerUnizwei}}
+\let\this@instabbr\@empty
+
+\newcommand{\this@Company}{\this@required{Company}}
+\newcommand{\this@BusinessUnit}{\this@required{Business Unit}}
+\newcommand{\this@Department}{\this@required{Department}}
+\newcommand{\this@Zeitraum}{\this@required{Zeitraum}}
+\newcommand{\this@BetreuerFirma}{\this@required{BetreuerFirma}}
+
+\let\this@Address\@empty
+\let\this@ZIP\@empty
+\let\this@City\@empty
+\let\this@Country\@empty
+
+\let\this@Phone\@empty
+\let\this@PCFax\@empty
+\let\this@Email\@empty
+% END_FOLD
+
+% BEGIN_FOLD Monatsausgabe
+\newcommand{\Monat}{%
+\ifcase\month
+  0 \or Jan \or Feb \or Mär  \or Apr \or Mai \or Jun \or Jul%
+ \or Aug \or Sep \or Okt \or Nov \or Dez
+\fi}
+% END_FOLD
+
+
+% BEGIN_FOLD Titelblatt
+%%% Titelblatt %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\myTitelblatt}{
+	\IfStrEq{\this@doctype}{thesis}
+	{
+		\begin{titlepage}
+
+		    %---------------------Logo---------------------%    
+		    \thispagestyle{empty}
+		    
+		    % include the logo of your University. Replace "example-image-a" with the logo file
+		    % change the width to 
+		\begin{figure}
+	    		\centering
+		  	 \begin{minipage}[c]{0.49\textwidth}
+	    			\centering
+	    			\includegraphics[width=1\linewidth]{\this@Unilogo}
+		   	 \end{minipage}
+		   	 \hfill
+		   	 \begin{minipage}[c]{0.35\textwidth}
+		    		\centering
+			 	\includegraphics[width=1\linewidth]{\this@Bild}
+		    	\end{minipage}
+		\end{figure}
+		%\setlength{\headheight}{55pt}	
+		  
+		    %--------------------Thesis information---------------------%
+		%\begin{center}
+		    \center
+			\vspace*{0.2cm}
+			\Huge
+			\textbf{Masterarbeit}\\
+			Fakultät \this@institute \\
+			\vfill
+		%\end{center}
+			
+			%---------------------Title---------------------%      
+		      %\rule{1\textwidth}{0.4pt}
+		    %\vspace*{0.01cm}
+		        \begin{spacing}{1}
+		            {\Huge\textbf{\this@Title}}
+		        \end{spacing}
+                %\rule{1\textwidth}{0.4pt}
+		        \vfill
+			
+			%------------------- Supervisors -------%
+			\vspace*{1cm}
+			\begin{spacing}{1}
+				{\centering
+				\large
+				
+				\textbf{Betreuer:} \\
+				\this@BetreuerUnieins \ (\this@Uni) \\
+				%\phantom{\textbf{Betreuer:}} 
+				\this@BetreuerUnizwei \ (\this@Uni) \\[0.2cm]
+				%\phantom{\textbf{Betreuer:}}  
+				\this@BetreuerFirma \ (\this@Company)\\[1.5cm]
+			
+				
+			   	\textbf{\this@Author}\\
+				Mechatronik / Systems Engineering Master\\
+				\this@Matrikelnummer \\
+				3. Semester \\[0.5cm]
+	
+				Oberhausen 11\\
+				73098 Rechberghausen\\
+				+49 157 78321760\\
+				\this@Email \\ [0.5cm]
+	
+			    \textbf{Zeitraum:} \this@Zeitraum \\
+				\par}
+			
+			   	%\vfill
+			\end{spacing}
+		\end{titlepage}
+
+	}
+
+		
+	\IfStrEq{\this@doctype}{thesis_old}
+	{
+	\begin{titlepage}
+	  \thispagestyle{empty} 
+	    \setlength{\baselineskip}{8mm}
+	    \begin{figure}
+	    	\centering
+	    
+	    \begin{minipage}[t]{0.4\linewidth}
+	    	\centering
+	    	\includegraphics[width=1\linewidth]{\this@Unilogo}
+	    \end{minipage}
+	    \hfill
+	    \begin{minipage}[t]{0.3\linewidth}
+	    	\centering
+		 \includegraphics[width=\linewidth]{\this@Bild}
+	    \end{minipage}
+		\end{figure}
+
+	    %\vfill
+	    \begin{center}
+	      {\def\\{\linebreak}
+		
+\rule{1\textwidth}{0.4pt}
+%\linebreak
+%\linebreak
+
+%\hspace{2cm}
+\vspace{0cm}
+	      \Huge\textbf{\this@Title}
+%\hspace{0.5cm}
+%\linebreak
+%\linebreak
+%\\
+\rule{1\textwidth}{0.4pt}
+	      }
+	    \end{center}
+	 %   \vspace{\fill}
+	    \begin{center}
+	\Large\textbf{{Bachelorarbeit}}
+\linebreak
+%\linebreak
+		\large\textit{vorgelegt von}
+\linebreak
+	      \Large{\textbf{\this@Author}}
+\linebreak
+		\large \this@Uni 
+\linebreak
+		%\large \this@institute
+%\linebreak 
+		\large{Matrikelnummer: \this@Matrikelnummer}
+\linebreak
+\linebreak
+		\large\textit{Abschlussarbeit absolviert bei}
+\linebreak
+		\large{\this@Company}
+%\linebreak
+		%\large{\this@Address}
+%\linebreak
+		%\large{\this@ZIP~\this@City}
+\linebreak
+		\large{Abteilung \this@BusinessUnit~(\this@Department)}
+%\vspace{0.5cm}
+%\linebreak
+%		\large\textit{in der Abteilung}
+%\linebreak
+%\linebreak
+%		\large{\this@BusinessUnit}
+%\linebreak
+%		\large{\this@Department}
+\linebreak
+\linebreak
+		\large\textit{Im Zeitraum von}
+\linebreak
+		\large{\this@Zeitraum}
+\linebreak
+\linebreak
+		\large\textit{Betreut durch}
+\linebreak
+		\large{\this@BetreuerFirma~(Festo SE \& Co. KG)}
+\linebreak
+		\large{\this@BetreuerUni~(\this@Uni)}
+\linebreak
+\linebreak
+\large\textit{Abgegeben am}
+\linebreak
+\large{\today}
+
+
+	    \end{center}
+    
+\vspace{\fill}
+	
+
+%\parbox[t]{1.755cm}{Betreuer:}
+
+%\hspace{3cm}\large{\this@BetreuerFirma (Festo SE \& Co. KG)}
+%\newline
+%\hspace{3cm}\large{\this@BetreuerUni (\this@Uni)}
+%\parbox{2cm}{Zeitraum:}
+%\hspace{3cm} \large{\this@Zeitraum}
+
+
+	\end{titlepage}
+	}
+	
+	\IfStrEq{\this@doctype}{doku}
+	{
+	\begin{titlepage}
+		\thispagestyle{empty} 
+	   	 \setlength{\baselineskip}{8mm}
+		\vspace{0cm}
+	            \includegraphics[width=\textwidth]{./Bilder/HochschuleAalen_header}
+
+		\begin{center}
+			 {\def\\{\linebreak}
+
+	        		\rule{1\textwidth}{0.4pt}
+
+			\vspace{0.3cm}
+	     		 \Huge\textbf{\this@Title}
+			\vspace{0cm}
+			\rule{1\textwidth}{0.4pt}
+			}
+		\end{center}
+
+		 %\begin{center}
+		      	%\LARGE\textsf{\this@SubTitle}
+		 %\end{center}
+		    
+		\vspace{0.5cm}
+		
+
+		\begin{center}
+			\includegraphics[width=0.62\linewidth]{\this@Bild}
+		\end{center}
+		    
+		\vspace{\fill}
+		 
+		\begin{multicols}{2}
+		\large{
+		\textbf{ \this@Author
+		}
+		}
+		\columnbreak
+		\begin{flushright}
+			\large
+			\textbf{
+		    		%\this@Author
+				%\linebreak
+				%\this@Matrikelnummer
+				%\linebreak
+				\this@Uni
+				\linebreak
+				\this@institute
+				\linebreak
+				{Betreut durch: \this@BetreuerUni}
+				\linebreak
+		      		\today
+		      		}
+		
+		\end{flushright}
+		\end{multicols}
+	\end{titlepage}
+	}
+
+}
+% END_FOLD

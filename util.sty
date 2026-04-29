@@ -1,0 +1,777 @@
+% ****************************************************
+\message{Util Style vom 11. August 1998 - RN}
+% ****************************************************
+%***********************************************
+% Neue Befehle:
+%***********************************************
+%***********************************************
+% Abkuerzung fuer lange Woerter
+%***********************************************
+\def\Abb[#1]{Abbildung~\ref{#1}}
+\newcommand{\abln}{ab\-lei\-tung\-en}
+\newcommand{\Dgl}{Dgl}
+\newcommand{\CAS}{Com\-pu\-ter-Al\-ge\-bra-Sy\-stem}
+\newcommand{\EAL}{Eingangs-/Aus\-gangs\-li\-nea\-ri\-sie\-rung }
+\newcommand{\ZL}{Zu\-stands\-li\-nea\-ri\-sie\-rung }
+\newcommand{\ZR}{Zu\-stands\-r"uck\-f"uh\-rung }
+\newcommand{\ZRb}{Zu\-stands\-r"uck\-f"uh\-rung}
+\newcommand{\ZT}{Zu\-stands--Trans\-for\-ma\-ti\-on }
+\newcommand{\ZTb}{Zu\-stands--Trans\-for\-ma\-ti\-on}
+\newcommand{\Mma}{{\sc Ma\-the\-ma\-ti\-ca}}
+\newcommand{\Maple}{{\sc Maple}}
+%\newcommand{\}{{\sc dSpace}}
+\newcommand{\ACSL}{{\sc ACSL}}
+\newcommand{\lie}{{\sc Lie}}
+\newcommand{\qs}{quasi-static}
+%\newcommand{\ie}{{\em i.e.}}
+\newcommand{\ie}{{i.\,e}}
+\newcommand{\eg}{{e.\,g}}
+\newcommand{\cf}{{cf}}
+%\newcommand{\sth}{\enspace\mbox{s.th.}\enspace}
+%\newcommand{\sth}{s.th.}
+\newcommand{\Simpack}{{\sc Sim\-pack}}
+\newcommand{\viz}{viz.\ }
+\newcommand{\lpn}{Lyapunov}
+\def\m{m}
+\def\pq{q}
+%%%
+% Fuer Diss: (29.08.00)
+\newcommand{\lqq}{``} % left double qoute
+\newcommand{\rqq}{''} % right double qoute
+% \newcommand{\unit}[1]{\, \mbox{#1}}
+
+% mal gelegentlich nach richtigen TeX Commandos schauen
+%%% Neues Environment: note (aus Kopka, Seite 167)
+%%%
+%% \newenvironment{note}[1]%
+%% {\begin{list}{}{\settowidth{\labelwidth}{ #1}
+%% \setlength{\leftmargin}{\labelwidth} \addtolength{\leftmargin}{\labelsep}
+%% \parsep0.5ex plus0.2ex minus0.2ex \itemsep0.3ex
+%% \renewcommand{\makelabel}[1]{##1\hfill}}}%
+%% {\end{list}}
+%%<<ff>>******************************************
+%% Blocknummern besser immer im MainText definieren, wg. Schriftgr��e
+%%************************************************
+%% fuer den Text
+%\def\Blocklabel#1{\hphantom{x}{\small #1}
+%       \hspace*{-0.25em}\raisebox{1mm}{\circle{3}}\hspace*{-0.2em}}
+%% fuers putten im Bild
+%\def\Blocknummer(#1,#2)(#3,#4)#5{\put(#1,#2){\makebox(5,5){\small$#5$}}
+%                          \put(#3,#4){\circle{3}}}
+
+
+%***********************************************
+% Neue Umgebungen
+%***********************************************
+\@ifundefined{chapter}{
+\newtheorem{Satz}{Satz}[section]
+\newtheorem{Definition}{Definition}[section]
+\newtheorem{Algorithmus}{Algorithmus}[section]
+\newtheorem{Bemerkung}{Bemerkung}[section]
+%\newtheorem{Remark}{Remark}[section]
+}{%
+\newtheorem{Satz}{Satz}[chapter]
+\newtheorem{Definition}{Definition}[chapter]
+\newtheorem{Algorithmus}{Algorithmus}[chapter]
+\newtheorem{Bemerkung}{Bemerkung}[chapter]
+%\newtheorem{Remark}{Remark}[chapter]
+}
+%\newtheorem{Satz}{Satz}
+\newtheorem{Beispiel}[Definition]{Beispiel}
+\newtheorem{Annahme}[Definition]{Annahme} %von daniel
+\newtheorem{Theorem}[Definition]{Theorem}
+\newtheorem{Lemma}[Definition]{Lemma}
+\newtheorem{Proposition}[Definition]{Proposition}
+\newtheorem{Corollary}[Definition]{Corollary}
+\newtheorem{Remark}[Definition]{Remark}
+\newtheorem{Property}[Definition]{Property}
+\newcounter{myremark}[section]
+\setcounter{myremark}{1}
+%\def\themyremark{\thesection.\arabic{myremark}}
+%\newenvironment{Remark}{\stepcounter{myremark}} %
+%\vspace*{1ex}\noindent{\bf Remark \themyremark:} }{\hfill $\diamond$\par\vspace*{1ex}}
+%\newenvironment{Remark}{\stepcounter{myremark}%
+%\paragraph{Remark \themyremark:} }{\hspace*{\fill} $\diamond$\par\vspace*{1ex}}
+\newenvironment{proof}{\noindent{\em Beweis:\/}}{\hfill $\Box$\par}
+\newenvironment{Sketch}{\noindent{\em Sketch of the proof:\/}}{\hfill $\Box$\par}
+\renewcommand{\theenumi}{\roman{enumi}}
+\renewcommand{\labelenumi}{(\roman{enumi})}
+%***********************************************
+% Abkuerzung fuer Formelteile
+%***********************************************
+\newcommand{\diag}{\mbox{diag}\,}
+\newcommand{\From}[2]{}
+ \def\From(#1,#2){#1, \ldots, #2}
+\newcommand{\dr}[2]{}
+ \def\dr#1[#2]{\stackrel{\langle#2\rangle}{#1}}
+\newcommand{\Dr}[2]{}
+ \def\Dr#1[#2]{\stackrel{\langle\langle#2\rangle\rangle}{#1}}
+\newcommand{\inprod}[2]{}
+ \def\inprod<#1,#2>{\langle #1, #2\rangle}
+
+\newcommand{\Rset}{\mathbb{R}}
+\newcommand{\Zset}{\mathbb{Z}}
+\newcommand{\Nset}{\mathbb{N}}
+\newcommand{\Cset}{\mathbb{C}}
+%\newcommand{\Rn}{\Rset^n}
+\newcommand{\Rm}{\Rset^m}
+\newcommand{\Rx}[1]{\Rset^{#1}}
+%       Binomial coefficient
+\newcommand{\bin}[2]{\mbox{$\left(\!\!\begin{array}{c}#1 \\ #2 \end{array}
+\!\!\right)$}}
+\newcommand{\fxu}[0]{{\bf f}({\bf x}, {\bf u})}
+\newcommand{\hxu}[0]{{\bf h}({\bf x}, {\bf u})}
+\newcommand{\dfdx}[0]{\partial {\bf f}/\partial {\bf x}}
+\newcommand{\dhdx}[0]{\partial {\bf h}/\partial {\bf x}}
+\font\bm=cmmib10 scaled 1200
+\newcommand{\balpha}{\boldsymbol{\alpha}}
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\bgamma}{\boldsymbol{\gamma}}
+\newcommand{\bzeta}{\boldsymbol{\zeta}}
+\newcommand{\bfeta}{\boldsymbol{\eta}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bkappa}{\boldsymbol{\kappa}}
+\newcommand{\blambda}{\boldsymbol{\lambda}}
+\newcommand{\bxi}{\boldsymbol{\xi}}
+\newcommand{\bchi}{\boldsymbol{\chi}}
+\newcommand{\bpi}{\boldsymbol{\pi}}
+\newcommand{\brho}{\boldsymbol{\rho}}
+\newcommand{\bsigma}{\boldsymbol{\sigma}}
+\newcommand{\btau}{\boldsymbol{\tau}}
+\newcommand{\bupsilon}{\boldsymbol{\upsilon}}
+\newcommand{\bvarphi}{\boldsymbol{\varphi}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+\newcommand{\bPhi}{\boldsymbol{\Phi}}
+\newcommand{\bpsi}{\boldsymbol{\psi}}
+%----------Parameteridentifikation------------
+\newcommand{\Mstick}{\ind{M}{stick}}
+\newcommand{\Mslip}{\ind{M}{coulomb}}
+\newcommand{\drot}{\ind{d}{1}}
+\newcommand{\Reff}{\ind{R}{eff}}
+\newcommand{\Aeff}{\ind{A}{eff}}
+\newcommand{\Vzweitot}{\ind{V}{tot2}}
+\newcommand{\Vviertot}{\ind{V}{tot4}}
+\newcommand{\teins}{\ind{t}{1}}
+\newcommand{\prmvek}{\vek{p}}
+\newcommand{\prmveki}{\ind{\vek{p}}{i}}
+\newcommand{\prmvekineu}{\ind{\vek{p}}{i,neu}}
+\newcommand{\prm}{p}
+\newcommand{\prmeins}{\ind{\prm}{1}}
+\newcommand{\prmi}{\ind{\prm}{i}}
+\newcommand{\speed}{\vek{v}}
+\newcommand{\speedi}{\ind{\speed}{i}}
+\newcommand{\speedineu}{\ind{\speed}{i+1}}
+\newcommand{\optgl}{\ind{\prmvek}{g}^*}
+\newcommand{\optlc}{\ind{\prmvek}{lc}^*}
+\newcommand{\ceins}{\ind{c}{1}}
+\newcommand{\czwei}{\ind{c}{2}}
+\newcommand{\aieins}{\ind{a}{i,1}}
+\newcommand{\aizwei}{\ind{a}{i,2}}
+\newcommand{\phisim}{\ind{\varphi}{sim}}
+\newcommand{\phimeas}{\ind{\varphi}{meas}}
+
+%-----------Technische Namen------------------
+\newcommand{\DSMthirtytwo}{DSM-32 \ }
+\newcommand{\DSMItwoseventy}{DSMI-270-A-B \ }
+
+%_-----------Commands Daniel------------------
+%\newcommand{\phimeas}{\ind{\varphi}{meas}}
+%\newcommand{\phisim}{\ind{\varphi}{sim}}
+\newcommand{\phimin}{\ind{\varphi}{min}}
+\newcommand{\phimax}{\ind{\varphi}{max}}
+
+
+
+
+\newcommand{\pzweimeas}{\ind{p}{2meas}}
+\newcommand{\pviermeas}{\ind{p}{4meas}}
+\newcommand{\pzweisim}{\ind{p}{2sim}}
+\newcommand{\pviersim}{\ind{p}{4sim}}
+
+\newcommand{\pso}{PSO}
+\newcommand{\psolong}{Partikelschwarm-Optimierung}
+\newcommand{\hitl}{Hardware-in-the-Loop}
+\newcommand{\dspace}{dSpace}
+\newcommand{\captionlinebreak}{\\\hspace{\textwidth}}
+\newcommand{\tento}[1]{10^{#1}}
+\newcommand{\SigmainvV}{\Sigma^{-1}_\mathrm{V}}
+\newcommand{\SigmainvP}{\Sigma^{-1}_\mathrm{P}}
+\newcommand{\SigmaV}{\Sigma_\mathrm{V}}
+\newcommand{\SigmaP}{\Sigma_\mathrm{P}} 
+\newcommand{\PsiofPi}{\Psi (\Pi)}
+\newcommand{\nRToV}{\frac{nRT}{V}}
+\newcommand{\VonRT}{\frac{V}{nRT}}
+\newcommand{ \todo}{\color{red}{TODO!}\color{black}}
+\newcommand{\slblockvalve}{$\mathrm{pa\_comp\_pneumaticValve}\ $}
+\newcommand{\slblockvolume}{$\mathrm{PA\_pneu\_contain\_constV}\ $}
+\newcommand{\simulink}{\textsc{Simulink}}
+\newcommand{\Matlab}{\textsc{Matlab}}
+\newcommand{\ps}{\ind{p}{supply}}
+\newcommand{\psoll}{\ind{p}{soll}}
+\newcommand{\psolltil}{\ind{\tilde p}{soll}}
+\newcommand{\dotpsoll}{\ind{\dot{p}}{soll}}
+%\newcommand{\pist}{\ind{p}{ist}}
+\newcommand{\dotm}{\dot{m}}
+\newcommand{\dotmhat}{\hat{\dotm}}
+\newcommand{\dotmae}{\ind{\dot{m}}{ae}}
+\newcommand{\dotmde}{\ind{\dot{m}}{de}}
+%-----------------Für Observer-------------
+% index "s" für Störung, "c" für control
+\newcommand{\dotms}{\ind{\dotm}{s}}
+\newcommand{\ddotms}{\ind{\ddot{m}}{s}}
+\newcommand{\dotmshat}{\ind{\dot{\hat{m}}}{s}}
+\newcommand{\dotmc}{\ind{\dotm}{c}}
+\newcommand{\dotmchat}{\ind{\dot{\dotm}}{c}}
+%\newcommand{\dotms}{\ind{}
+
+\newcommand{\dotps}{\ind{\dotp}{s}}
+\newcommand{\dotpshat}{\ind{\dot{\phat}}{s}}
+\newcommand{\ddotps}{\ind{\ddot{p}}{s}}
+\newcommand{\ddotpshat}{\ind{\ddot{\hat{p}}}{s}}
+\newcommand{\dotpc}{\ind{\dotp}{c}}
+\newcommand{\dotpchat}{\ind{\dot{\phat}}{c}}
+
+\newcommand{\yhat}{\hat{y}}
+\newcommand{\xhat}{\hat{x}}
+\newcommand{\dotxhat}{\dot{\hat{x}}}
+
+\newcommand{\ALC}{A-LC}
+\newcommand{\chpolALC}{\chi_{\ALC}}
+\newcommand{\chpolALCs}{\chi_{\ALC}(s)}
+
+\newcommand{\seins}{s_1}
+\newcommand{\szwei}{s_2}
+%-------------------Für Linearisierung-----
+\newcommand{\fx}{\f(\xv)}
+\newcommand{\gx}{\g(\xv)}
+\newcommand{\hx}{h(\xv)}
+\newcommand{\Tx}{\vek{T}(\xv)}
+\newcommand{\lieg}{L_g}
+
+\newcommand{\lief}{L_f}
+
+
+\newcommand{\liefto}[1]{{L_f}^{#1} }
+\newcommand{\lieftok}{\liefto{k}}
+
+%\newcommand{\lieftokx}{\lieftok (x)}
+\newcommand{\grad}{\nabla}
+\newcommand{\alphaz}{\alpha (\zv)}
+\newcommand{\alphazdet}{\alpha (z_1, \dots, z_n )}
+\newcommand{\betaz}{\beta (\zv)}
+\newcommand{\betazdet}{\beta (z_1, \dots, z_n )}
+\newcommand{\qzdet}[1]{q_{#1}(z_1, \dots, z_n)}
+\newcommand{\BINF}{BINF}
+
+
+\newcommand{\alphapzwei}{\ind{\alpha}{\pzwei}}
+\newcommand{\alphapvier}{\ind{\alpha}{\pvier}}
+\newcommand{\alphaphi}{\ind{\alpha}{\varphi}}
+%------------------------------------------
+\newcommand{\inv}[1]{{#1}^{-1}}
+\newcommand{\writeset}[1]{\left{#1\right}}
+\newcommand{\PASL}{$ \mathrm{PASL}\ $}
+\newcommand{\uae}{\ind{u}{ae}}
+\newcommand{\ude}{\ind{u}{de}}
+%\newcommand{\ui}{\ind{u}{i}}
+\newcommand{\uaenull}{\ind{u}{ae0}}
+\newcommand{\udenull}{\ind{u}{de0}}
+\newcommand{\uinull}{\ind{u}{0}}
+\newcommand{\unull}{\ind{u}{0}}
+\newcommand{\Cae}{\ind{C}{ae}}
+\newcommand{\Cde}{\ind{C}{de}}
+\newcommand{\Ci}{\ind{C}{i}}
+\newcommand{\Cdemax}{\ind{C}{de,max}}
+\newcommand{\Caemax}{\ind{C}{ae,max}}
+\newcommand{\Cimax}{\ind{C}{i,max}}
+\newcommand{\Ctil}{\tilde{C}}
+\newcommand{\Ctilae}{\ind{\tilde{C}}{ae}}
+\newcommand{\Ctilde}{\ind{\tilde{C}}{de}}
+\newcommand{\Ctilaeinv}{\ind{\tilde{C}}{ae}^{-1}}
+\newcommand{\Ctildeinv}{\ind{\tilde{C}}{de}^{-1}}
+\newcommand{\Ctilinv}{\Ctil^{-1}}
+\newcommand{\Ctiliinv}{\Ctili^{-1}}
+\newcommand{\Ctili}{\ind{\tilde{C}}{i}}
+\newcommand{\dotp}{\dot{p}}
+\newcommand{\phat}{\hat{p}}
+\newcommand{\dotV}{\dot{V}}
+\newcommand{\prat}{\frac{\pdn}{\pup}}
+%\newcommand{\prat}{\frac{\pup}{\pdn}}
+\newcommand{\Psimax}{\ind{\Psi}{max}}
+\newcommand{\popm}{\frac{\Psi}{\Psimax}}
+\newcommand{\popmofPi}{\frac{\Psi(\Pi)}{\Psimax}}
+\newcommand{\linl}[1]{\lstinline|#1|}
+\newcommand{\Sigmainv}{\Sigma^{-1}}
+\newcommand{\uFF}{\ind{u}{FF}}
+\newcommand{\uFB}{\ind{u}{FB}}
+\newcommand{\xnull}{x_0}
+\newcommand{\derive}[2]{{#1}^{(#2)}}
+\newcommand{\yandderiv}[1]{\vek{y},\vek{\doty},\vek{\ddoty},\dots,\derive{\vek{y}}{#1}}
+\newcommand{\uandderiv}[1]{\vek{u},\vek{\dotu},\vek{\ddotu},\dots,\derive{\vek{u}}{#1}}
+%\newcommand{\wandderiv}[1]{w,\dotw,\ddotw,\dots,w^{(#1)}}
+\newcommand{\wandderiv}[1]{u,\uandderiv{#1},\xv, \dotxv, \vek{\ddotx},\dots,\xv^{(#1)}}
+\newcommand{\Fbold}{\mathbf{F}}
+
+%------Einheiten--------
+\newcommand{\rad}{\mathrm{rad}}
+%\newcommand{\radps}{\frac{\rad}{\mathrm{s}}}
+\newcommand{\radps}{\rad/\mathrm{s}}
+\newcommand{\Pa}{\mathrm{Pa}}
+\newcommand{\s}{\mathrm{s}}
+\newcommand{\sek}{\mathrm{s}}
+%\newcommand{\gainunit}{\; \% / \left(100\cdot\Pa\right)}
+\newcommand{\obsgainunit}{\; \frac{1}{\sek}}
+\newcommand{\gainunit}{\; \frac{\%}{100\cdot\Pa}}
+\newcommand{\kg}{\mathrm{kg}}
+\newcommand{\msquared}{\mathrm{m}^2}
+\newcommand{\mcubic}{\mathrm{m}^3}
+\newcommand{\Nm}{\mathrm{Nm}}
+\newcommand{\lpermin}{\frac{\mathrm{l}}{\mathrm{min}}}
+%-----------------------------------
+%\newcommand{\sgn}[1]{\mbox{sgn}\left(#1\right)\,}
+\newcommand{\sgn}{\mathop{\rm \csname operator@font\endcsname sgn}\nolimits}
+%***********************************************
+\newcommand{\Matrix}[2]{#1}
+\def\Matrix[#1]#2{\left(\begin{array}{#1}
+                    #2
+                  \end{array}\right)}
+\newcommand{\Vektor}[2]{#1}
+\def\Vektor[#1]#2{\left[\begin{array}{#1}
+                    #2
+                  \end{array}\right]}
+
+              
+%***********************************************
+%\font\mymath=cmmi10 scaled 1200
+%\newcommand{\bphi}{\mbox{\bm\char'36}}
+%***********************************************
+\newcommand{\hd}{\hat{h}}
+\newcommand{\hq}{\overline{h}}
+\newcommand{\lambdaq}{\overline{\lambda}}
+\newcommand{\wq}{\overline{w}}
+\newcommand{\zq}{\overline{z}}
+\newcommand{\psiq}{\overline{\psi}}
+\newcommand{\psiw}{\psi_w}
+\newcommand{\psiwq}{\psi_{\wq}}
+%***********************************************
+\newcommand{\D}{\displaystyle}
+\newcommand{\un}[1]{\underline{#1}}
+\newcommand{\ov}[1]{\overline{#1}}
+\newcommand{\jw}{j \omega}
+\newcommand{\at}[2]{\left. #1 \right|_{#2}}
+\newcommand{\Lie}[2]{[#1,#2]}
+\def\Lie[#1,#2]{[#1,#2]}
+%***********************************************
+% \renewcommand{\dh}{d.\,h}  %ex. schon in Latex2e
+\newcommand{\zB}{z.\,B}
+\newcommand{\Mit}{\mbox{mit}}
+\newcommand{\wrt}{w.\,r.\,t.}
+\newcommand{\bslash}{\textbackslash}
+%***********************************************
+% Vektorr"aume
+%***********************************************
+\newcommand{\CV}{{\cal C}}
+\newcommand{\DV}{{\cal D}}
+\newcommand{\GV}{{\cal G}}
+\newcommand{\HV}{{\cal H}}
+\newcommand{\MV}{{\cal M}}
+\newcommand{\NV}{{\cal N}}
+\newcommand{\SV}{{\cal S}}
+\newcommand{\UV}{{\cal U}}
+\newcommand{\XV}{{\cal X}}
+\newcommand{\LV}{{\cal L}}
+\newcommand{\RV}{{\cal R}}
+\newcommand{\VV}{{\cal V}}
+\newcommand{\ZV}{{\cal Z}}
+\newcommand{\Lop}{{\cal L}}
+%\newcommand{\Bild}{\mbox{Im}\;}
+\newcommand{\Dim}{\mbox{dim}\;}
+\newcommand{\Rang}{\mbox{Rang}\;}
+\newcommand{\Span}[1]{\mathop{\rm \csname operator@font\endcsname span}\nolimits \left\{#1\right\}}
+\newcommand{\ad}{\mathop{\rm \csname operator@font\endcsname ad}\nolimits}
+\newcommand{\Rank}{\mathop{\rm \csname operator@font\endcsname rank}\nolimits}
+% ***********************************************
+% Ableitungen
+% ***********************************************
+\newcommand{\ableins}[2]{\frac{\mathrm{d} #1}{\mathrm{d} #2}}
+\newcommand{\diff}[2]{#1}
+\def\diff#1(#2){\stackrel{(#2)}{#1}}
+%\def\diff#1(#2){#1^{(#2)}}
+\newcommand{\ubar}[1]{\diff{u}(#1)}
+\newcommand{\uvbar}[1]{#1}
+\def\uvbar[#1]{\stackrel{[#1]}{\vek{u}}}
+%***********************************************
+% Vektoren
+%***********************************************
+%\newcommand{\Tr}{\rm T}    %Transponieren von Vektoren u. Matr.
+%\newcommand{\Tr}{\mbox{T}} 
+\newcommand{\Tr}{^T} 
+%\newcommand{\grad}[1]{^{[#1]}}
+
+\newcommand{\vek}[1]{{\textbf #1}}				% Vektor dick
+%\newcommand{\vek}[1]{{\mbox{\boldmath $#1$}}} 	% Vektor kursiv, dick
+%\newcommand{\vek}[1]{{\mbox{$#1$}}}			% Vektor kursiv
+%\newcommand{\vek}[1]{#1} 					% Vektor kursiv
+% \newcommand{\vek}[1]{\vec{ \boldsymbol#1}} 		% Vektor kursiv, dick, Pfeil drüber
+
+% spezielle Vektoren
+\newcommand{\0}{{\vek{0}}}
+\newcommand{\av}{\vek{a}}
+\newcommand{\bv}{\vek{b}}
+%\newcommand{\cv}{\vek{c}}
+\newcommand{\e}{\vek{e}}
+\newcommand{\ev}{\vek{e}}
+\newcommand{\dotev}{\vek{\dote}}
+\newcommand{\f}{\vek{f}}
+\newcommand{\g}{\vek{g}}
+\newcommand{\kv}{\vek{k}}
+\newcommand{\h}{\vek{h}}
+\newcommand{\p}{\vek{p}}
+\newcommand{\q}{\vek{q}}
+\newcommand{\mv}{\vek{m}}
+\newcommand{\rv}{\vek{r}}
+\newcommand{\uv}{\vek{u}}
+\newcommand{\uvi}{{u_\mathrm{i}}}
+\newcommand{\uvik}{{u^{(k)}_\mathrm{i}}}
+\newcommand{\vvec}{\vek{v}}
+\newcommand{\w}{\vek{w}}
+\newcommand{\xv}{\vek{x}}
+\newcommand{\xhatv}{\vek{\xhat}}
+\newcommand{\dotxv}{\vek{\dotx}}
+\newcommand{\dotxhatv}{\vek{\dotxhat}}
+\newcommand{\xvi}{{x_\mathrm{i}}}
+\newcommand{\yv}{\vek{y}}
+\newcommand{\y}{\vek{y}}
+\newcommand{\yhatv}{\vek{\yhat}}
+\newcommand{\zv}{\vek{z}}
+\newcommand{\Phiv}{\vek{\Phi}}
+\newcommand{\Psiv}{\vek{\Psi}}
+
+\newcommand{\Av}{\vek{A}}
+\newcommand{\Bv}{\vek{B}}
+\newcommand{\Cv}{\vek{C}}
+\newcommand{\Dv}{\vek{D}}
+\newcommand{\Lv}{\vek{L}}
+
+\newcommand{\Ord}{\vek{O}}
+\newcommand{\Ox}{\vek{O}(\x)^3}
+\newcommand{\Oxu}{\vek{O}(\x,\uv)^3}
+%\newcommand{\fx}{\f\grad{2}(\x)}
+%\newcommand{\gx}{\g\grad{1}(\x)}
+%\newcommand{\hx}{\h\grad{2}(\x)}
+\newcommand{\qx}{\q\grad{2}(\x)}
+%***********************************************
+% Matrizen
+%***********************************************
+%\newcommand{\mat}[1]{{\mbox{\boldmath $#1$}}}
+%\newcommand{\mat}[1]{{\mbox{$#1$}}}
+%auf Wunsch von Delf fuer Magdeburg-Paper
+\newcommand{\mat}[1]{{\textbf #1}}
+\newcommand{\A}{\mat{A}}
+\newcommand{\B}{\mat{B}}
+\newcommand{\C}{\mat{C}}
+\newcommand{\Dm}{\mat{D}}
+\newcommand{\E}{\mat{E}}
+\newcommand{\F}{\mat{F}}
+\newcommand{\FF}{{\cal F}}
+\newcommand{\G}{\mat{G}}
+\newcommand{\Hm}{\mat{H}}
+\newcommand{\I}{\mat{I}}
+\newcommand{\J}{\mat{J}}
+\newcommand{\K}{\mat{K}}
+\newcommand{\Lm}{\mat{L}}
+\newcommand{\M}{\mat{M}}
+\newcommand{\Om}{\mat{O}}
+\newcommand{\Pm}{\mat{P}}
+\newcommand{\Q}{\mat{Q}}
+\newcommand{\R}{\mat{R}}
+\newcommand{\T}{\mat{T}}
+\newcommand{\U}{\mat{U}}
+\newcommand{\W}{\mat{W}}
+\newcommand{\Gx}{\G\grad{1}(\x)}
+%\newcommand{\ZZ}{{\cal Z}}
+%
+\newcommand{\partabl}[1]{\frac{\partial {#1}}{\partial \x}}
+\newcommand{\partab}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\partzwei}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\partzwgm}[3]{\frac{\partial^2 #1}{\partial #2\partial #3}}
+%***********************************
+% 2x2-Matrix
+\newcommand{\matricks}[4]{
+  \left(
+  \begin{array}{cc}
+    #1 & #2 \\
+    #3 & #4 \\
+  \end{array}
+  \right)
+}
+%***********************************
+% 3x3-Matrix
+\newcommand{\dreimatricks}[9]{
+  \left(
+  \begin{array}{ccc}
+      #1 & #2 & #3 \\
+      #4 & #5 & #6 \\
+      #7 & #8 & #9 \\
+  \end{array}
+  \right)
+}
+
+%***********************************
+% Spaltenvektor
+\newcommand{\vektor}[2]{
+  \left(
+  \begin{array}{c}
+     #1 \\
+     #2 \\
+  \end{array}
+  \right)
+}
+%***********************************
+% Spaltenvektor 3 Komponenten
+\newcommand{\dreivektor}[3]{
+  \left(
+  \begin{array}{c}
+     #1 \\
+     #2 \\
+     #3 \\
+  \end{array}
+  \right)
+}
+%***********************************
+% Spaltenvektor 4 Komponenten
+\newcommand{\viervektor}[4]{
+  \left(
+  \begin{array}{c}
+     #1 \\
+     #2 \\
+     #3 \\
+     #4\\
+  \end{array}
+  \right)
+}
+
+%***********************************
+% Zeilenvektor
+%\newcommand{\zvektor}[2]{\left[ #1 \;  #2  \right]}
+\newcommand{\zvektor}[2]{\begin{pmatrix}
+		#1 & #2
+\end{pmatrix}}
+%***********************************
+% Zeilenvektor 3 Komponenten
+\newcommand{\dreizvektor}[3]{\begin{pmatrix}
+		#1 & #2 & #3
+\end{pmatrix}}
+
+%********************************
+% Abk"urzungen f"ur Formelteile *
+%********************************
+\newcommand{\dphn}{\Delta \varphi_n} %nominelles Winkelinkrement
+\newcommand{\dph}{\Delta \phi}
+\newcommand{\dep}{\Delta \varphi}
+\newcommand{\NZ}{\mbox{\em{NZ}} }
+%\newcommand{\ZS}{\mbox{\em{ZS}} }
+\newcommand{\ZS}{\mbox{\em{ZS}} }
+\newcommand{\dfp}{\Delta f_{ \varphi}}
+\newcommand{\fp}{f_{\varphi}}
+\newcommand{\dfz}{\Delta f_{z}}
+\newcommand{\fz}{f_{z}}
+\newcommand{\dfe}{\Delta f_{e}}
+\newcommand{\fe}{f_{e}}
+%Schaetzoperator
+%\newcommand{\SO}{{\cal S}}
+\newcommand{\SO}{\mathfrak{S}}
+%Erwartungswert
+\newcommand{\ew}[1]{E\left[ #1 \right]}
+%\newcommand{\3}{"s} %Wird fuer teTex benoetigt
+
+%%newcommand{\RR}{I\!\!R} %dto.
+%\newcommand{\ZZ}{Z\!\!\!Z}
+%\newcommand{\NN}{N\!\!\!\!\!\!\:N}
+\newcommand{\integerN}{{\Bbb{N}}} 
+%hierzu unbedingt Package {amsfonts} laden
+
+\newcommand{\ind}[2]{#1_{\mathrm{#2}}}
+\newcommand{\inds}[2]{#1_{\mbox{\tiny #2}}} %Index
+\newcommand{\pot}[2]{#1^{\mbox{\tiny #2}}} %Potenz
+
+%Aenderungen 
+\newcommand{\su}{\glqq}
+\newcommand{\so}{\grqq\ }
+%\newcommand{\Ab}{\newline\newline}
+\newcommand{\Tief}{\textsubscript{ }}
+\newcommand{\Hoch}{\textsuperscript{}}
+
+%Ableitungen und Variablen fuer Gleichungen
+\newcommand{\dotz}{\dot{z}}
+\newcommand{\dotx}{\dot{x}}
+\newcommand{\ddotx}{\ddot{x}}
+\newcommand{\doty}{\dot{y}}
+\newcommand{\ddoty}{\ddot{y}}
+\newcommand{\dotw}{\dot{w}}
+\newcommand{\ddotw}{\ddot{w}}
+\newcommand{\dotu}{\dot{u}}
+\newcommand{\ddotu}{\ddot{u}}
+\newcommand{\dotphat}{\dot{\phat}}
+\newcommand{\dote}{\dot{e}}
+
+\newcommand{\Fd}{F_\mathrm{d}}
+\newcommand{\Fext}{F_\mathrm{an}}
+\newcommand{\Fr}{F_\mathrm{R}}
+\newcommand{\Fh}{F_\mathrm{H}}
+\newcommand{\Fc}{F_\mathrm{C}}
+\newcommand{\Fazwei}{F_\mathrm{A2}}
+\newcommand{\Favier}{F_\mathrm{A4}}
+\newcommand {\Frlin}{d\cdot\xd}
+\newcommand{\Fz}{F_\mathrm{Z}}
+\newcommand{\pvier}{p_\mathrm{4}}
+\newcommand{\pzwei}{p_\mathrm{2}}
+\newcommand{\pnull}{p_\mathrm{0}}
+\newcommand{\pv}{p_\mathrm{V}}
+\newcommand{\pup}{p_\mathrm{up}}
+\newcommand{\pdn}{p_\mathrm{dn}}
+\newcommand{\pdown}{p_\mathrm{down}}
+\newcommand{\Azwei}{A_\mathrm{2}}
+\newcommand{\Avier}{A_\mathrm{4}}
+\newcommand{\rhonull}{\rho_\mathrm{0}}
+\newcommand{\eins}{_\mathrm{1}}
+\newcommand{\zwei}{_\mathrm{2}}
+\newcommand{\drei}{_\mathrm{3}}
+\newcommand{\vier}{_\mathrm{4}}
+\newcommand{\fuenf}{_\mathrm{5}}
+\newcommand{\sechs}{_\mathrm{6}}
+\newcommand{\sieben}{_\mathrm{7}}
+\newcommand{\mk}{m_\mathrm{k}}
+\newcommand{\Vtotzwei}{V_\mathrm{tot2}}
+\newcommand{\Vtotvier}{V_\mathrm{tot4}}
+\newcommand{\xmax}{x_\mathrm{max}}
+\newcommand{\xmin}{x_\mathrm{min}}
+\newcommand{\cp}{c_\mathrm{p}}
+\newcommand{\cv}{c_\mathrm{v}}
+\newcommand{\Tu}{T_\mathrm{U}}
+\newcommand{\Max}{_\mathrm{max}}
+\newcommand{\zweiaus}{_\mathrm{2,aus}}
+\newcommand{\zweiein}{_\mathrm{2,ein}}
+\newcommand{\vieraus}{_\mathrm{4,aus}}
+\newcommand{\vierein}{_\mathrm{4,ein}}
+\newcommand{\gesamt}{_\mathrm{ges}}
+\newcommand{\uctrl}{u_\mathrm{ctrl}}
+\newcommand{\uctrli}{u_{\mathrm{ctrl}i}}
+\newcommand{\uctrlieins}{u_{\mathrm{ctrl}i\mathrm{1}}}
+\newcommand{\uctrlizwei}{u_{\mathrm{ctrl}i\mathrm{2}}}
+\newcommand{\uctrlip}{u_{\mathrm{ctrl}i},\Delta p}
+\newcommand{\uctrlzwei}{u_\mathrm{ctrl2}}
+%\newcommand{\uctrlzweiohnep}{u_\mathrm{ctrl2}}
+\newcommand{\uctrlzweip}{u_\mathrm{ctrl2},\Delta p}
+\newcommand{\uctrlvier}{u_\mathrm{ctrl4}}
+%\newcommand{\uctrlvierohnep}{u_\mathrm{ctrl4}}
+\newcommand{\uctrlvierp}{u_\mathrm{ctrl4,}\Delta p}
+\newcommand{\sign}{\operatorname{sgn}}
+\newcommand{\Vspezi}{V_{\mathrm{spez,}i}}
+\newcommand{\dpitch}{d_\mathrm{pitch}}
+\newcommand{\Mh}{M_\mathrm{H}}
+\newcommand{\Mc}{M_\mathrm{C}}
+\newcommand{\xz}{x_\mathrm{z}}
+
+
+%Index
+\newcommand{\ii}{_i}
+
+%Flachheit
+%Flacher Ausgang y oder z
+%\newcommand{\y}{y}
+%\newcommand{\yi}{\y_\mathrm{i}}
+%\newcommand{\yd}{\dot{\y}}
+%\newcommand{\ydd}{\ddot{\y}}
+
+%Umbenennung in yf
+\newcommand{\flach}{f}  
+%\newcommand{\y}{y_\mathrm{\flach}}
+%\newcommand{\yi}{y_\mathrm{\flach i}}
+\newcommand{\ym}{y_\mathrm{\flach m}}
+\newcommand{\yeins}{y_\mathrm{\flach 1}}
+\newcommand{\ydeins}{\dot{y}_\mathrm{\flach 1}}
+\newcommand{\yddeins}{\ddot{y}_\mathrm{\flach 1}}
+\newcommand{\ydddeins}{\dddot{y}_\mathrm{\flach 1}}
+\newcommand{\yzwei}{y_\mathrm{\flach 2}}
+\newcommand{\ydzwei}{\dot{y}_\mathrm{\flach 2}}
+\newcommand{\yd}{\dot{y}_\mathrm{\flach}}
+\newcommand{\ydd}{\ddot{y}_\mathrm{\flach}}
+
+
+\newcommand{\yiv}{{y_\mathrm{\flach i}}}
+\newcommand{\yivk}{{y^{(k)}_\mathrm{\flach i}}}
+\newcommand{\yfg}{\vek{y}^{(\gamma)}_\mathrm{\flach}}
+%\newcommand{\yv}{\vek{y}_\mathrm{\flach}}
+
+
+\newcommand{\ui}{u_\mathrm{i}}
+\newcommand{\xii}{x_\mathrm{i}}
+\newcommand{\xn}{x_\mathrm{n}}
+
+%Zustandstransformation
+\newcommand{\z}{z}
+\newcommand{\zd}{\dot{\z}}
+\newcommand{\zee}{\z^\mathrm{1}\eins}
+\newcommand{\zez}{\z^\mathrm{1}\zwei}
+\newcommand{\zed}{\z^\mathrm{1}\drei}
+\newcommand{\zze}{\z^\mathrm{2}\eins}
+\newcommand{\zeed}{\dot{\z}^\mathrm{1}\eins}
+\newcommand{\zezd}{\dot{\z}^\mathrm{1}\zwei}
+\newcommand{\zedd}{\dot{\z}^\mathrm{1}\drei}
+\newcommand{\zzed}{\dot{\z}^\mathrm{2}\eins}
+
+%Wunschtrajektorie
+\newcommand{\zeedes}{\z^\mathrm{1}_\mathrm{1des}}
+\newcommand{\zezdes}{\z^\mathrm{1}_\mathrm{2des}}
+\newcommand{\zeddes}{\z^\mathrm{1}_\mathrm{3des}}
+\newcommand{\zzedes}{\z^\mathrm{2}_\mathrm{1des}}
+\newcommand{\deltat}{\Delta t}
+
+\newcommand{\poseins}{pos_\mathrm{1}}
+\newcommand{\poszwei}{pos_\mathrm{2}}
+
+\newcommand{\Druckeins}{p_\mathrm{41}}
+\newcommand{\Druckzwei}{p_\mathrm{42}}
+
+%Regler
+\newcommand{\ysoll}{\vek{y}_\mathrm{soll}}
+\newcommand{\zdes}{z_\mathrm{des}}
+
+\newcommand{\n}{n_\mathrm{DGL}}
+
+
+
+
+%Gleichungen
+\newcommand{\pzweipunkt}{\dot{p\zwei}=\frac{n*R*T}{\Vtotzwei+A\zwei*x}*\dot{m\zwei}-\frac{n*p\zwei*A\zwei*\dot{x}}{\Vtotzwei+A\zwei*x}}
+\newcommand{\pvierpunkt}{\dot{p\vier}=\frac{n*R*T}{\Vtotvier+A\vier*(\xmax-x)}*\dot{m\vier}+\frac{n*p\vier*A\vier*\dot{x}}{\Vtotvier+A\vier*(\xmax-x)}}
+\newcommand{\xzweipunkt}{\dot{x}\zwei=\frac{1}{m\gesamt}\cdot\left(x\drei\cdot \Azwei-\yzwei\cdot \Avier-(\Azwei-\Avier)\cdot\pnull-\Frlin \right)}
+
+%-------------------------VIT---------------------------------
+\newcommand{\VIT}{\textbf{VIT}}
+
+%Zustaende
+%\newcommand{\xeinspunkt}{\dot{x\eins}}
+%\newcommand{\xeinspunkt}{\dot{x\eins}}
+
+
+%----Norm und Absolutbetrag-------------------------------
+% von https://tex.stackexchange.com/questions/43008/absolute-value-symbols
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+% Swap the definition of \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the 
+% starred version does not.
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+\newcommand*{\Value}{\frac{1}{2}x^2}%
+

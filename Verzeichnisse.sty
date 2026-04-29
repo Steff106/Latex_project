@@ -1,0 +1,167 @@
+% BEGIN_FOLD Sperrvermerk 
+%%% Sperrvermerk %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\mySperrEidGen}{
+	\thispagestyle{empty}
+
+	\begingroup
+	\let\clearpage\relax	% wird benötigt damit danach keine neue Seite entsteht
+	\mySperrvermerk
+	\endgroup
+
+	\vfill
+
+	\begingroup
+	\let\clearpage\relax
+	\myEid
+	\endgroup
+
+	\vfill
+	
+	\begingroup
+	\let\clearpage\relax
+	\myGender
+	\endgroup
+}
+
+\newcommand{\mySperrvermerk}{
+%\newpage
+	\chapter*{Sperrvermerk}
+	\thispagestyle{empty}
+	Die nachfolgende Masterarbeit beinhaltet vertrauliche und interne Daten der Festo SE \& Co. KG Veröffentlichungen und Vervielfätigungen - auch nur auszugsweise - 
+	sind ohne ausdrückliche schriftliche Genehmigung des Unternehmens nicht gestattet. \\
+	Die Arbeit ist nur den Gutachtern sowie den Mitgliedern des 
+	Prüfungsausschusses zugänglich zu machen.	
+
+%\newpage
+}
+% END_FOLD
+
+% BEGIN_FOLD Eidesstatliche Erklärung
+%%% Eidesstatliche Erklärung %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\myEid}{
+%\newpage
+	
+	\chapter*{Eidesstattliche Erklärung}
+	\thispagestyle{empty}
+	Ich erkläre hiermit, dass ich die vorliegende Arbeit selbstständig und ohne Benutzung
+	anderer als der angegebenen Hilfsmittel angefertigt habe. Die aus fremden Quellen
+	direkt oder indirekt übernommenen Gedanken sind als solche kenntlich gemacht. \\
+	\\
+	Die Arbeit wurde bisher in gleicher oder ähnlicher Form keiner anderen Prüfungsbehörde
+	vorgelegt und auch nicht veröffentlicht. 
+	
+	\vspace{0.5cm}
+	\begin{spacing}{0}
+	\raggedright 
+	Esslingen den \today 
+	\hspace{0.2cm}
+	%\includegraphics[width=0.25\textwidth]{./Bilder/Unterschrift}\\
+	\rule[0pt]{10cm}{1.5pt}
+	\end{spacing}
+	
+	\vspace{0.3cm}
+	\begin{spacing}{1}
+	\raggedright
+	(Ort, Datum, Unterschrift)
+	\end{spacing}
+	
+%\newpage
+}
+%END_FOLD
+
+% BEGIN_FOLD Gender Erklärung
+%%% Gender Erklärung  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\myGender}{
+%\newpage
+	\chapter*{Gender-Hinweis}
+	\thispagestyle{empty}
+	In dieser Arbeit wird aus Gründen der besseren Lesbarkeit das generische Maskulinum verwendet. 
+	Weibliche und anderweitige Geschlechteridentitäten werden dabei ausdrücklich mitgemeint, soweit 
+	es für die Aussage erforderlich ist.
+	
+\newpage
+}
+%END_FOLD
+
+% BEGIN_FOLD Inhaltsverzeichnis (toc)
+%%% Inhaltsverzeichnis (toc) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\myToc}{
+	%******************************
+\newpage
+	\tableofcontents
+\newpage
+}
+
+% BEGIN_FOLD Abbildungsverzeichnis
+%%% Abbildungsverzeichnis %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\myFigures}{
+	%******************************
+\newpage
+	\listoffigures
+\newpage
+}
+% END_FOLD
+
+% BEGIN_FOLD Formelverzeichnis
+%%% Formelverzeichnis %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\myFormeln}{
+	%******************************
+\newpage
+		
+	% Formelverzeichnis ins Inhaltsverzeichnis schreiben
+	\addcontentsline{toc}{chapter}{Formelverzeichnis}
+	
+	% Formelverzeichnis einbinden
+	\include{Formelverzeichnis}
+
+\newpage
+}
+% END_FOLD
+
+% BEGIN_FOLD Tabellenverzeichnis
+%%% Tabellenverzeichnis %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\myTables}{
+	%******************************
+\newpage
+	\listoftables
+\newpage
+}
+% END_FOLD
+
+% BEGIN_FOLD Skripte
+%%% Tabellenverzeichnis %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\myListings}{
+	%******************************
+\newpage
+	\lstlistoflistings
+\newpage
+}
+% END_FOLD
+
+
+% BEGIN_FOLD References
+%%% References %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\myReferences}{
+	%******************************
+\newpage
+	
+	
+	% Einbinden der Bibliothek in preamble
+	
+	% wenn Literaturverzeichnis mit Nummerierung
+	\chapter{Literaturverzeichnis}
+	\begingroup
+	\renewcommand{\chapter}[2]{} %ohne Überschrift "Literaturverzeichnis"
+	\printbibliography[title=Literaturverzeichnis]
+	\endgroup
+	
+	% Fuegt Literaturverzeichnis ins Inhaltsverzeichnis ein. Achtung: Auf chapter/section achten!
+	% nur notwendig wenn group von oben nicht verwendet wird
+	
+	%\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+	
+\newpage
+
+}
+
+% END_FOLD

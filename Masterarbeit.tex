@@ -1,0 +1,69 @@
+\documentclass[listof=totoc,fontsize=12pt,numbers=noenddot]{classSteffen}
+\input{header.tex}
+
+% BEGIN_FOLD Personalisieren des Dokuments
+%% Personalisieren des Dokuments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-------------------------------------------------------------
+% Allgemeine Angaben %
+% Dokumentart
+\doctype{thesis}
+%% Handelt es sich um einen Bericht bzw. eine Dokumentation -> 'doku'
+%% Handelt es sich um eine Abschlussarbeit (Praktikum, Bachelor, Master(,Diplom)) -> 'thesis'
+
+\Title{Modellbasierte Funktionsentwicklung von }
+\Unilogo{./Bilder/hs_aalen_logo.png}
+\Bild{./Bilder/Festo_logo.png}
+\Author{Steffen Sieder}
+\Matrikelnummer{88273}
+\Uni{Hochschule Aalen}
+\institute{Optik \& Mechatronik}
+\Company{Festo SE \& Co. KG}
+\Zeitraum{April 2026 - Oktober 2026}
+\BetreuerFirma{Dr. Sergio Delgado}
+\BetreuerUnieins{Prof. Dr.-Ing. Jürgen Baur}
+\BetreuerUnizwei{Prof. Dr.-Ing. Fabian Holzwarth}
+
+\Email{siederst@online.de}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% END_FOLD
+\gdef\clearforchapter{}
+
+
+\begin{document}
+
+%--------------Verzeichnise---------------
+\renewcommand{\figurename}{Abb.} % Anpassen der Bildunterschrift
+\renewcommand{\tablename}{Tab.}
+%----------------------------------------
+
+% ------- Deckblatt + restlichen Startblätter -------------
+\myTitelblatt
+\mySperrEidGen
+
+% ----------- Verzeichnisse ----------------------------------
+\pagenumbering{Roman} %roemische Seitennummerierung fuer die Verzeichnisse
+\include{Abstract}
+\myToc
+\myFigures
+\myTables
+\myListings
+
+% ------------ Inhaltliche Kapitel -------------------------------
+\pagenumbering{arabic} %arabische Seitennummerierung fuer den Inhalt
+
+%\include{Einleitung}
+\include{Stand_der_Technik}
+%\include{Voruntersuchungen}
+%\include{Maschinenschutzfunktionen}
+%\include{Testing}
+\include{Fazit}
+
+% ------------- Anhang ---------------------------
+\appendix
+\emergencystretch=1em % für verbesserten Umbruch im Literaturverzeichnis, ohne kann es zu overfull boxen kommen
+%\myReferences
+\include{Anhang}
+
+\end{document}

@@ -1,0 +1,511 @@
+@online{Subsystem_Einstellungen,
+	author = {MathWorks},
+	title = {Subsystem},
+	url = {https://de.mathworks.com/help/releases/R2022b/simulink/slref/subsystem.html},
+	urldate = {2024-10-18},
+}
+
+@online{Simulink_Test_Toolbox,
+	author = {MathWorks},
+	title = {Simulink Test - Entwicklung, Verwaltung und Ausführung simulationsbasierter Tests},
+	url = {https://de.mathworks.com/products/simulink-test.html},
+	urldate = {2025-1-14},
+}
+
+@online{Requirements_Toolbox,
+	author = {MathWorks},
+	title = {Requirements Toolbox - Verfassen, Verknüpfen und Validieren von Anforderungen für Entwürfe und Tests},
+	url = {https://de.mathworks.com/products/requirements-toolbox.html},
+	urldate = {2025-1-14},
+}
+
+@online{Verify_Statement,
+	author = {MathWorks},
+	title = {verify - Assess logical expression and automatically log result},
+	url = {https://de.mathworks.com/help/sltest/ref/verify.html},
+	urldate = {2025-1-14},
+}
+
+@article{Skript_Baur_Modbas,
+	title={Manuskript Modellbasierte Funktionsentwicklung},
+	author={Prof. Dr.-Ing Jürgen Baur},
+	journal={Vorlesungsskript, Hochschule Aalen},
+	year={Sommersemester 2024}
+}
+
+@online{Matlab_variant_transitions,
+	author = {MathWorks},
+	title = {Create Variant Configurations in Stateflow Charts},
+	url = {https://de.mathworks.com/help/releases/R2022b/stateflow/ug/variant-transitions.html},
+	urldate = {2024-10-18},
+}
+
+@online{C_Direktive,
+	author = {Alex Allain},
+	title = {The C Preprocessor},
+	url = {https://www.cprogramming.com/tutorial/cpreprocessor.html},
+	urldate = {2024-10-15},
+}
+
+@online{Matlab_packaging_Format,
+	author = {MathWorks},
+	title = {File packaging format},
+	url = {https://www.mathworks.com/help/releases/R2022b/ecoder/ref/filepackagingformat.html},
+	urldate = {2024-10-18},
+}
+
+@online{Matlab_variant_Subsystem_codegen,
+	author = {MathWorks},
+	title = {Activate Variant During Different Stages of Simulation and Code Generation Workflow},
+	url = {https://www.mathworks.com/help/releases/R2022b/simulink/ug/activate-variant-during-different-stages-of-simulation-and-code-generation-workflow.html},
+	urldate = {2024-10-18},
+}
+
+@online{Matlab_variant_Subsystem,
+	author = {MathWorks},
+	title = {Variant Subsystem, Variant Model, Variant Assembly Subsystem},
+	url = {https://de.mathworks.com/help/releases/R2022b/simulink/slref/variantsubsystemvariantmodelvariantassemblysubsystem.html},
+	urldate = {2024-10-18},
+}
+
+@online{Matlab_Modell_Types,
+	author = {MathWorks},
+	title = {Explore Types of Model Components},
+	url = {https://www.mathworks.com/help/releases/R2022b/simulink/ug/types-of-model-components.html},
+	urldate = {2024-10-18},
+}
+
+@online{Matlab_ExternalCode,
+	author = {MathWorks},
+	title = {External Code Import},
+	url = {https://www.mathworks.com/help/releases/R2022b/ecoder/external-code-integration.html},
+	urldate = {2024-10-15},
+}
+
+@manual{Lastenheft,
+author = {STIHL intern},
+title = {Funktionslastenheft Master Akkugeräte},
+year = {2023}
+}
+
+@manual{SW_ZUSE,
+author = {STIHL intern},
+title = {Funktionsbeschreibung SW-Funktionen-Versionierung ZUSE},
+year = {2023}
+}
+
+@manual{Firmware_gesamt,
+author = {STIHL intern},
+title = {Firmware für Akkuprodukte der STIHL Softwareplattform ZUSE},
+}
+
+@manual{Firmware_Ma01_header,
+author = {STIHL intern},
+title = {Header-Datei für eine MA01-455-1032},
+}
+
+@manual{ZUSE,
+author = {STIHL intern},
+title = {Zukunftsziel der Softwarearchitektur von Akkugeräten},
+}
+
+@manual{ModRichtlinien,
+author = {STIHL intern},
+title = {Modellierungsrichtlinien ML/SL/SF Modelle},
+year = {2013},
+}
+
+@manual{NamenRichtlinien,
+author = {STIHL intern},
+title = {Namenskonvention ANSI C und ML/SL/SF Modelle},
+year = {2013},
+}
+
+
+@online{Stihl,
+	author = {ANDREAS STIHL AG \& Co. KG},
+	title = {Geschichte von STIHL},
+	url = {https://corporate.stihl.de/de/ueber-stihl/stihl-geschichte},
+	urldate = {2024-09-12},
+}
+
+
+@article{Mechatronisches_Projekt,
+	title={Mechatronisches Projekt},
+	author={Lukas Beyrle and Timo Heubach and Cedric V{\"o}ller},
+	journal={Projektbericht, Hochschule Aalen},
+	year={Wintersemester 2022/2023}
+}
+
+@online{Beschleunigungssensor_Prinzip,
+	author = {mascil},
+	title = {Experimente mit dem Beschleunigungssensor},
+	url = {https://mascil.ph-freiburg.de/aufgabensammlung/experimente-mit-dem-smartphone/gruppe-2-experimente-mit-dem-beschleunigungssensor.html},
+	urldate = {2024-03-01},
+}
+
+
+@online{Folienpotentiometer,
+	author = {Hoffman + Kripper},
+	title = {Folienpotentiometer},
+	url = {https://de.hoffmann-krippner.com/printed/potentiometer/#:~:text=Funktionsweise%20Folienpotentiometer&text=Die%20oberste%20Folienschicht%2C%20die%20Kollektorfolie,bei%20widrigsten%20Bedingungen%20einwandfreie%20Messergebnisse.},
+	urldate = {2024-03-01},
+}
+
+@online{Folienpotentiometer_bild,
+	author = {Hoffman + Kripper},
+	title = {Folienpotentiometer},
+	url = {https://de.hoffmann-krippner.com/app/uploads/2020/09/og-image-potentiometer.jpg},
+	urldate = {2024-03-01},
+}
+
+@article{pneumatik_gelenk,
+	author = {Lopez, Marcela and Haghshenas-Jaryani, Mahdi},
+	year = {2023},
+	month = {06},
+	pages = {89},
+	title = {A Study of Energy-Efficient and Optimal Locomotion in a Pneumatic Artificial Muscle-Driven Snake Robot},
+	volume = {12},
+	journal = {Robotics},
+	doi = {10.3390/robotics12030089}
+}
+
+@book{Konstruktionslehre,
+	author = {Klaus-J{\"o}rg Conrad},
+	title = {Grundlagen der Konstruktionslehre},
+	date = {2019},
+	publisher = {Carl Hansa Verlag},
+	isbn = {978-3-446-45321-0}
+}
+
+@INPROCEEDINGS{continuum_Gelenke,
+	author={Robinson, G. and Davies, J.B.C.},
+	booktitle={Proceedings 1999 IEEE International Conference on Robotics and Automation (Cat. No.99CH36288C)}, 
+	title={Continuum robots - a state of the art}, 
+	year={1999},
+	volume={4},
+	number={},
+	pages={2849-2854 vol.4},
+	keywords={Actuators;Service robots;Bellows;Chemical engineering;Humans;Humanoid robots;Industrial relations;Animal structures;Robot motion;Animation},
+	doi={10.1109/ROBOT.1999.774029}}
+
+@book{Schaeffler,
+	author = {Prof. Dr.-Ing. Harald Meerkmann},
+	title = {Technisches Taschenbuch},
+	year = {2017},
+	publisher = {Schaffler Technologies AG \& Co. KG}
+}
+
+@article{abrollende_Gelenke,
+	author = {Awaz Ali and Aimee Sakes and Ewout A Arkenbout and Paul Henselmans and Remi van Starkenburg and Tamas Szili-Torok and Paul Breedveld},
+	title = {Catheter steering in interventional cardiology: Mechanical analysis and novel solution},	
+	journal = {Proceedings of the Institution of Mechanical Engineers, Part H: Journal of Engineering in Medicine},
+	volume = {233},
+	number = {12},
+	pages = {1207-1218},
+	year = {2019},
+	doi = {10.1177/0954411919877709},
+	note ={PMID: 31580205},
+	URL = {https://doi.org/10.1177/0954411919877709}
+}
+
+@INPROCEEDINGS{Spine_kinematics,
+	author={Wimmer, Alexandra and Deutschmann, Bastian and Kuebler, Bernhard and Rink, Christian and Hirzinger, Gerd},
+	booktitle={2013 IEEE International Conference on Robotics and Automation}, 
+	title={Spine-kinematics with constraint guidance for robot supported MIS-instruments}, 
+	year={2013},
+	volume={},
+	number={},
+	pages={5453-5460},
+	keywords={Kinematics;Force;Robot sensing systems;Friction;Couplings;Wires;Joints},
+	doi={10.1109/ICRA.2013.6631359}}
+
+@book{Eulenhalsgelenk,
+	author = {Rüdiger Hornfeck and Robin Löffler},
+	year = {2022},
+	title = {Ein Eulenhalsgelenk für effizientere Maschinen},
+	publisher = {Technische Hochschule Nürnberg}
+}
+
+@article{Skript_Kazi,
+	title={Advanced Actuators - (Thermal) Shape Memory Actuators},
+	author={Prof. Dr.-Ing Arif Kazi},
+	journal={Vorlesungsskript, Hochschule Aalen},
+	year={Wintersemester 2022/2023}
+}
+
+@article{Skript_Kazi_Sensorik,
+	title={Sensorik - 6. Galvanomagnetische Sensoren},
+	author={Prof. Dr.-Ing Arif Kazi},
+	journal={Vorlesungsskript, Hochschule Aalen},
+	year={Wintersemester 2020/2021}
+}
+
+@online{Festo_E_Trunk,
+	author = {Festo SE \& Co. KG},
+	title = {Bionic E-Trunk},
+	url = {https://www.festo.com/de/de/e/ueber-festo/forschung-und-entwicklung/bionic-learning-network/bionic-e-trunk-id_1328376/},
+	urldate = {2024-03-01},
+}
+
+@online{TSSC,
+	author = {The Shape Sensing Company},
+	title = {Pathfinder shape sensing platform},
+	url = {https://shapesensing.com/pathfinder-platform/},
+	urldate = {2024-03-01},
+}
+
+@online{FBGS,
+	author = {FBGS Technologies GmbH},
+	title = {Faseroptische Formerfassung als schlüsselfertige Lösung},
+	url = {https://fbgs.com/de/solutions/shape-sensing/},
+	urldate = {2024-06-15},
+}
+
+@online{FBGS_Sensor,
+	author = {FBGS Technologies GmbH},
+	title = {Dehnungssensor SMW-01},
+	url = {https://fbgs.com/de/components/strain-sensor-smw-01/},
+	urldate = {2024-03-07},
+}
+
+@online{Hall_Sensor,
+	author = {Wikipedia},
+	title = {Hall-Sensor},
+	url = {https://de.wikipedia.org/wiki/Hall-Sensor#Aufbau_und_Funktionsweise},
+	urldate = {2024-03-01},
+}
+
+@online{Beschleunigungssensor,
+	author = {Wikipedia},
+	title = {Beschleunigungssensor},
+	url = {https://de.wikipedia.org/wiki/Beschleunigungssensor},
+	urldate = {2024-03-01},
+}
+
+
+@article{TechnologyForMAS,
+	title={Technology for minimal acess surgery},
+	author={Alfred Cuschieri},
+	journal={BMJ},
+	year={1999}
+}
+
+@online{Darmspiegelung, 
+	author={info MEDIZIN}, 
+	title={DARMSPIEGELUNG (KOLOSKOPIE)}, 
+	url={https://www.infomedizin.de/behandlungen/darmspiegelung/#ablauf},
+	urldate={2024-03-05}
+}
+
+@article{SteerableCatheters,
+	title={Steerable catheters in minimally invasive vascular surgery},
+	author={Yili Fu and Hao Lui and Wentai Huang and Shuguo Wang and Zhaoguang Liang},
+	journal={THE INTERNATIONAL JOURNAL OF MEDICAL ROBOTICS AND COMPUTER ASSISTED SURGERY},
+	year={2009}
+}
+
+@article{CatheterSteering,
+	title={Catheter steering in interventional cardiology: Mechanical analysis and novel solution},
+	author={Awaz Ali and Aimee Sakes and Ewout A Arkenbout and Paul Henselmans and Remi van Starkenburg and Tamas Szili-Torok and Paul Breedveld},
+	journal={journal of ENGINEERING IN MEDICINE},
+	year={2019}
+}
+
+@article{EndorobotsForColonoscopy,
+	title={Endorobots for Colonoscopy: Design Challenges and Available Technologies},
+	author={Luigi Manfredi},
+	journal={Frontiers in Robotics and AI},
+	year={2021}
+}
+
+@article{3DOFActuator,
+	title={A 3 DOFs Mini Variable Stiffness Soft Pneumatic Actuator},
+	author={L. Manfredi and L. Yue and A. Cuschieri},
+	journal={ACTUATOR 2018: 16th International Conference on New Actuators, Bremen},
+	year={2018}
+}
+
+@article{CatheterSMA,
+	title = {Small diameter active catheter using shape memory alloy},
+	author = {Haga, Y. and Tanahashi, Y. and Esashi, M.},
+	journal={Proceedings MEMS 98. IEEE. Eleventh Annual International Workshop on Micro Electro Mechanical Systems. An Investigation of Micro Structures, Sensors, Actuators, Machines and Systems (Cat. No.98CH36176},
+	pages = {419-424},
+	year = {1998},
+}
+
+@article{Telerobotics,
+	author = {Lirici, Marco Maria and Papaspyropoulos, Vassilios and Angelini, Luiz},
+	year = {2009},
+	month = {07},
+	pages = {364-378},
+	title = {Telerobotics in medicine and surgery},
+	volume = {6},
+	journal = {Minimally Invasive Therapy \& Allied Technologies},
+	doi = {10.3109/13645709709153336}
+}
+
+
+@online{MPU6050,
+	author = {Roboter Bausatz-Shop},
+	title = {3-Achsen Beschleunigungs-/ Lagesensor - GY-521 MPU-6050},
+	url = {https://www.roboter-bausatz.de/p/3-achsen-beschleunigungs-lagesensor-gy-521-mpu-6050?sPartner=8&gad_source=1&gclid=Cj0KCQiAkeSsBhDUARIsAK3tieeNCYjZSF5h00iJS2oE0Fe9x-luXtkknF5IK9zHwxWTf0xrDQstwq8aAnXcEALw_wcB},
+	urldate = {2024-03-01},
+}
+
+
+
+
+@thesis{Dani,
+	author = {Daniel Bergmann},
+	title = {Design and Experimental Validation of a Robust	Sliding Mode Position Control for a pneumatic Robot Joint},
+	type = {Master Thesis},
+	institution = {Universität Stuttgart Institut für Analysis, Dynamik und Modellierung},
+	date = {2021-09-30},
+}
+
+@TechReport{PASL,
+	author      = {Rainer Nitsche and Christian Dieterich},
+	title       = {Components {S}ubset for {S}imulink. {P}rocess {A}utomation {S}tandard {L}ibrary ({{PASL}}) - {D}ocumentation},
+	institution = {Festo AG \& Co. KG , Dept. BA-DEE},
+	year        = {2022},
+	file        = {Nitsche2017.pdf:_bibPACtrlEng\\Nitsche2017.pdf:PDF},
+	owner       = {cdr},
+	timestamp   = {2017.05.31},
+}
+
+@mastersthesis{Sharma2015,
+	author = {Sharma, Shruti},
+	type = {Bachelor thesis},
+	title  = {Model-{B}ased {D}esign and {C}ontrol of a {P}neumatic {R}obot {J}oint},
+	school = {Birla Institute of Technology and Science, Pilani},
+	year  = {2019},
+}
+
+@article{UniWien,
+	title={Fortgeschrittene Methoden der nichtlinearen Regelung},
+	author={B{\"o}ck, M. and Gl{\"u}ck, T. and Kugi, A. and Steinb{\"o}ck, A.},
+	journal={Vorlesungsskript, Technische Universit{\"a}t Wien},
+	year={2022}
+}
+
+@article{Skript_Baur_Regelungstechnik,
+	title={Manuskript Regelungstechnik Einführung},
+	author={Prof. Dr.-Ing Jürgen Baur},
+	journal={Vorlesungsskript, Hochschule Aalen},
+	year={Wintersemester 2016/2017}
+}
+
+@software{MATLAB,
+	year = {2021},
+	author = {The MathWorks Inc.},
+	title = {MATLAB version: 9.10.0 (R2021a) Update 5},
+	publisher = {The MathWorks Inc.},
+	address = {Natick, Massachusetts, United States},
+	url = {https://www.mathworks.com}
+}
+
+
+@article{ilc_anwendung,
+	title={Iterative learning control applied to a recently proposed mechanical ventilator topology},
+	author={de Castro, Adler Fonseca and T{\^o}rres, Leonardo Ant{\^o}nio Borges},
+	journal={IFAC-PapersOnLine},
+	volume={52},
+	number={1},
+	pages={154--159},
+	year={2019},
+	publisher={Elsevier}
+}
+
+@article{AndresHengenPandit+2002+112,
+	url = {https://doi.org/10.1524/auto.2002.50.3.112},
+	title = {Optimierend iterativ lernende Regelungen (Optimizing Iterative Learning Control)},
+	author = {D. Andres and Heiko Hengen and Madhukar Pandit},
+	pages = {112},
+	volume = {50},
+	number = {3},
+	journal = {},
+	doi = {doi:10.1524/auto.2002.50.3.112},
+	year = {2002},
+	lastchecked = {2023-04-24}
+}
+
+@online{ILC_einsatzgebiete,
+	author = {Technische Universität Kaiserslauter},
+	title = {Forschungsbericht 2000},
+	url = {https://www.eit.uni-kl.de/pandit/haupt/forschung/jahresbericht00.htm},
+	urldate = {2023-04-25},
+}
+
+@online{spektralradius,
+	author = {Bianca Hoegel},
+	title = {Spektralradius},
+	date = {2023-02-12},
+	url = {https://www.biancahoegel.de/mathe/analysis/spektralradius.html},
+	urldate = {2022-04-24},
+}
+
+@online{spektralnorm,
+	author = {Bianca Hoegel},
+	title = {Spektralnorm},
+	date = {2018-08-13},
+	url = {https://www.biancahoegel.de/mathe/norm/spektralnorm.html},
+	urldate = {2022-04-24},
+}
+
+@article{Zeitz+2010+5+13,
+	url = {https://doi.org/10.1524/auto.2010.0815},
+	title = {Differenzielle Flachheit: Eine nützliche Methodik auch für lineare SISO-Systeme Differential Flatness: A Useful Method also for Linear SISO Systems},
+	author = {Michael Zeitz},
+	pages = {5--13},
+	volume = {58},
+	number = {1},
+	year = {2010},
+	lastchecked = {2023-08-07}
+}
+
+@online{scrum1,
+	author = {Agile Academy},
+	title = {Die Ursprünge von Scrum},
+	url = {https://www.agile-academy.com/de/grundlagen/die-urspruenge-von-scrum/},
+	urldate = {2022-06-29},
+}
+
+@Book{kinematic,
+	 author = {Stefen Hesse, Günther Seitz},
+	 title = {Robotik Grundwissen für die berufliche Bildung},
+	 publisher = {Vieweg},
+	 year = {1996},
+	 address = {Cham},
+	 isbn = {3-528-04951-0},
+ }
+
+
+@online{scrum,
+	author = {Agile Heroes},
+	editor = {Domenik Boss},
+	title = {Die 3 Säulen von Scrum},
+	date = {2020-12-09},
+	url = {https://www.agile-heroes.de/magazine/scrum-saeulen/%203%20S%C3%A4ulen%20von%20Scrum%20%E2%80%93%20Transparenz%2C%20%C3%9Cberpr%C3%BCfung%20und%20Anpassung},
+	urldate = {2022-01-30},
+}
+
+@online{Hall,
+	author = {Bianca Hoegel},
+	title = {Hall-Effekt},
+	date = {2021-04-04},
+	url = {https://www.biancahoegel.de/physik/magnet/hall-effekt.html},
+	urldate = {2022-01-31},
+}
+
+@online{Melexis,
+	author = {Melexis},
+	title = {Magnetic design simulator},
+	url = {https://3dmagneticdesign.melexis.com/login/},
+	urldate = {2022-01-31},
+}
+
+@Online{MLX_Bild,
+  author  = {Adafruit},
+  title   = {Adafruit Wide-Range Triple-axis Magnetometer - MLX90393},
+  url     = {https://www.adafruit.

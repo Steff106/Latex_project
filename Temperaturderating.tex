@@ -1,0 +1,79 @@
+\section{Temperatur-Derating}
+\label{sec_tdr}
+Dieser Abschnitt widmet sich der Funktion \textit{Temperatur-Derating}. Zunächst wird der Funktionshintergrund und die Funktionsweise dieser Funktion beschrieben. Im Anschluss erfolgt eine detaillierte Analyse der spezifischen Anforderungen sowie der bestehenden Softwareimplementierung (C-Code). Auf Grundlage der gewonnenen Erkenntnisse wird die Schnittstelle für den Playground erweitert und die Funktion in Matlab modelliert.
+\subsection{Funktionsbeschreibung}
+Die Funktion \textit{Temperatur-Derating} zielt darauf ab, eine thermische Abschaltung oder eine abrupte Leistungsreduzierung bei intensiver Nutzung des Geräts zu vermeiden oder zu verzögern. Dies wird erreicht, indem der Motorstrom als Hauptursache für die Erwärmung proportional zur Temperaturentwicklung linear reduziert wird. \\
+Die Funktion gliedert sich in zwei Teilfunktionen, die beide eine Reduzierung des maximalen Motorstroms bewirken. Die erste Teilfunktion berücksichtigt die Temperatur der Motorelektronik, während die zweite die Temperatur des Motors einbezieht. Für beide Teilfunktionen können mittels einstellbarer Parameter jeweils eine Start- und eine Stopp-Grenze der Temperatur definiert werden. Innerhalb dieses Bereichs wird der maximale Motorstrom linear auf Werte reduziert, die ebenfalls über Parameter festgelegt sind \cite{SW_ZUSE}. Dieses Verhalten ist in \autoref{png_derating} abgebildet. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./Bilder/Derating_Schaubild.png}
+	\caption{Motorstrombegrenzung abhängig von der Temperatur \cite{Lastenheft}}
+	\label{png_derating}
+\end{figure}
+Treten unterschiedliche Reduzierungen aufgrund abweichender Temperaturen von Motor und Motorelektronik auf, wird stets der kleinere der beiden Motorstromwerte verwendet \cite{SW_ZUSE}.
+
+\subsection{Analyse des Lastenhefts und des C-Codes}
+\label{subsec_tdr_analyse}
+In diesem Abschnitt werden die spezifischen Anforderungen aus dem Lastenheft bei STIHL für die Temperatur-Derating-Funktion aufgeführt. Diese Anforderungen bilden die Grundlage für die Implementierung des entsprechenden C-Codes in der Firmware. Durch eine ergänzende Analyse des C-Codes kann die Modellierung der Funktion vereinfacht und gleichzeitig sichergestellt werden, dass deren Funktionalität vollständig abgebildet wird. \\
+Die nachfolgenden Anforderung sind wörtlich aus dem Master-Lastenheft für Akkugeräte entnommen \cite{Lastenheft}:
+\begin{itemize}
+\item Überschreitet die Elektroniktemperatur den Wert \textit{CpsTdrTmcMosfetStart}, soll das Gerät den maximalen Motorstrom auf den Wert \textit{CpsTdrStrMosfetStart} begrenzen. Mit steigender Elektroniktemperatur soll der maximale Motorstrom linear dazu abfallen, bis er bei der Elektroniktemperatur \textit{CpsTdrTmcMosfetEnde} sein Minimum \textit{CpsTdrStrMosfetEnde} erreicht.
+\item Überschreitet die Motortemperatur den Wert \textit{CpsTdrTmafcMotorStart}, soll das Gerät den maximalen Motorstrom auf den Wert \textit{CpsTdrStrMotorStart} begrenzen. Mit steigender Motortemperatur soll der maximale Motorstrom linear dazu abfallen, bis er bei der Motortemperatur \textit{CpsTdrTmcMotorEnde} sein Minimum \textit{CpsTdrStrMotorEnde} erreicht.
+\item Für Geräte mit einer LED zur Kundeninformation über ein Thermisches Abschalten kann diese Funktion genutzt werden, um ab einer im Parameter \textit{CpsTdrTmcThermik-LedAn} definierten Schwelle die Thermikled auch im linearen Derating zu aktiveren. Die Schwelle gilt sowohl für Elektronik wie auch den Motorstrom. Der größere Prozentwert bestimmt dabei die Funktion. Die Hysterese wird über den Parameter \textit{CpsTdrTmcThermikLedAus} realisiert.
+\end{itemize}
+Der C-Code in der Firmware basiert auf den genannten Anforderungen. Eine zusätzliche Untersuchung des C-Codes ermöglicht es, sowohl die Informationen zum Ein- und Ausschalten der Funktion über maschinenabhängige Optionen als auch die zusätzlichen Eingangssignale, die für eine optimale Funktionalität der Funktion erforderlich sind, zu identifizieren. \\
+Aus der Analyse des C-Codes \cite{Firmware_gesamt} ergeben sich folgende Punkte für die Modellierung der Temperatur-Derating-Funktion:
+\begin{itemize}
+\item Die gesamte Temperatur-Derating-Funktion kann über die maschinenabhängige Option \lstinline{CURRENT_LIMITING_DUE_TEMPERATURE} im Header-File aktiviert oder deaktiviert werden.
+
+\item Die LED-Funktion innerhalb der Derating-Funktion ist nur aktiv, wenn die Maschine über ein Human Maschine Interface (HMI) verfügt, das LEDs für die Derating-Funktion enthält. Das jeweilige HMI wird in einer spezifischen Header-Datei definiert, während die zugehörigen Optionen in einer allgemeinen Header-Datei für das jeweilige HMI ein- oder ausgeschaltet werden. Für die Derating-LED muss die Bedingung \lstinline{DISPLAY_DERATING_MODE != DISABLE_OPTION} erfüllt sein.   
+
+\item Beim Einschalten der Maschine wird eine kurze Zeitspanne benötigt, um sicherzustellen, dass die Temperatursensoren korrekte Werte liefern. Dafür existiert ein Flag mit dem Namen \lstinline{temperature_valid}, das in der Basissoftware nach einer kurzen Zeit gesetzt wird. Die Temperatur-Derating-Funktion wird erst wirksam, wenn dieses Flag erfolgreich gesetzt wurde. 
+
+\item Für die lineare Interpolation des Motorstroms wird im C-Code eine Kennlinie mit binärer Suche verwendet. Zusätzlich wird der Ausgangswert begrenzt, falls der Eingabewert unterhalb des niedrigsten oder oberhalb des höchsten Wertes der x-Achse liegt. Das bedeutet, dass der höchste y-Wert ausgegeben wird, wenn der x-Wert über dem höchsten Element liegt und der niedrigste y-Wert, wenn der x-Wert unterhalb des niedrigsten Elements liegt.
+
+\item Liegen die Temperaturen unterhalb der definierten Grenzwerte für die Derating-Funktion, wird im C-Code der Wert \lstinline{BASIS_CURRENT} als maximaler Motorstrom ausgegeben.
+
+\item Die Funktion wird in einem Intervall von \unit[1]{ms} zyklisch ausgeführt.
+\end{itemize}
+
+\subsection{Erweiterung der Schnittstelle für den Playground}
+In diesem Abschnitt wird die Erweiterung der Schnittstelle zur korrekten Übergabe der Ein- und Ausgangssignale zwischen der Basissoftware und dem Autocode behandelt. Zu diesem Zweck wird die Datei \textit{Playground.c} angepasst. Die erforderlichen Eingangssignale werden aus der Basissoftware in der Datei \textit{Playground.c} aufgerufen und anschließend an den Playground übergeben. Der entsprechende C-Code wird in dieser Arbeit nicht dargestellt. Stattdessen ist in \autoref{png_io_tdr} ein schematisches Diagramm für die Temperatur-Derating-Funktion mit allen Ein- und Ausgängen zu erkennen.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./Bilder/IO_Tdr.pdf}
+	\caption{Ein- und Ausgänge der Temperatur-Derating-Funktion}
+	\label{png_io_tdr}
+\end{figure}
+Für die Derating-Funktion sind sowohl die Motortemperatur als auch die Elektroniktemperatur erforderlich. Zudem hat die Analyse des C-Codes ergeben, dass die Validierung der Temperaturwerte durch das Flag \lstinline{temperature_valid} erforderlich ist. Als Ausgabewerte werden der maximale Motorstrom sowie das Status-Flag für die LED-Anzeige an die Basissoftware übergeben.\\
+Der Playground wird nur aktiviert, wenn die Option \lstinline{MODELBASED_PLAYGROUND} eingeschaltet ist (siehe \autoref{sec_stand_der_technik_firmware}). Um sicherzustellen, dass die Firmware sowohl mit aktiviertem als auch mit deaktiviertem Playground fehlerfrei funktioniert, erfolgt die Steuerung der zugehörigen Funktionen über \#if-Direktive. Beispielhaft hierfür ist die Anpassung der Basissoftware zur Abfrage des LED-Status der Derating-Funktion in \autoref{lst_led_tdr} aufgeführt.
+%%%%%%%%
+\lstinputlisting[language=C, caption={Aufruf des Flags für die LED der Temperatur-Derating-Funktion}, label=lst_led_tdr]{Beispiel_LED_Tdr.c}
+%%%%%%%%%%%%%
+Bei aktiviertem Playground wird der LED-Status aus der Playground-Struktur abgerufen und somit direkt aus dem Autocode bereitgestellt. Ist der Playground hingegen deaktiviert, erfolgt die Abfrage des LED-Status über die in der Basissoftware definierten Funktionen \lstinline{check_mosfet_temperature_derating_}\lstinline{LED()} und  \lstinline{check_motor_temperature_derating_}\lstinline{LED()}. Diese Funktionen sind bei aktiviertem Playground deaktiviert.
+
+\subsection{Modellierung der Funktion in Matlab}
+Dieser Abschnitt behandelt die Modellierung der Temperatur-Derating-Funktion in Matlab. Wie in \autoref{ch_voruntersuchungen} erläutert, wird für jede Teilfunktion ein eigenes Referenced-Subsystem sowie ein individuelles Simulink Data Dictionary erstellt. Im Dictionary werden alle Parameter entsprechend den Anforderungen (\autoref{subsec_tdr_analyse}) definiert. Dabei erfolgt die Benennung der Parameter gemäß der in \autoref{subsec_namenskonvention} beschriebenen Namenskonvention. Zusätzlich werden zentrale Signale, wie beispielsweise die Ausgänge der Funktion, ebenfalls im Dictionary hinterlegt. Dies ermöglicht den Zugriff auf die Signale über eine A2L-Datei und damit das Messen der Signale auf der realen Maschine über eine XCP-Schnittstelle. \\
+Die vollständige Modellierung der Derating-Funktion ist in \autoref{png_matlab_tdr} dargestellt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Modell_Tdr.pdf}
+	\caption{Matlab-Modell: Temperatur-Derating-Funktion}
+	\label{png_matlab_tdr}
+\end{figure}
+Das gesamte Modell ist in ein Variant-Subsystem eingebettet, das nur bei aktivierter Option \lstinline{CURRENT_LIMITING_DUE_TEMPERATURE} aktiv ist. Die Aktivierung oder Deaktivierung der Derating-Funktion erfolgt über zwei Schalter. Überschreiten die Temperaturen den jeweiligen Startwert der Kennlinie und ist die Temperatur validiert, wechselt der entsprechende Schalter seinen Zustand. Bei deaktiviertem Schalter wird der Wert \textit{BASIS\_CURRENT} als maximaler Strom weitergegeben. Bei aktiviertem Schalter wird der Ausgangswert der entsprechenden Kennlinie ausgegeben. Ein Min-Block ermittelt das Minimum der beiden Schalterausgänge, welches anschließend an den Ausgang weitergeleitet wird.\\
+Die LED-Funktionalität ist in einem separaten Variant-Subsystem implementiert. Dieses Subsystem ist ausschließlich aktiv, wenn die Bedingung \lstinline{DISPLAY_DERATING_MODE != DISABLE_OPTION} erfüllt ist. Die entsprechende Modellierung der Funktion ist in \autoref{png_matlab_tdr_led} dargestellt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Modell_Tdr_LED.pdf}
+	\caption{Matlab-Modell: LED-Derating-Funktion}
+	\label{png_matlab_tdr_led}
+\end{figure}
+Die Parameter für die LED-Funktion, die in \autoref{subsec_tdr_analyse} für das Ein- und Ausschalten der LED vorgestellt wurden, sind in Prozent angegeben und müssen daher in Temperaturwerte umgerechnet werden. Diese Umrechnung erfolgt im \textit{Initialize Block} von Matlab auf der linken Seite des Modells. Bei der Codegenerierung wird diese Berechnung in die Initialisierungsfunktion des C-Codes eingebettet und somit nur einmal beim Start des Steuergeräts ausgeführt.\\
+Die LED kann sowohl durch das Überschreiten eines Grenzwertes der Motortemperatur als auch der Elektroniktemperatur aktiviert werden. Aus diesem Grund sind die Abfragen der Grenzwerte in zwei separaten Stateflow-Charts modelliert, deren Ausgänge logisch über ein \textit{Oder} verknüpft sind. Innerhalb eines Stateflow-Charts erfolgt der Wechsel ausschließlich zwischen den Zuständen \textit{LEDAn} und \textit{LEDAus}, basierend auf der Überprüfung der berechneten Grenzwerte. In \autoref{png_matlab_tdr_led_tmpmot} ist das Chart exemplarisch für die Motortemperatur dargestellt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Modell_Tdr_LED_tmpMot.pdf}
+	\caption{Matlab-Modell: LED-Derating-Funktion aufgrund der Motortemperatur}
+	\label{png_matlab_tdr_led_tmpmot}
+\end{figure}

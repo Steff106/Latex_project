@@ -1,0 +1,77 @@
+\chapter{Umsetzung}
+\label{ch_umsetzung}
+Dieses Kapitel behandelt die Umsetzung der Maschinenschutzfunktionen und orientiert sich dabei an dem in \autoref{sec_modbas} vorgestellten V-Modell. Für eine bessere Nachvollziehbarkeit sind die einzelnen Abschnitte der Maschinenschutzfunktionen einheitlich strukturiert. Zunächst werden die einzelnen Funktionen umfassend beschrieben und die entsprechenden Anforderungen aus dem Lastenheft analysiert. Zudem erfolgt eine Analyse des bestehenden C-Codes. Darauf aufbauend folgt die Modellierung in Matlab. Den Abschluss des Kapitels bildet eine zusammenfassende Übersicht der Ergebnisse. 
+\subimport{}{Temperaturderating}
+\subimport{}{Temperaturabschaltung}
+\subimport{}{Reduzierfunktion}
+\subimport{}{Blockierfunktion}
+\subimport{}{Temperaturmodell}
+\section{Motorsteuerungslimits}
+Dieser Abschnitt behandelt die Motorsteuerungslimits. Wie bereits in \autoref{subsec_aufbau_playground} erläutert, beeinflussen verschiedene Maschinenschutzfunktionen die Motorsteuerungslimits, sodass die Integration eines zusätzlichen Referenced-Subsystems sinnvoll ist. Die Hauptaufgabe dieser Funktion besteht in der Priorisierung der Limits, die von den unterschiedlichen Maschinenschutzfunktionen und der Basissoftware vorgegeben werden.\\
+Da im Lastenheft keine spezifischen Anforderungen für diese Funktion definiert sind, wird ausschließlich eine Analyse der bestehenden Softwareimplementierung (C-Code) durchgeführt. Basierend auf den gewonnenen Erkenntnissen wird die Schnittstelle des Playgrounds erweitert und die Funktion in Matlab modelliert.
+
+\subsection{Analyse des C-Codes}
+Durch die Analyse des bestehenden C-Codes kann die Priorisierungsreihenfolge der Motorsteuerungslimits ermittelt und bei der Modellierung entsprechend berücksichtigt werden. Darüber hinaus lassen sich zusätzliche Eingangssignale identifizieren, die für die optimale Funktion der Motorsteuerungslimits erforderlich sind.\\
+Aus der Analyse des C-Codes \cite{Firmware_gesamt} ergeben sich die folgenden Aspekte, die in die Modellierung der Motorsteuerungslimits einfließen:
+\begin{itemize}
+\item Die Stromreduktion im Zusammenhang mit der Blockierfunktion ist ausschließlich während der Beschleunigungsphase der Maschine aktiv, da diese Funktion nur den Anlaufstrom begrenzt.
+\item Für alle Motorsteuerungslimits sowie die maximale Drehzahl wird jeweils der minimale Wert der relevanten physikalischen Größen ermittelt und als neuer Grenzwert definiert.
+\end{itemize}
+
+\subsection{Erweiterung der Schnittstelle für den Playground}
+In diesem Abschnitt wird die Erweiterung der Schnittstelle zur korrekten Übergabe der Ein- und Ausgangssignale zwischen der Basissoftware und dem Autocode behandelt. Zu diesem Zweck wird die Datei \textit{Playground.c} angepasst. Die erforderlichen Eingangssignale werden aus der Basissoftware in der Datei \textit{Playground.c} aufgerufen und anschließend an den Playground übergeben. Der entsprechende C-Code wird in dieser Arbeit nicht dargestellt. Stattdessen ist in \autoref{png_io_lim} ein schematisches Diagramm für die Motorsteuerungslimits mit allen Ein- und Ausgängen abgebildet.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./Bilder/IO_Lim.pdf}
+	\caption{Ein- und Ausgänge der Motorsteuerungslimits}
+	\label{png_io_lim}
+\end{figure}
+Die Funktion benötigt als Eingänge sämtliche von den Maschinenschutzfunktionen definierten Motorsteuerungslimits. Dazu zählen der maximale Strom der Blockierfunktion, der maximale Strom der Temperatur-Derating-Funktion sowie die Motorsteuerungslimits der Reduzierfunktion. Diese Motorsteuerungslimits werden stets als Bussignal übergeben und umfassen den maximalen Strom, das maximale und minimale Drehmoment sowie die maximale und minimale Leistung des Motors. \\
+Für die Berechnung der neuen Grenzwerte sind zusätzlich die aktuellen Grenzwerte erforderlich, da diese durch Funktionen der Basissoftware modifiziert werden können. Zur Bestimmung der Stromreduzierung infolge der Blockierfunktion ist zudem ein Flag für den Beschleunigungsmodus erforderlich, das anzeigt, ob sich die Maschine derzeit im Beschleunigungszustand befindet. Zur Bestimmung des Vorzeichens der Drehzahlvorgabe ist ein Flag aus der Basissoftware erforderlich, das die Drehrichtung des Motors angibt.\\
+Als Ausgänge liefert die Funktion die neu berechneten Grenzwerte für die maximale Drehzahl und der Motorsteuerungslimits.
+
+\subsection{Modellierung der Funktion in Matlab}
+Dieser Abschnitt behandelt die Modellierung der Motorsteuerungslimits in Matlab. Wie in \autoref{ch_voruntersuchungen} erläutert, wird für jede Teilfunktion ein eigenes Referenced-Subsystem sowie ein individuelles Simulink Data Dictionary erstellt. Die Benennung der Signale erfolgt gemäß der in \autoref{subsec_namenskonvention} beschriebenen Namenskonvention. Die wichtigsten Signale der Funktion werden im Dictionary hinterlegt. Dies ermöglicht den Zugriff auf die Signale über eine A2L-Datei und damit das Messen der Signale auf der realen Maschine über eine XCP-Schnittstelle. \\
+Die vollständige Modellierung der Motorsteuerungslimits ist in \autoref{png_matlab_lim} dargestellt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Modell_Lim.pdf}
+	\caption{Matlab-Modell: Priorisierung der Motorsteuerungslimits}
+	\label{png_matlab_lim}
+\end{figure}
+Die einzelnen Signale der Motorsteuerungslimits sind mithilfe von Min-Blöcken miteinander verbunden, um den minimalen Grenzwert zu bestimmen. Da die Temperatur-Derating-Funktion über eine maschinenabhängige Option vollständig deaktiviert werden kann, wird bei deaktivierter Derating-Funktion ein Wert von null als maximaler Strom übergeben. Dies würde jedoch verhindern, dass die Maschine anlaufen kann. Um dieses Problem zu vermeiden, enthält das Motorsteuerungslimit-Subsystem ein Variant-Subsystem für die Strombegrenzung. Dieses wechselt zwischen einem Min-Block mit und ohne Derating-Begrenzung, abhängig davon, ob die Derating-Funktion aktiv ist. \\
+Für die Drehzahlvorgabe ist ein zusätzliches Signal aus der Basissoftware erforderlich, das die Soll-Drehrichtung des Motors spezifiziert. Diese Anforderung wurde erst im Rahmen des Systemtests der Reduzierfunktion identifiziert (siehe \autoref{subsubsec_systemtest_red}). Das Signal \textit{desired\_rotation\_direction\_right} zeigt an, ob der Motor im Rechtslauf (Flag gesetzt) oder im Linkslauf (Flag nicht gesetzt) betrieben werden soll. Im Rechtslauf, bei gesetztem Flag, muss die Drehzahlvorgabe einen negativen Wert aufweisen. Damit die Bestimmung des Minimums korrekt durchgeführt werden kann, ist es erforderlich, den Betrag der aktuellen Drehzahlvorgabe (\textit{setpoint\_speed}) zu berechnen.\\
+Für die Strombegrenzung ist zusätzlich eine Umschaltung erforderlich, um zwischen Beschleunigungs- und Nicht-Beschleunigungszuständen zu unterscheiden. Diese Struktur ist in \autoref{png_matlab_lim_accelmode} veranschaulicht.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Modell_Lim_accel_mode.pdf}
+	\caption{Matlab-Modell: Umschaltung der Stromreduzierung in Abhängigkeit des Beschleunigunsmodus}
+	\label{png_matlab_lim_accelmode}
+\end{figure}
+Die Umschaltung bei aktiver Beschleunigung erfolgt über den hinteren Schalter. Befindet sich die Maschine nicht im Beschleunigungsmodus wird der Parameter für den dauerhaften maximalen Strom ausgegeben. Ist der Beschleunigungsmodus aktiv, wird entweder bei aktiver Blockierfunktion der in der Blockierfunktion bestimmte maximale Strom oder der Parameter für den maximalen Anlaufstrom weitergegeben.
+
+\section{Zusammenfassung}
+In diesem Kapitel wurde die linke Hälfte des V-Modells (\autoref{png_V_Modell}) im Kontext des modellbasierten Entwicklungsprozesses auf die Maschinenschutzfunktionen angewendet. Obwohl die Anforderungen für die Maschinenschutzfunktionen nicht definiert werden mussten, erfolgte eine ausführliche Analyse des Lastenhefts. Ergänzend dazu wurde die bestehende Softwareimplementierung untersucht, wodurch die Funktionen in Matlab-Simulink unter Einsatz von Stateflow modelliert werden konnten. \\
+Auf Basis der Vorbereitungen aus \autoref{ch_voruntersuchungen} ist es möglich, mithilfe des Embedded Coders aus dem erstellten Modell C-Code zu generieren und diesen in die Basissoftware zu integrieren. Die Aktivierung des Playgrounds erfolgt über eine entsprechende Definition in der Header-Datei der zugehörigen Maschine. Bei aktivierter Playground-Option werden sämtliche Maschinenschutzfunktionen innerhalb der Basissoftware deaktiviert und der generierte Autocode wird beim Erstellen des Maschinencodes berücksichtigt. Eine Übersicht des gesamten Modells ist in \autoref{png_matlab_gesamt_maschutz} dargestellt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Modell_Mas.pdf}
+	\caption{Matlab-Modell: Gesamte Modellierung der Maschinenschutzfunktionen}
+	\label{png_matlab_gesamt_maschutz}
+\end{figure}
+Alle Eingangssignale werden über die Busverbindung an die entsprechenden Subsysteme verteilt. Signale, die Einfluss auf die Motorsteuerungslimits haben, werden an das Subsystem zur Steuerung der Motorsteuerungslimits weitergeleitet.\\
+Der Playground arbeitet mit einer Abtastrate von \unit[1]{ms}. Alle Funktionen, mit Ausnahme der Temperatur-Abschaltung und des Temperaturmodells, werden ebenfalls mit dieser Abtastrate ausgeführt. Damit die Abschaltungs-Funktion und das Temperaturmodell hingegen mit einer Abtastzeit von \unit[10]{ms} arbeiten können, ist der Einsatz von Rate-Transition-Blöcken in Matlab erforderlich. Diese Blöcke gewährleisten eine korrekte Codegenerierung durch den Embedded-Coder und stellen die Einhaltung der gewünschten Abtastrate sicher. 
+
+Zur Übersicht der Ein- und Ausgangssignale des Playgrounds ist in \autoref{png_matlab_playground_io} eine Darstellung des Playgrounds mit sämtlichen zugehörigen Signalen enthalten.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Modell_Playground_IO.pdf}
+	\caption{Ein- und Ausgangssignale des Playgrounds}
+	\label{png_matlab_playground_io}
+\end{figure}
+Die im Rahmen dieser Arbeit hinzugefügten Signale sind farblich hervorgehoben. Der Unterschied wird zudem durch einen Vergleich mit \autoref{png_playground_alt} deutlich.
+
+%\section{Änderungen an der Schnittstelle}
+%von Johannes gewünscht: Ein Wunsch von meiner Seite für Kapitel 4.8: Fasse dort bitte auch nochmal die Änderungen an der Schnittstelle zusammen bzw. stelle den Stand zu Beginn deiner Arbeit gegenüber dem Stand mit allen Maschinenschutzfunktionen dar, damit man alle Ergänzungen nochmal auf einen Blick erfassen kann. \\
+%
+%Gesamte Eingänge und gesamte Ausgänge mit meinen Funktionen, was ich benötige, Schematisches Bild, markieren was neu

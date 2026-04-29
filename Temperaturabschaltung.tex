@@ -1,0 +1,56 @@
+\section{Temperatur-Abschaltung}
+Dieser Abschnitt widmet sich der Funktion Temperatur-Abschaltung. Zunächst wird der Funktionshintergrund und die Funktionsweise dieser Funktion beschrieben. Im Anschluss erfolgt eine detaillierte Analyse der spezifischen Anforderungen sowie der bestehenden Softwareimplementierung (C-Code). Auf Grundlage der gewonnenen Erkenntnisse wird die Schnittstelle für den Playground erweitert und die Funktion in Matlab modelliert.
+
+\subsection{Funktionsbeschreibung}
+Der Schutz des Geräts vor Übertemperatur an Motor und Elektronik wird durch eine gezielte Abschaltfunktion gewährleistet. Diese Funktion stellt sicher, dass das Gerät bei kritischen Temperaturbedingungen automatisch deaktiviert wird, um Schäden an den Bauteilen oder eine Beeinträchtigung der Betriebssicherheit zu verhindern.\\
+Überschreitet die Temperatur der Elektronik (erfasst durch einen NTC-Sensor auf der Elektronik) oder die des Motors (ermittelt über eine Motortemperaturmodell) eine individuell parametrierbare Abschaltgrenze, wird das Gerät automatisch deaktiviert. Ein erneutes Einschalten des Geräts ist erst möglich, wenn die Temperaturen wieder unter die jeweils definierten Einschalttemperaturen fallen \cite{SW_ZUSE}.
+
+\subsection{Analyse des Lastenhefts und des C-Codes}
+\label{subsec_tas_analyse}
+In diesem Abschnitt werden die spezifischen Anforderungen aus dem Lastenheft bei STIHL für die Temperatur-Abschaltungs-Funktion aufgeführt. Diese Anforderungen bilden die Grundlage für die Implementierung des entsprechenden C-Codes in der Firmware. Durch eine ergänzende Analyse des C-Codes kann die Modellierung der Funktion vereinfacht und gleichzeitig sichergestellt werden, dass deren Funktionalität vollständig abgebildet wird. \\
+Die nachfolgenden Anforderung sind wörtlich aus dem Master-Lastenheft für Akkugeräte entnommen \cite{Lastenheft}:
+\begin{itemize}
+\item Falls die \textit{Elektroniktemperatur} größer\slash gleich als \textit{CpsGwuTmcMosfetAbschalten} ist, soll das Gerät den Fehler \textit{MC\_ERR\_COMP\_TEMP\_HOT} ausgeben. Der Fehler wird zurückgesetzt, sobald ein erneuter Startversuch erfolgt („Kundenwunsch Gerätestart“ - abhängig von Bedienlogik) und dabei der Fehler nicht weiter anliegt. Die Überprüfung auf das Anliegen des Fehlers wird im Rahmen des erneuten Startversuchs überprüft und falls er weiter vorliegt, erneut geschrieben.
+\item Falls die \textit{Motortemperatur} größer/gleich als \textit{CpsGwuTmcMotorAbschalten} ist, soll das Gerät den Fehler \textit{MC\_ERR\_MOTOR\_TEMP\_HOT} ausgeben. Der Fehler wird zurückgesetzt, sobald ein erneuter Startversuch erfolgt (\glqq Kundenwunsch Gerätestart\grqq - abhängig von Bedienlogik) und dabei der Fehler nicht weiter anliegt. Die Überprüfung auf das Anliegen des Fehlers wird im Rahmen des erneuten Startversuchs überprüft und falls er weiter vorliegt, erneut geschrieben.
+\end{itemize}
+Der C-Code in der Firmware basiert auf den genannten Anforderungen. Eine zusätzliche Untersuchung des C-Codes ermöglicht es, sowohl die Informationen zum Ein- und Ausschalten der Funktion über maschinenabhängige Optionen als auch die zusätzlichen Eingangssignale, die für eine optimale Funktionalität der Funktion erforderlich sind, zu identifizieren. \\
+Aus der Analyse des C-Codes \cite{Firmware_gesamt} ergeben sich folgende Punkte für die Modellierung der Temperatur-Abschaltungs-Funktion:
+\begin{itemize}
+\item Die Funktion ist nicht über eine maschinenabhängige Option ein- oder ausschaltbar, sondern standardmäßig bei jeder Maschine aktiviert.
+\item Wie bei der Temperatur-Derating-Funktion (\autoref{sec_tdr}) erfolgt die Validierung der gemessenen Temperaturen erst nach einer kurzen Verzögerung durch das Flag \lstinline{temperature_valid}, das von der Basissoftware bereitgestellt wird. Erst nach dieser Validierung ist eine Umschaltung zwischen Abschalten und Nicht-Abschalten der Maschine möglich.
+\item Die Funktion wird in einem Intervall von \unit[10]{ms} zyklisch ausgeführt.
+\end{itemize}
+\subsection{Erweiterung der Schnittstelle für den Playground}
+In diesem Abschnitt wird die Erweiterung der Schnittstelle zur korrekten Übergabe der Ein- und Ausgangssignale zwischen der Basissoftware und dem Autocode behandelt. Zu diesem Zweck wird die Datei \textit{Playground.c} angepasst. Die erforderlichen Eingangssignale werden aus der Basissoftware in der Datei \textit{Playground.c} aufgerufen und anschließend an den Playground übergeben. Der entsprechende C-Code wird in dieser Arbeit nicht dargestellt. Stattdessen ist in \autoref{png_io_tas} ein schematisches Diagramm für die Temperatur-Abschaltungs-Funktion mit allen Ein- und Ausgängen abgebildet.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./Bilder/IO_Tas.pdf}
+	\caption{Ein- und Ausgänge der Temperatur-Abschaltungs-Funktion}
+	\label{png_io_tas}
+\end{figure}
+Für die Implementierung der Temperatur-Abschaltungs-Funktion werden die Motortemperatur, die Elektroniktemperatur sowie das Validierungsflag für die Temperatur benötigt. Da diese Eingänge bereits in der Temperatur-Derating-Funktion verwendet werden, ist es nicht erforderlich, zusätzliche Eingänge für den Playground hinzuzufügen. \\
+Das direkte Auslösen eines Fehlers aus Matlab gestaltet sich als äußerst schwierig, da hierfür eine direkte Aufrufmöglichkeit einer Funktion aus der Basissoftware erforderlich wäre. Aus diesem Grund werden zwei separate Flags für die Abschaltung der Maschine an die Schnittstelle übergeben. Diese Flags ermöglichen es, in der Schnittstellendatei \textit{Playground.c}, die entsprechenden Fehler abhängig vom Status der jeweiligen Flags auszulösen. Diese Implementierung ist in \autoref{lst_error_tas} aufgeführt.
+%%%%%%%%
+\lstinputlisting[language=C, caption={Setzen der Errors für die Temperatur-Abschaltungs-Funktion}, label=lst_error_tas]{Beispiel_Error_Tas.c}
+%%%%%%%%%%%%%
+Wird eines der beiden Flags aktiviert, löst dies den entsprechenden Fehler aus und generiert die zugehörige Fehlermeldung. Infolgedessen wird die Maschine abgeschaltet.
+
+
+\subsection{Modellierung der Funktion in Matlab}
+Dieser Abschnitt behandelt die Modellierung der Temperatur-Abschaltungs-Funktion in Matlab. Wie in \autoref{ch_voruntersuchungen} erläutert, wird für jede Teilfunktion ein eigenes Referenced-Subsystem sowie ein individuelles Simulink Data Dictionary erstellt. Im Dictionary werden alle Parameter entsprechend den Anforderungen (\autoref{subsec_tas_analyse}) definiert. Dabei erfolgt die Benennung der Parameter gemäß der in \autoref{subsec_namenskonvention} beschriebenen Namenskonvention. Zusätzlich werden zentrale Signale, wie beispielsweise die Ausgänge der Funktion, ebenfalls im Dictionary hinterlegt. Dies ermöglicht den Zugriff auf die Signale über eine A2L-Datei und damit das Messen der Signale auf der realen Maschine über eine XCP-Schnittstelle. \\
+Die vollständige Modellierung der Abschaltungs-Funktion ist in \autoref{png_matlab_tas} dargestellt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Modell_Tas.pdf}
+	\caption{Matlab-Modell: Temperatur-Abschaltungs-Funktion}
+	\label{png_matlab_tas}
+\end{figure}
+Die Abschaltungen, basierend auf der Motortemperatur und der Elektroniktemperatur, müssen unabhängig voneinander arbeiten. Daher wird für jede Abschaltung ein separates Stateflow-Diagramm verwendet. An jedes dieser Diagramme werden die entsprechenden Grenzwerte für das Setzen und Rücksetzen des Flags, die jeweilige Temperatur sowie das Temperaturvalidierungsflag übergeben.\\
+In \autoref{png_matlab_tas_tmpmot} ist exemplarisch das Stateflow-Diagramm für die Abschaltung in Abhängigkeit der Motortemperatur dargestellt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Modell_Tas_tmpMot.pdf}
+	\caption{Matlab-Modell: Temperatur-Abschaltungs-Funktion aufgrund der Motortemperatur}
+	\label{png_matlab_tas_tmpmot}
+\end{figure}
+Das Stateflow-Diagramm umfasst zwei Zustände, zwischen denen ein Übergang nur dann erfolgen kann, wenn das Temperaturvalidierungsflag \lstinline{temperature_valid} aktiviert ist. Sobald die Motortemperatur den festgelegten Grenzwert für die Abschaltung der Maschine überschreitet, erfolgt ein Zustandswechsel und das zugehörige Flag wird gesetzt. Unterschreitet die Temperatur anschließend den definierten Rücksetzparameter der Abschaltfunktion, wird der Zustand zurückgesetzt und das Flag wird deaktiviert.

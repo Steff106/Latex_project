@@ -1,0 +1,55 @@
+\section{Temperaturmodell}
+\label{sec_Tmo}
+Dieser Abschnitt widmet sich dem Temperaturmodell. Zunächst wird der Funktionshintergrund und die Funktionsweise dieser Funktion beschrieben. Im Anschluss erfolgt eine detaillierte Analyse der spezifischen Anforderungen sowie der bestehenden Softwareimplementierung (C-Code). Auf Grundlage der gewonnenen Erkenntnisse wird die Schnittstelle für den Playground erweitert und die Funktion in Matlab modelliert.
+\subsection{Funktionsbeschreibung}
+\label{subsec_tmo_funktion}
+Zum Schutz des Motors wird dessen Temperatur, auf Basis verfügbarer Daten, über ein Temperaturmodell geschätzt. Abhängig von der Parametrierung und Konfiguration des Modells wird die Temperatur des Elektronikmoduls oder eines Motor-NTC als Grundlage verwendet. Ergänzend hierzu wird unter Einbeziehung weiterer Messgrößen, wie Motordrehzahl und Motorstrom, eine Schätzung der Motortemperatur durchgeführt. \\
+Die relevanten Wärmeverluste sowie Entwärmungseffekte werden durch die Eingangsgrößen Temperatursensor, Motorstrom und Drehzahl modelliert. Basierend auf der Leistungsbilanz, welche die Differenz zwischen zugeführter und abgeführter Leistung darstellt, wird die Erwärmung oder Abkühlung eines virtuellen Körpers berechnet. Die so ermittelte Temperatur steht der Motorsteuerung als Schätzwert für die Motortemperatur zur Verfügung.\\
+Die Berechnung erfolgt in zwei getrennten Betriebszuständen, „stehend“ und „in Betrieb“ und wird zyklisch alle 10 Millisekunden durchgeführt. Beim Übergang in den Energiesparmodus der Elektronik oder beim Entfernen des Akkus wird das Modell zurückgesetzt und mit einem initialen Startwert neu initialisiert \cite{SW_ZUSE}. Die Formeln zur Berechnung des Temperaturmodells sind in \autoref{png_funktion_tmo} aufgeführt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Funktionsbeschreibung_Tmo.png}
+	\caption{Berechnungsformeln für das Temperaturmodell \cite{SW_ZUSE}}
+	\label{png_funktion_tmo}
+\end{figure}
+\subsection{Analyse des Lastenhefts und des C-Codes}
+\label{subsec_tmo_analyse}
+In diesem Abschnitt werden die spezifischen Anforderungen aus dem Lastenheft bei STIHL für das Temperaturmodell aufgeführt. Diese Anforderungen bilden die Grundlage für die Implementierung des entsprechenden C-Codes in der Firmware. Durch eine ergänzende Analyse des C-Codes kann die Modellierung der Funktion vereinfacht und gleichzeitig sichergestellt werden, dass deren Funktionalität vollständig abgebildet wird. \\
+Die im Lastenheft \cite{Lastenheft} formulierten Anforderungen stimmen mit den in \autoref{png_funktion_tmo} dargestellten Formeln überein und werden daher in diesem Abschnitt nicht nochmals aufgeführt.\\
+Der C-Code in der Firmware basiert auf den genannten Anforderungen. Eine zusätzliche Untersuchung des C-Codes ermöglicht es, sowohl die Informationen zum Ein- und Ausschalten der Funktion über maschinenabhängige Optionen als auch die zusätzlichen Eingangssignale, die für eine optimale Funktionalität der Funktion erforderlich sind, zu identifizieren. \\
+Aus der Analyse des C-Codes \cite{Firmware_gesamt} ergeben sich folgende Punkte für die Modellierung des Temperaturmodells:
+\begin{itemize}
+\item Das gesamte Temperaturmodell kann über die maschinenabhängige Option\\ \lstinline{ACTIVATE_MOTOR_TEMPERATURE_MODEL} im Header-File aktiviert oder deaktiviert werden.
+\item Für die Berechnung wird der Betrag des aktuellen Motorstroms ermittelt und auf einen im Header-File der Maschine definierten Maximalwert \\ \lstinline{MAX_CURRENT_MOTOR_TEMP_MODELL} für die Berechnung begrenzt.
+\item Im C-Code wird die Berechnungsformel für den Zustand „in Betrieb“ einheitlich sowohl für den Betriebs- als auch für den Stillstandszustand verwendet. Die Anpassung der Formel an den Stillstandszustand erfolgt automatisch, da die aktuellen Werte für Drehzahl und Motorstrom im Stillstand null sind und entsprechend in die Berechnung einfließen.
+\item Der maximale Temperaturunterschied im Vergleich zum vorherigen Wert ist auf \unit[$\pm 1$]{$^\circ$C} beschränkt.
+\item Die berechnete Motortemperatur wird auf einen Wertebereich von \unit[1]{$^\circ$C} bis \unit[195]{$^\circ$C} begrenzt.
+\item Die Funktion wird in einem Intervall von \unit[10]{ms} zyklisch ausgeführt.
+\end{itemize}
+
+\subsection{Erweiterung der Schnittstelle für den Playground}
+In diesem Abschnitt wird die Erweiterung der Schnittstelle zur korrekten Übergabe der Ein- und Ausgangssignale zwischen der Basissoftware und dem Autocode behandelt. Zu diesem Zweck wird die Datei \textit{Playground.c} angepasst. Die erforderlichen Eingangssignale werden aus der Basissoftware in der Datei \textit{Playground.c} aufgerufen und anschließend an den Playground übergeben. Der entsprechende C-Code wird in dieser Arbeit nicht dargestellt. Stattdessen ist in \autoref{png_io_tmo} ein schematisches Diagramm für das Temperaturmodell mit allen Ein- und Ausgängen abgebildet.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./Bilder/IO_Tmo.pdf}
+	\caption{Ein- und Ausgänge des Temperaturmodells}
+	\label{png_io_tmo}
+\end{figure}
+Das Temperaturmodell erfordert den aktuellen Motorstatus, um zwischen den Parametern für die Zustände „stehend“ und „in Betrieb“ umzuschalten. Für die eigentliche Berechnung werden der aktuelle Motorstrom, die aktuelle Motordrehzahl sowie der aktuelle Wert des Temperatursensors benötigt. Wie in \autoref{subsec_tmo_funktion} erläutert, dient entweder die Elektroniktemperatur oder der Wert eines Motor-NTC als Grundlage für das Modell. Die Auswahl des verwendeten Sensorwertes erfolgt bei der Übergabe des Messwertes an den Playground, wie in \autoref{lst_tmo_sensor} dargestellt.
+%%%%%%%%
+\lstinputlisting[language=C, caption={Übergabe des Temperatursensorwertes an den Playground}, label=lst_tmo_sensor]{Beispiel_Sensor_Tmo.c}
+%%%%%%%%%%%%%
+Wenn die maschinenabhängige Option \lstinline{ACTIVATE_MOTOR_NTC} im Header-File aktiviert ist, wird der Wert der Motortemperatur an den Playground übergeben. Andernfalls wird die gemessene Elektroniktemperatur als Eingangsgröße verwendet.
+
+\subsection{Modellierung der Funktion in Matlab}
+Dieser Abschnitt behandelt die Modellierung des Temperaturmodells in Matlab. Wie in \autoref{ch_voruntersuchungen} erläutert, wird für jede Teilfunktion ein eigenes Referenced-Subsystem sowie ein individuelles Simulink Data Dictionary erstellt. Im Dictionary werden alle Parameter entsprechend den Anforderungen (\autoref{subsec_tmo_analyse}) definiert. Dabei erfolgt die Benennung der Parameter gemäß der in \autoref{subsec_namenskonvention} beschriebenen Namenskonvention. Zusätzlich werden zentrale Signale, wie beispielsweise die Ausgänge der Funktion, ebenfalls im Dictionary hinterlegt. Dies ermöglicht den Zugriff auf die Signale über eine A2L-Datei und damit das Messen der Signale auf der realen Maschine über eine XCP-Schnittstelle. \\
+Die vollständige Modellierung des Temperaturmodells ist in \autoref{png_matlab_tmo} dargestellt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Modell_Tmo.pdf}
+	\caption{Matlab-Modell: Temperaturmodell zur Berechnung der Motortemperatur}
+	\label{png_matlab_tmo}
+\end{figure}
+Das gesamte Temperaturmodell ist in einem Variant-Subsystem integriert, das ausschließlich bei der Option \lstinline{ACTIVATE_MOTOR_TEMPERATURE_MODEL} aktiviert wird.
+Die Modellierung ist in vier Abschnitte unterteilt. Im linken oberen Abschnitt ist die Umschaltung der Parameter zwischen Betrieb und Stillstand modelliert. Abhängig von dem Eingangssignal \textit{motorcontrol\_status} werden über den Schalter die dazugehörigen Parameter an die Go-To-Blöcke übergeben. \\
+Auf der rechten oberen Seite wird zum einen die Referenztemperatur und die Abweichung zwischen der Referenz- und der berechneten Temperatur berechnet. Im unteren Abschnitt erfolgt die Berechnung der Motortemperatur analog zu den oben beschriebenen Formeln und den eingebauten Begrenzungen aus der Analyse des C-Codes. Über den Delay-Block am Ende der Berechnung wird der Initialwert des Modells über die Addition des Temperatursensorwertes mit dem \textit{C5}-Parameter gesetzt.

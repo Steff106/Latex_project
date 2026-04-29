@@ -1,0 +1,194 @@
+% header.tex -- zentrale Preamble / Einstellungen
+% Lade in Masterarbeit.tex zuerst die Klasse, dann diese Datei:
+% \documentclass[listof=totoc,fontsize=12pt,numbers=noenddot]{classTimo}
+% \input{header.tex}
+
+% --------------------------
+% Projektpakete (extern, bleiben als \usepackage)
+% --------------------------
+% Verzeichnisse, Titelblatt, util bleiben als separate Dateien/Pakete
+\usepackage{Verzeichnisse}
+\usepackage{Titelblatt}
+\usepackage{util}
+
+% --------------------------
+% Literaturverzeichnis (biblatex)
+% --------------------------
+% https://www.overleaf.com/learn/latex/Biblatex_citation_styles
+\usepackage[style=numeric, 
+sorting=none,        % none --> nach reihenfolge der zitate im text
+backend=bibtex,      % or backend=biber
+bibencoding=utf8,    % .bib file encoding
+maxbibnames=99       % give full list of authors (up to 99)
+]{biblatex}
+\setlength{\bibitemsep}{0.5\baselineskip} % Abstand zwischen zwei Quellen im Litver.
+\bibliography{Referenzen} % oder \addbibresource{Referenzen.bib} bei backend=biber
+
+% (Optional: Beispiele für xpatch-Einsätze aus der alten Vorlage)
+% \usepackage{xpatch}
+% \xpretobibmacro{url}{\begingroup\color{red}}{}{}
+% \xapptobibmacro{url}{\endgroup}{}
+
+% --------------------------
+% Seitenlayout / Kopf-/Fußzeile Einstellungen
+% (Hinweis: viele dieser Grundfunktionen liefert classTimo bereits;
+%  hier werden nur die projekt-spezifischen Anpassungen aus der alten Preamble übernommen)
+% --------------------------
+
+% Abstand vor/nach chapter-Überschrift
+\renewcommand*\chapterheadstartvskip{\vspace{0cm}} % Abstand vor chapter Überschrift
+\renewcommand*\chapterheadendvskip{\vspace{0cm}}   % Abstand nach chapter Überschrift
+
+% Kopf-/Fußzeilen-Setup (scrlayer-scrpage verwendet classTimo bereits; wir überschreiben hier projekt-spezifisch)
+\clearpairofpagestyles
+\automark{chapter} % was soll in headmark stehen
+\ihead[]{\headmark}  % i = links, c = mittig, o = rechts / headmark: Überschiften
+\cfoot*{\pagemark} % [] Überschiftseiten, {} normale Seiten, * für beide
+%\ohead*{\includegraphics[width=0.2\textwidth]{./Bilder/Stihl_header}}
+\addtokomafont{pagehead}{\bfseries} % upshape = Kursiv, bfseries = Fett
+\addtokomafont{pagenumber}{\bfseries}
+% Auskommentierte zusätzliche Kopf-/Fuß-Optionen aus Vorlage (nur bei Bedarf aktivieren):
+% %\pagestyle{scrheadings}
+% %\clearscrheadfoot
+% %\setheadsepline{0.5pt}
+% %\setfootsepline{0.5pt}
+% %\renewcommand*\chapterpagestyle{scrheadings}
+
+% --------------------------
+% (Auskommentierte) Verzeichnis-Anpassungen aus Vorlage
+% Diese Einstellungen betreffen tocloft/tocbasic; da sie im Original auskommentiert waren,
+% belasse ich sie hier kommentiert. Aktiviere nur falls benötigt.
+% --------------------------
+% %\renewcommand{\cftfigpresnum}{Abb. }	% Anpassen des Abbildungsverzeichnises
+% %\renewcommand{\cfttabpresnum}{Tab. }
+% %\renewcommand{\cftfigaftersnum}{:}
+% %\renewcommand{\cfttabaftersnum}{:}
+% %\setlength{\cftfignumwidth}{2cm}
+% %\setlength{\cfttabnumwidth}{2cm}
+% %\setlength{\cftfigindent}{0cm}
+% %\setlength{\cfttabindent}{0cm}
+
+% --------------------------
+% Kurze Makros und Farben (aus alter Preamble)
+% --------------------------
+\newcommand\LM{\ensuremath{\mathit{LM}}}
+\newcommand\IS{\ensuremath{\mathit{IS}}}
+
+\usepackage{color}
+\definecolor{FE_blue}{rgb}{0,0.5686,0.8627} % #0091DC
+\definecolor{FE_blue2}{rgb}{0.8627,0.9216,0.9647} % #DCEBF6
+\definecolor{FE_gray}{rgb}{0.8471,0.8627,0.8824} % 
+\definecolor{AleeRed}{rgb}{0.5,0,0}
+
+% --------------------------
+% Mathematische Theoreme (aus Vorlage)
+% --------------------------
+% auskommentierte Varianten belassen; aktive Definition übernimmt shadethm-Umgebung
+% %\usepackage{thm-autoref}
+% %\newtheorem{satz}{Satz}
+\newshadetheorem{satz}{Satz}
+\newcommand{\shadesatzname}{Satz}
+\newenvironment{thm}[1][]{%
+	\definecolor{shadethmcolor}{FE_gray}%
+	\definecolor{shaderulecolor}{rgb}{1.0,0.0,0.0}%
+	\setlength{\shadeboxrule}{1pt}%
+	\begin{sthm}[#1]%
+	}{\end{sthm}}
+
+% --------------------------
+% hyperref (aus alter Vorlage) - am Ende der Pakete laden
+% --------------------------
+\usepackage[
+pdftitle={Masterarbeit Festo},
+pdfauthor={Steffen Sieder},
+pdfsubject={Modellbasierte Funktionsentwicklung von},
+pdfkeywords={},
+pdftex,
+bookmarks,
+bookmarksopen,
+breaklinks,
+colorlinks=TRUE,
+hyperindex=TRUE,
+plainpages=FALSE,
+pdfstartview=FitH,
+bookmarksopenlevel=1,
+bookmarksnumbered=true,
+citecolor=black,
+urlcolor=black,
+linkcolor=black
+]{hyperref}
+
+% --------------------------
+% autoref Namen (deutsch)
+% --------------------------
+\addto\extrasngerman{%
+	\renewcommand{\sectionautorefname}{Abschnitt}%
+	\renewcommand{\subsectionautorefname}{Abschnitt}%
+	\renewcommand{\subsubsectionautorefname}{Abschnitt}%
+}
+
+% --------------------------
+% Gleichungsnummerierung in Klammern (aus Vorlage)
+% --------------------------
+\makeatletter
+\let\oldtheequation\theequation
+\renewcommand\tagform@[1]{\maketag@@@{\ignorespaces#1\unskip\@@italiccorr}} %damit bei Benennung der Gleichung keine Doppelklammer entsteht
+\renewcommand\theequation{(\oldtheequation)}
+\makeatother
+
+% --------------------------
+% TikZ / Styles (auskommentiert in Vorlage) - hier nur als Kommentar
+% --------------------------
+% %\usepackage{tikz}
+% %\usetikzlibrary{shapes,arrows,fit,calc,positioning,automata}
+% %\tikzstyle{block} = [draw, fill=blue!20, rectangle, minimum height=3em, minimum width=\blockwidth]
+
+% --------------------------
+% Listings-Einstellungen (aus alter Preamble)
+% --------------------------
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=none,
+	aboveskip=3mm,
+	belowskip=5mm,
+	captionpos=b,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	numbersep=5pt,
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3,
+	inputpath = ./Skripte
+}
+\lstset{literate=%
+	{Ö}{{\"O}}1
+	{Ä}{{\"A}}1
+	{Ü}{{\"U}}1
+	{ß}{{\ss}}1
+	{ü}{{\"u}}1
+	{ä}{{\"a}}1
+	{ö}{{\"o}}1
+}
+\renewcommand{\lstlistingname}{Skript}
+\renewcommand{\lstlistlistingname}{Skriptverzeichnis}
+
+% --------------------------
+% Aufzählungs- und Absatz-Einstellungen sowie Inhalts-/Nummerierungstiefe
+% --------------------------
+\renewcommand{\labelenumi}{\arabic{enumi}.}
+
+\setlength{\parindent}{0pt} % Einrücken nach Bildern verhindern
+\setlength{\parskip}{12pt}	% globale Länge festlegen
+\setcounter{tocdepth}{2}	% Inhaltsverzeichnis-Tiefe
+\setcounter{secnumdepth}{2} % Nummerierungstiefe
+
+% --------------------------
+% Ende header.tex (vorläufig)
+% --------------------------

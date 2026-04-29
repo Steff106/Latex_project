@@ -1,0 +1,149 @@
+\chapter{Vorbereitung - Modellierung und Codegenerierung}
+\label{ch_voruntersuchungen}
+%\chapter{Modellaufbau und Autocodegenerierung}
+Dieses Kapitel widmet sich den Voruntersuchungen zum Aufbau des Matlab-Simulink-Modells sowie zur Autocodegenerierung mit dem Embedded-Coder. Im Rahmen dieser Untersuchungen wird eine geeignete Modellierungsmethode für das Projekt ausgewählt und verschiedene Einstellungen für die Autocodegenerierung analysiert. Für die vorliegende Arbeit kommt die Matlab-Version R2022b zum Einsatz.
+\section{Modellaufbau}
+Dieser Abschnitt behandelt den grundlegenden Aufbau des Playground-Modells. Dabei werden unterschiedliche Modellierungsmethoden in Simulink untersucht und eine geeignete Methode ausgewählt. Des Weiteren wird die Struktur des Playgrounds umfassend erläutert.
+\subsection{Auswahl der Modellierungsmethode}
+\label{subsec_auswahl_modelltyp}
+Um umfangreiche Modelle in Simulink klar und verständlich zu gestalten, ist es notwendig, einzelne Funktionen in separaten Bereichen zu modellieren. Simulink bietet hierfür verschiedene Ansätze. MathWorks stellt einen Leitfaden zur Verfügung, der die unterschiedlichen verfügbaren Blocktypen, wie Subsysteme, Linked-Subsysteme, Subsystem References und Model References, vorstellt und miteinander vergleicht \cite{Matlab_Modell_Types}. Dieser Leitfaden enthält zudem ein Flussdiagramm, das als Entscheidungsgrundlage für die korrekte Auswahl der Komponenten dient (siehe \autoref{png_auswahl_modell_typ}). Anhand dieses Diagramms kann der geeignete Blocktyp für die einzelnen Funktionen im Modell bestimmt werden.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{./Bilder/Leitfaden_Modelltype.png}
+	\caption{Richtlinie zur Auswahl der Modell Komponenten \cite{Matlab_Modell_Types}}
+	\label{png_auswahl_modell_typ}
+\end{figure}  
+Der Pfad für das Playground-Modell ist grün markiert. Da die einzelnen Funktionen nicht unabhängig voneinander operieren müssen, wird die erste Frage mit \glqq Nein\grqq{} beantwortet. Die Funktionsentwicklung bei STIHL erfolgt unter Verwendung des Versionsverwaltungstools Git, weshalb die zweite Frage mit \glqq Ja\grqq{} beantwortet wird. Da die Funktionen nicht in unterschiedlichen Modellen eingesetzt werden, lautet die Antwort auf die nächste Frage erneut \glqq Nein\grqq{}. Angesichts der kontinuierlichen Anpassungen und Modifikationen der Funktionen für Akkuprodukte wird auch die letzte Frage mit \glqq Nein\grqq{} beantwortet. Daraus ergibt sich, dass für die Modellierung der einzelnen Funktionen ein Referenced-Subsystem verwendet wird. Jede Funktion wird in einer separaten .slx Datei gespeichert und in das Gesamtmodell integriert, wodurch die Änderungen an spezifischen Funktionen über die Versionskontrolle leicht nachvollzogen werden können. Zudem wird für jedes Referenced-Subsystem ein eigenes Simulink Data Dictionary erstellt, das anschließend über Referenced Dictionaries in einem zentralen Dictionary für den Playground integriert wird.
+\subsection{Aufbau Playground}
+\label{subsec_aufbau_playground}
+In diesem Abschnitt wird der Grundaufbau des Playground-Modells erläutert. Das Modell ist in sieben Hauptfunktionen unterteilt (vgl. \autoref{png_ziel_architektur}). Um die Hauptfunktionen innerhalb des Modells klar voneinander abzugrenzen, wird jede Funktion in einem separaten Subsystem abgebildet. Die einzelnen Teilfunktionen werden dabei jeweils in einem Referenced-Subsystem umgesetzt (siehe \autoref{subsec_auswahl_modelltyp}). Die Subsysteme dienen primär der Übersichtlichkeit. Die grundlegende Struktur ist in \autoref{png_architektur_playground} dargestellt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./Bilder/Playground_Modellaufbau.pdf}
+	\caption{Schematische Modellarchitektur Playground}
+	\label{png_architektur_playground}
+\end{figure}
+Wie in \autoref{sec_modbas_stand_der_technik} beschrieben, wird als Eingangssignal ein Bussignal verwendet, das alle für den Playground benötigten Eingangsgrößen umfasst. Diese Signale werden dann an die jeweiligen Hauptfunktionen weitergeleitet. Die erforderlichen Ausgangssignale werden ebenfalls über ein Bussignal an die Basissoftware übertragen. Einige Hauptfunktionen weisen Abhängigkeiten untereinander auf, welche in der Abbildung jedoch nicht dargestellt sind.
+
+In dieser Arbeit wird die Hauptfunktion \textit{Maschinenschutz} modelliert. Wie zuvor erläutert, wird jede Teilfunktion in einer separaten Datei gespeichert und über ein Referenced-Subsystem in das Gesamtmodell integriert. Der Modellaufbau des Subsystems für die Hauptfunktion \textit{Maschinenschutz} ist in \autoref{png_architektur_maschinenschutz} dargestellt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Maschinenschutz_Modellaufbau.pdf}
+	\caption{Schematische Modellarchitektur Subsystem \textit{Maschinenschutz}}
+	\label{png_architektur_maschinenschutz}
+\end{figure}
+Die Temperatur-Derating-, Blockier- und Reduzierfunktionen wirken direkt auf die Begrenzung der Motorsteuerungsparameter, wie beispielsweise die Strombegrenzung. Aus diesem Grund werden die Motorsteuerungslimits in einem eigenständigen Referenced-Subsystem modelliert. Da auch andere Hauptfunktionen die Motorsteuerungslimits beeinflussen können, kann es sinnvoll sein, die Funktion eine Ebene höher auf Hauptfunktionsebene anzuordnen. Die Interaktion zwischen den Teilfunktionen ist in der Abbildung nicht dargestellt. Für jede Teilfunktion wird ein individuelles Matlab Dictionary erstellt, in dem die relevanten Parameter und wesentlichen Signale verwaltet werden. Diese Dictionaries werden dem Playground-Modell zugeordnet, um eine strukturierte und nachvollziehbare Verwaltung der Variablen und Signale zu gewährleisten.
+
+Alle akkubetriebenen Geräte von STIHL sind mit einer XCP-Schnittstelle ausgestattet, die den Zugriff auf interne Signale des Steuergeräts während des Betriebs ermöglicht. Hierfür wird ein A2L-Interface verwendet, welches den Signalnamen ihre jeweilige statische Speicheradresse im Steuergerät zuordnet. Dies ermöglicht den Zugriff auf die einzelnen Signale über ihre Signalnamen mithilfe eines STIHL-internen Messgeräts. Damit die Signale im Autocode über die Schnittstelle verfügbar sind, müssen sie im Dictionary definiert und den entsprechenden Signalen im Simulink-Modell zugewiesen werden. Auf diese Weise werden die definierten Signale mit ihrer korrekten Speicheradresse in das A2L-Interface aufgenommen.\\
+Es besteht die Anforderung, dass Mitarbeiter ohne Matlab-Lizenz Informationen über die Signale erhalten, auf die sie über die XCP-Schnittstelle zugreifen können. Zu diesem Zweck werden relevante Signale im Simulink-Modell durch sogenannte Messpunkte markiert. Hierbei handelt es sich um Subsysteme, die keine spezifische Funktionalität aufweisen. Sie dienen ausschließlich der visuellen Strukturierung von Messsignalen. Zudem wird das gesamte Playground-Modell als HTML-Dokument exportiert, um die Informationen ohne Matlab-Lizenz bereitzustellen. In \autoref{png_messpunkt_matlab} ist ein Messpunkt für ein definiertes Signal aus dem Simulink-Dictionary dargestellt. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Matlab_Messpunkt.pdf}
+	\caption{Beispielhafter Messpunkt für ein Simulink-Signal}
+	\label{png_messpunkt_matlab}
+\end{figure}
+Das blaue Symbol vor dem Signalnamen zeigt an, dass das Signal erfolgreich mit einem Eintrag aus dem Simulink-Dictionary verknüpft wurde.
+
+\section{Voruntersuchungen zur Autocodegenerierung}
+In diesem Abschnitt werden die ersten Voruntersuchungen zur Autocodegenerierung erläutert. Dabei liegt der Fokus auf der Integration externer Parameter in den Autocode sowie auf den Vorteilen eines Variant-Subsystems. Des Weiteren wird die Dateistruktur des Autocodes behandelt und die Erstellung eines Skripts zur Codegenerierung und der anschließenden Nachbearbeitung des Codes beschrieben.
+\subsection{Einbindung externer Parameter}
+Externe Parameter können in den Autocode eingebunden werden, um eine doppelte Definition von bereits in der Basissoftware vorhandenen Parametern zu vermeiden. Hierfür ist es erforderlich, die Parameter im Simulink Data Dictionary anzulegen und im Abschnitt für die Codegenerierung die Speicherklasse \textit{ImportedDefine} auszuwählen. Dies ist in \autoref{png_parameter_einbinden_dic} veranschaulicht.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{./Bilder/Dictionary_Externe_Parameter.PNG}
+	\caption{Definition von Externen Parameter in einem Matlab Dictionary}
+	\label{png_parameter_einbinden_dic}
+\end{figure}
+Für eine korrekte Zuordnung ist es erforderlich, die entsprechende Header-Datei anzugeben, in welche der Parameter definiert ist. Darüber hinaus muss die genaue Benennung des Parameters eingetragen werden. Die im Dictionary erstellte Variable kann wie jede andere Variable im Matlab-Modell verwendet werden. Durch diese Methode ist es möglich, wie im vorliegenden Beispiel zu sehen, maschinenabhängige Parameter an den Autocode zu übergeben.
+\subsection{Variant-Subsysteme}
+Wie in \autoref{sec_stand_der_technik_firmware} bereits beschrieben, ist die Firmware so konzipiert, dass nur die für den ausgewählten Maschinentyp relevanten Funktionen bei der Kompilierung des C-Codes berücksichtigt werden. Dies wird durch die Verwendung von \#if-Direktiven erreicht. Dieser Ansatz soll auch für die in Matlab modellierten Funktionen Anwendung finden. Dafür stehen zwei alternative Vorgehensweisen zur Verfügung. Die erste Möglichkeit besteht darin, die \#if-Abfragen manuell nach der Autocodegenerierung zu ergänzen. Diese Vorgehensweise ist jedoch zeitaufwendig und birgt das Risiko zusätzlicher Fehler, weshalb eine manuelle Nachbearbeitung vermieden werden sollte. Die zweite, deutlich elegantere Option besteht in der Verwendung sogenannter Variant-Subsysteme. Dieser Simulink-Block wird im Folgenden näher erläutert.
+
+Die Hauptfunktion eines Variant-Subsystems besteht darin, mehrere unterschiedliche Versionen derselben Komponente in ein Modell zu integrieren. Während der Simulation des Modells wird, basierend auf festgelegten Bedingungen, lediglich eine Version aktiviert. Diese Vorgehensweise ermöglicht zum Besipiel eine schnelle und einfache Prüfung verschiedener Parameterkonfigurationen. Innerhalb eines Variant-Subsystems können beliebig viele Subsysteme sowie Referenced-Subsysteme hinzugefügt werden, die über die Maskenparameter gesteuert werden können \cite{Matlab_variant_Subsystem}. Um die Funktionsweise zu veranschaulichen, ist in \autoref{png_matlab_variant_subsystem} ein Beispiel für ein Variant-Subsystem dargestellt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./Bilder/Bsp_Variant_Subsystem.pdf}
+	\caption{Beispielhafter Aufbau eines Variant-Subsystems}
+	\label{png_matlab_variant_subsystem}
+\end{figure}
+Wenn das erste Subsystem aktiv ist und der Eingang einen Wert größer null aufweist, erfolgt die Ausgabe von eins. Ist hingegen das zweite Subsystem aktiv und der Eingang übersteigt erneut den Wert null, wird eine zwei ausgegeben. Die Festlegung des aktiven Subsystems erfolgt über die Blockparameter des Variant-Subsystems. In \autoref{png_matlab_variant_subsystem_maske} ist die Maske mit den entsprechenden Einstellungen für die Blockparameter dargestellt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Bsp_Maske_variant_Subsystem.PNG}
+	\caption{Beispielhafte Einstellungen für ein Variant-Subsystem}
+	\label{png_matlab_variant_subsystem_maske}
+\end{figure}
+Als Steuerungsmodus \textit{Variant control mode} wird die Einstellung \textit{expression} verwendet. Dadurch erfolgt die Unterscheidung der aktiven Modelle durch eine logische Abfrage. Wenn das Ergebnis einer Abfrage den Wert \glqq True\grqq{} ergibt, wird das entsprechende Subsystem aktiviert. Die jeweiligen Abfragen können in der Spalte \textit{Variant control expression} für jedes Subsystem definiert werden. Wie im vorangegangenen Abschnitt erläutert, ist es möglich, maschinenabhängige Definitionen aus der Basissoftware in Matlab zu integrieren. Diese Vorgehensweise findet in diesem Beispiel Anwendung. Das erste Subsystem wird aktiviert, wenn die Variable \lstinline{USED_MOTOR_CONTROL} den Wert \lstinline{EC_MOTOR_CONTROL} annimmt. Ist dies nicht der Fall, wird das zweite Subsystem aktiviert. Mit der Einstellung \textit{Allow zero active variant controls} muss keine spezifische Bedingung erfüllt sein, sodass auch lediglich ein Subsystem innerhalb eines Variant-Subsystems verwendet werden kann, dessen Aktivierung oder Deaktivierung vom Steuerungsausdruck abhängt \cite{Matlab_variant_Subsystem_codegen}. Diese Einstellung wird für die in dieser Arbeit erstellten Variant-Subsysteme verwendet. \\
+Die Einstellung \textit{Variant activation time} spielt für die Codegenerierung eine bedeutende Rolle. Abhängig von der Einstellung wird die Auswertung des Kontrollausdrucks vor oder nach der Codegenerierung durchgeführt. Durch die Einstellung \textit{code compile} wird für jedes Subsystem Code generiert, unabhängig davon, ob der Kontrollausdruck zutrifft oder nicht \cite{Matlab_variant_Subsystem_codegen}. In \autoref{lst_variant_sub_bsp} ist der generierte Code des Variant-Subsystems (\autoref{png_matlab_variant_subsystem}) zu sehen. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lstinputlisting[language=C, linerange={31-44}, caption={Beispielhafter Autocode eines Variant-Subsystems}, label=lst_variant_sub_bsp]{Beispiel_variant_control.c} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Im Code wird der Kontrollausdruck durch die Verwendung der \#if- und \#else-Direktiven implementiert. Die extern eingebundenen Parameter werden über den im Dictionary festgelegten Header integriert. Durch den Einsatz von Variant-Subsystemen kann somit eine identische Struktur der einzelnen Funktionen, wie sie in der Firmware vorhanden ist, realisiert werden.
+\subsection{Variant-Transitions}
+Neben den Variant-Subsystemen besteht eine weitere Möglichkeit \#if-Direktive automatisch aus Matlab zu generieren. Bei der Funktionsentwicklung mit Matlab spielt die Toolbox Stateflow eine wesentliche Rolle, da sie die Modellierung sowohl einfacher als auch komplexer Zustandsautomaten ermöglicht und daraus C-Code erzeugt. Innerhalb eines Stateflow-Diagramms können die Bedingungen für einen Zustandswechsel durch sogenannte Transitionen definiert werden. Diese Transitionen können auch als Variant-Transitions modelliert werden, wodurch spezifische Bedingungen im Code mit \#if-Direktiven eingebunden werden. Ein Beispiel für ein Ablaufdiagramm mit einer Variant-Transition ist in \autoref{png_variant_transition} dargestellt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{./Bilder/Beispiel_Variant_Transition.pdf}
+	\caption{Beispiel Variant-Transition}
+	\label{png_variant_transition}
+\end{figure}
+Das dargestellte Ablaufdiagramm besitzt keine funktionale Bedeutung, sondern dient lediglich der Veranschaulichung einer Variant-Transition. Eine gewöhnliche Transition kann durch einen Rechtsklick auf die Transition im Eigenschaftenmenü in eine Variant-Transition umgewandelt werden \cite{Matlab_variant_transitions}. Ähnlich wie bei einem Variant-Subsystem kann die Aktivierungszeit der Variant-Transitionen über die allgemeinen Einstellungen des Diagramms konfiguriert werden (siehe \autoref{png_activation_time_chart}). 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{./Bilder/Chart_Einstellungen.png}
+	\caption{Einstellung der \textit{activation time} innerhalb eines Charts}
+	\label{png_activation_time_chart}
+\end{figure}
+Durch die Einstellung \textit{Generate preprocessor conditionals} wird für alle Variant-Transitions entsprechender Code erzeugt und mithilfe von \#if-Bedingungen eingebunden \cite{Matlab_variant_transitions}. Dies wird exemplarisch für das oben dargestellte Chart in \autoref{lst_var_transition} veranschaulicht.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lstinputlisting[language=C, linerange={37-43}, caption={Beispielhafter Autocode einer Variant-Transition}, label=lst_var_transition]{Besipiel_variant_transition.c} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Der Einsatz von Variant-Transitions ermöglicht damit einen Zustandswechsel innerhalb eines Charts abhängig von den in den maschinenabhängigen Header-Dateien definierten Optionen.
+\subsection{Dateistruktur}
+Um einen sinnvollen und verständlichen Aufbau des Autocodes zu gewährleisten, ist eine geeignete Dateistruktur erforderlich. Diese soll sich an der bestehenden Struktur der Firmware orientieren, bei der jede Teilfunktion durch eine eigene C-Datei sowie die dazugehörige Header-Datei repräsentiert wird. In Matlab existiert eine Einstellung, die als \textit{File Packaging Format} bezeichnet wird \cite{Matlab_packaging_Format}. Wenn diese Einstellung auf \textit{Modular} gesetzt wird, kann für jedes Subsystem und Referenced-Subsystem eine separate C-Datei generiert werden. Die entsprechenden Anpassungen können in den Blockeinstellungen des jeweiligen Subsystems vorgenommen werden. Die Einstellungen sind in \autoref{png_einstellungen_sub_datei} exemplarisch dargestellt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\textwidth]{./Bilder/Bsp_Einstellungen_Sub_CodeGen.png}
+	\caption{Subsystem-Einstellungen für die Codegenerierung zur Erstellung eigener Dateien}
+	\label{png_einstellungen_sub_datei}
+\end{figure}
+Im Abschnitt \textit{Main} muss die Option \textit{Treat as atomic unit} aktiviert werden. Im Bereich \textit{Code Generation} können anschließend die erforderlichen Einstellungen für die Codegenerierung erfolgen. Um eine separate Datei für das Subsystem zu erstellen, ist es notwendig, die Option \textit{Function packaging} auf \textit{Nonreusable function} oder \textit{Reusable function} zu setzen. Da die Funktionen lediglich einmal verwendet werden, wird die Einstellung \textit{Nonreusable function} gewählt. Zusätzlich ist es erforderlich, bei der Option \textit{File name option} eine Einstellung zu wählen, die nicht auf \textit{Auto} gesetzt ist. Um die Benennung konsistent mit dem Modell zu gestalten, wird der Name des Subsystems verwendet. Die restlichen Einstellungen können auf den Standardeinstellungen belassen werden. Diese Konfiguration kann für jedes Subsystem, Referenced-Subsystem oder Referenced-Modell individuell Anwendung finden. Um die Konsistenz mit der bestehenden Struktur der Firmware zu gewährleisten, wird für jede Teilfunktion (eigenes Referenced-Subsystem) eine separate C-Datei generiert \cite{Subsystem_Einstellungen}. \\
+Alle Funktionen werden innerhalb der Hauptfunktion des generierten Autocodes \textit{Modelbased\_playground\_run\_1ms} aufgerufen, welche wiederum zyklisch mit einer Abtastzeit von \unit[1]{ms} aus der Basissoftware aufgerufen wird. Die Signalübergabe an die einzelnen Playground-Funktionen kann über die Einstellung \textit{Function interface} angepasst werden. Da Bussignale als Übergabesignale verwendet werden, ist in Matlab lediglich die Option \textit{void\_void} verfügbar. Diese Schnittstellendefinition bedeutet, dass weder Eingangs- noch Ausgangssignale direkt über die Funktionsparameter übergeben werden. Stattdessen erfolgt die Signalübergabe über den Zugriff auf globale Variablen.
+\subsection{Build Skript}
+\label{subsec_build_skript}
+Die im Autocode verwendeten Datentypen entsprechen nicht den Datentypen der Basissoftware. In den Matlab-Einstellungen besteht zwar die Möglichkeit, die Datentypen für die Codegenerierung festzulegen (siehe \autoref{png_datatypes_matlab}), jedoch ist diese Anpassung nicht für alle Datentypen anwendbar. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{./Bilder/Datentypen_Matlab.png}
+	\caption{Datentypen für die Autocodegenerierung}
+	\label{png_datatypes_matlab}
+\end{figure}
+In der Firmware kommen die C-spezifischen Datentypen \lstinline{float} und \lstinline{bool} zum Einsatz. In Matlab können diese jedoch nicht als Ersatzdatentypen verwendet werden, da Matlab diese Begriffe bereits aus der Standardbibliothek von C kennt, was beim Codegenerieren zu Fehlern führt. Erst ab der Matlab-Version 2023 stehen erweiterte Einstellmöglichkeiten zur Verfügung. Daher werden als Platzhalter die Bezeichnungen \lstinline{float32_t} und \lstinline{bool_t} verwendet, was eine Nachbearbeitung des Autocodes erforderlich macht. \\
+Zusätzlich werden in der Firmware Datentypen wie \lstinline{int16_t} aus der Standard-C-Bibliothek stdint.h verwendet. Aufgrund der Umbenennung dieser Datentypen in Matlab wird bei der Autocodegenerierung ein zusätzliches Header-File (rtwtypes.h) erstellt, das die Definition der neuen Datentypen enthält. Um sicherzustellen, dass der Autocode dieselben Definitionen der Datentypen wie die Basissoftware verwendet, ist eine Nachbearbeitung des Codes erforderlich.
+
+Um die manuelle Nachbearbeitung zu vermeiden, wird dieser Prozess durch ein Matlab-Skript automatisiert. Das nachfolgende Skript war bereits vor Beginn dieser Arbeit vorhanden, wurde jedoch an die spezifischen Anforderungen angepasst. Zunächst wird in diesem Skript der Autocode generiert, gefolgt von einer anschließenden Nachbearbeitung des erstellten Codes. Ein Ausschnitt des Matlab-Skripts für die Nachbearbeitung des Codes ist in \autoref{lst_build_skript_nachbearbeitung} dargestellt.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lstinputlisting[language=Matlab, linerange={76-84,113-136}, caption={Ausschnitt aus dem Skript für die Autocodegenerierung und Codenachbearbeitung}, label=lst_build_skript_nachbearbeitung]{build_release.m} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Im Zuge der Autocodegenerierung werden mehrere C-Dateien sowie die entsprechenden Header-Dateien erstellt. Allerdings sind nicht alle dieser Dateien relevant. Über das Struktur-Element \lstinline{ignore_files_c} werden die überflüssigen Dateinamen festgelegt. Eine for-Schleife durchläuft sämtliche generierten C-Dateien und ignoriert die nicht benötigten Dateien. Alle verbleibenden Dateien werden anschließend mithilfe der Funktion \lstinline{find_replace} nachbearbeitet. Dasselbe Verfahren wird auch für die Header-Dateien angewendet.\\
+Die Funktion \lstinline{find_replace} wird in Zeile 11 definiert. Zunächst öffnet sie die übergebene Datei (Zeile 12) und erstellt zusätzlich eine neue Datei mit dem Namen tmp.c (Zeile 13), in die der Inhalt der geöffneten Datei kopiert und an den erforderlichen Stellen modifiziert wird. Die while-Schleife ab Zeile 15 liest jede Zeile der geöffneten Datei, bis das Ende der Datei erreicht ist. Das Einlesen der aktuellen Zeile erfolgt in Zeile 16. Um den aus Matlab generierten Header rtwtypes.h durch die Standard-Header stdint.h und stdbool.h zu ersetzen, wird der Inhalt der aktuellen Zeile mit dem alten Header abgeglichen (Zeile 17). Ist diese Bedingung erfüllt, wird die aktuelle Zeile mit dem neuen Header überschrieben (Zeile 18). Anschließend wird die neue Zeile in die Datei tmp.c geschrieben (Zeile 19), gefolgt von dem zweiten Header in der nächsten Zeile (Zeile 20). Sollte die Bedingung in Zeile 17 nicht zutreffen, wird geprüft, ob die aktuelle Zeile eine \glqq falsche\grqq{} Datentypbezeichnung enthält. Ist dies der Fall, werden die Datentypen ersetzt (Zeilen 22, 23 und 24). In Zeile 25 wird die (ggf. modifizierte) aktuelle Zeile in die Datei tmp.c geschrieben. \\
+Nach dem Aufruf der Funktion wird in Zeile sechs die generierte Datei tmp.c umbenannt und in das entsprechende Verzeichnis kopiert. Abschließend erfolgt die Löschung der Datei tmp.c. Dieser Vorgang wird für alle C- und Header-Dateien durchgeführt. \\
+Darüber hinaus werden im Skript auch Dateien für die Parameter sowie für das A2L-Interface generiert, auf welche an dieser Stelle jedoch nicht näher eingegangen wird. Das vollständige Skript ist in \autoref{anhang_programmcode} zu finden.
+\section{Anpassen der Schnittstelle}
+In diesem Abschnitt wird eine Anpassung der Schnittstelle in Bezug auf die Motorsteuerungslimits behandelt. Diese wurden bislang, wie in \autoref{sec_modbas_stand_der_technik} beschrieben, innerhalb des Autocodes von dem Datentyp q15 nach float und andersrum umgerechnet. Für diese Umrechnung ist eine Fixed-Point Designer Lizenz in Matlab erforderlich, die jedoch bei STIHL nur begrenzt verfügbar ist. Da die Umrechnung für das gesamte Playground-Modell identisch ist, soll die Umrechnung außerhalb des Modells erfolgen. Dies erfordert, dass die Umrechnung der Limits bei der Übergabe der Ein- und Ausgänge in der Datei \textit{Playground.c} stattfindet. In \autoref{lst_mc_limits_playground_in} ist beispielhaft ein Ausschnitt der Funktion dargestellt, die für das Abrufen der Limits und die anschließende Umrechnung für den Playground verantwortlich ist. Die Funktion wird innerhalb der Funktion \textit{Playground\_run\_1ms}, welche für das Einlesen der Signale aus der Basissoftware zuständig ist, zyklisch durch \lstinline{get_motorcontrol_limits_playground(&playground_input.motorcontrol_limits)} aufgerufen.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lstinputlisting[language=C, caption={Umrechnung der Motorsteuerungslimits für den Playground}, label=lst_mc_limits_playground_in]{get_motorcontrol_limits_playground.c} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Beispielhaft ist hier die Umrechnung für den maximalen Strom in Zeile 17, sowie für die maximale Leistung in Zeile 18 abgebildet. Dafür werden in Zeile 15 die aktuellen Motorlimits aus der Basissoftware abgerufen. Hierbei ist es erforderlich, den Betriebsmodus des Geräts zu kennen, insbesondere ob es sich im Beschleunigungsmodus befindet. Ab Zeile 17 erfolgt die Umrechnung der aktuellen Limits in float-Werte durch den Aufruf der bereits in der Basissoftware vorhandenen Funktion \lstinline{Math_convert_q15_to_float32()}. Innerhalb dieser Funktion wird der q15-Wert, der dem Datentyp int16 entspricht, in einen float-Wert zwischen null und eins umgewandelt. Hierfür wird der aktuelle Wert mit dem Faktor $\frac{1}{32768}$ multipliziert, wobei 32768 dem maximalen Wert eines int16 entspricht. Anschließend wird der neu berechnete Wert mit dem Basiswert der jeweiligen Größe (\lstinline{BASIS_CURRENT, BASIS_POWER oder BASIS_TORQUE}) multipliziert. \\
+Für die Rückrechnung der Motorsteuerungslimits bei der Übergabe vom Playground zur Basissoftware wird der zuvor beschriebene Vorgang invers durchgeführt.
+\section{Zusammenfassung}
+In diesem Abschnitt werden die wesentlichen Erkenntnisse und Entscheidungen im Hinblick auf die Voruntersuchungen für den Modellaufbau und die Autocodegenerierung zusammengefasst.
+\begin{itemize}
+\item Für jede Teilfunktion wird in Simulink ein Referenced-Subsystem verwendet und eine separate Datei bei der Codegenerierung erstellt. 
+\item Ein modularer Aufbau des Autocodes kann durch den Einsatz von Variant-Sub-systemen, Variant-Transitions sowie durch die Einbindung von bereits definierter Variablen und Optionen aus der Basissoftware realisiert werden.
+\item Die Steuerung aller Build- und Nachbearbeitungsschritte erfolgt automatisiert innerhalb eines Matlab-Skripts. 
+\item Durch die Anpassung der Umrechnung der Motorsteuerungslimits kann das Matlab-Modell ohne Fixed-Point Designer Lizenz verwendet werden.
+\end{itemize}
+
+
+% Für jede Teilfunktion wird ein Referenced-Subsystem verwendet, welches beim Generierungsprozess des Autocodes in eine separate C-Datei überführt wird. Diese Vorgehensweise gewährleistet eine klare und nachvollziehbare Struktur des Matlab-Modells und führt die Dateistruktur der Firmware für die C.Dateien konsequent fort.\\ 
+%Durch den Einsatz von Variant-Subsystemen und die Integration von Parametern aus der Basissoftware können Funktionen während des Kompilierungsprozesses des Autocodes entweder aktiviert oder ignoriert werden. Der gesamte Generierungsprozess des Autocodes wird durch ein Matlab-Skript koordiniert, das die Erstellung aller relevanten Dateien übernimmt und diese im Anschluss durch eine automatische Nachbearbeitung an die Anforderungen der Basissoftware anpasst.
